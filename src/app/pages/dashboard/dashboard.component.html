@@ -1,0 +1,56 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+    <div class="logo">
+      <a  [routerLink]='[{ outlets: { content: ["stats"] } }]'>
+        <img src="../../../assets/angular.svg" alt="">
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="Clients" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]='[{ outlets: { content: ["listOfClients"] } }]'>List of clients</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Products" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a  [routerLink]='[{ outlets: { content: ["listOfProducts"] } }]'>List of products</a>
+          </li>
+          
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="Orders" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a [routerLink]='[{ outlets: { content: ["listOfOrders"] } }]'>List of orders</a>
+          </li>
+          
+        </ul>
+      </li>
+      
+
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+
+      <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+        (click)="isCollapsed = !isCollapsed"></i>
+      <div *ngIf="authService.userData as user"><strong>{{user.email}}</strong>
+
+        <button nz-button nzType="primary" (click)="authService.SignOut()">Log out</button>
+
+      </div>
+    </nz-header>
+    <nz-content>
+      <nz-breadcrumb>
+      </nz-breadcrumb>
+      <div class="inner-content">
+        <router-outlet name="content"></router-outlet>
+      </div>
+    </nz-content>
+    <nz-footer>Damian Krecisz ©2020 Implement In Angular</nz-footer>
+  </nz-layout>
+</nz-layout>

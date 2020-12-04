@@ -1,0 +1,33 @@
+<div class="loginContainer">
+  
+
+  <h1>Login to app</h1>
+  <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <span>Login: test@test.com</span>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group nzPrefixIcon="user">
+          <input type="text" nz-input formControlName="userName" placeholder="Username" #userName />
+          
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <span>Password: test123</span>
+      <nz-form-control nzErrorTip="Please input your Password!">
+        <nz-input-group nzPrefixIcon="lock">
+          <input type="password" nz-input formControlName="password" placeholder="Password" #userPassword />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <label nz-checkbox formControlName="remember">
+          <span>Remember me</span>
+        </label>
+        <button nz-button class="login-form-button" [nzType]="'primary'"
+          (click)="authService.SignIn(userName.value, userPassword.value)">Log in</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

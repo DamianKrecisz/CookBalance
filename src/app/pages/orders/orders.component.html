@@ -1,0 +1,45 @@
+<div nz-row [nzGutter]="32">
+  <div nz-col nzSpan="12" class="gutter-row">
+    <button nz-button nzType="primary" nzBlock (click)="showModalAdd()">Add order</button>
+  </div>
+  <div nz-col nzSpan="12" class="gutter-row">
+    <input nz-input placeholder="Search order by client or status"  (ngModelChange)="search($event)" />
+
+  </div>
+</div>
+
+<div nz-row>
+  <nz-table #basicTable [nzData]="listOfData">
+    <thead>
+      <tr>
+        <th nzWidth="1%">#</th>
+        <th>Client</th>
+        <th>Date of created</th>
+        <th>Status</th>
+        <th>Items</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{ data.client }}</td>
+        <td>{{ data.dateOfCreated.seconds * 1000 | date:'dd/MM/yyyy' }}</td>
+        <td>{{ data.status }}
+
+
+        <td>
+          <div *ngFor="let item of data.items| keyvalue; let i = index">
+            {{i+1}}: {{ item.value }}
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+
+<nz-modal [(nzVisible)]="isVisibleAdd" nzTitle="Add new order" (nzOnCancel)="handleAddCancel()" (nzOnOk)="handleAddOk()"
+  [nzOkLoading]="isOkAddLoading">
+  <app-add-order (order)="getEmiter($event)"></app-add-order>
+</nz-modal>
