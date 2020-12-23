@@ -12,16 +12,22 @@ import pl from '@angular/common/locales/pl';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { UserLoginComponent } from './pages/user-login/user-login.component'
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { AuthGuard } from './services/authentication-guard.service';
-import { AuthenticationService } from './services/authentication.service';
+import { UserLoginComponent } from './admin-front/user-login/user-login.component'
+import { DashboardComponent } from './admin-front/dashboard/dashboard.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { ClientsComponent } from './pages/clients/clients.component';
-import { ListOfProductsComponent } from './pages/products/list-of-products.component';
-import { OrdersComponent } from './pages/orders/orders.component';
-import { AddOrderComponent } from './pages/orders/add-order/add-order.component';
-import {StatsComponent} from './pages/stats/stats.component'
+import { ClientsComponent } from './admin-front/clients/clients.component';
+import { ListOfProductsComponent } from './admin-front/products/list-of-products.component';
+import { OrdersComponent } from './admin-front/orders/orders.component';
+import { AddOrderComponent } from './admin-front/orders/add-order/add-order.component';
+import {StatsComponent} from './admin-front/stats/stats.component'
+import { StartComponent } from './client-front/start/start.component';
+import { ClientLoginComponent } from './client-front/client-login/client-login.component';
+import { ClientRegisterComponent } from './client-front/client-register/client-register.component';
+import { UserTestComponent } from './client-front/start/user-test/user-test.component';
+import { AdminTestComponent } from './client-front/start/admin-test/admin-test.component';
+import { AuthService } from './services/auth.service';
+import { ClientDashboardComponent } from './client-front/client-dashboard/client-dashboard.component';
+
 registerLocaleData(pl);
 
 @NgModule({
@@ -33,7 +39,13 @@ registerLocaleData(pl);
     ListOfProductsComponent,
     OrdersComponent,
     AddOrderComponent,
-    StatsComponent
+    StatsComponent,
+    StartComponent,
+    ClientLoginComponent,
+    ClientRegisterComponent,
+    UserTestComponent,
+    AdminTestComponent,
+    ClientDashboardComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -52,7 +64,7 @@ registerLocaleData(pl);
     AngularFirestoreModule,
     ReactiveFormsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: pl_PL },AuthenticationService],
+  providers: [AuthService, { provide: NZ_I18N, useValue: pl_PL }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +11,8 @@ export class DashboardComponent implements OnInit {
   isCollapsed = false;
 
   constructor(
-    public authService: AuthenticationService,
+    public authService: AuthService,
+
   ) { }
 
   ngOnInit() {

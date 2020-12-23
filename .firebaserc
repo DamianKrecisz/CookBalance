@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "cookbalance-41649"
+  },
+  "targets": {
+    "cookbalance-41649": {
+      "hosting": {
+        "AngularFirebaseCrud": [
+          "cookbalance-41649"
+        ]
+      }
+    }
   }
 }
