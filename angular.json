@@ -136,5 +136,8 @@
       }
     }
   },
-  "defaultProject": "AngularFirebaseCrud"
+  "defaultProject": "AngularFirebaseCrud",
+  "cli": {
+    "analytics": "b9aa8c87-5212-47d4-9aed-a1db57f05ad4"
+  }
 }

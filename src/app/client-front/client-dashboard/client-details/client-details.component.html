@@ -1,0 +1,78 @@
+<div class="box">
+    <b>email: </b> <span> {{email}}</span>
+</div> 
+<div class="box">
+    <b>sex:</b> <span *ngIf="sex else sexNotDefined">{{sex}}</span>
+</div>
+<div class="box">
+    <b>weight:</b> <span *ngIf="weight else weightNotDefined">{{weight}} kg</span>
+</div>
+<div class="box">
+    <b>height:</b> <span *ngIf="height else heightNotDefined">{{height}} cm</span>
+</div>
+<div class="box">
+    <b>date of birthday:</b> <span *ngIf="dateOfBirthday else dateOfBirthdayNotDefined">{{dateOfBirthday.toDate() | date:'fullDate'}}</span>
+</div>
+<div class="box">
+    <b>activity:</b> <span *ngIf="activity else activityNotDefined">{{activity}}</span>
+</div>
+
+
+
+
+<nz-modal [(nzVisible)]="isVisibleSex" nzTitle="Set your sex" (nzOnCancel)="handleCancelSex()" (nzOnOk)="handleOkSex()">
+    <nz-select [(ngModel)]="sexOption" nzAllowClear nzPlaceHolder="Choose">
+        <nz-option nzValue="men" nzLabel="men"></nz-option>
+        <nz-option nzValue="women" nzLabel="women"></nz-option>
+      </nz-select>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleWeight" nzTitle="Set your weight" (nzOnCancel)="handleCancelWeight()" (nzOnOk)="handleOkWeight()">
+    <input nz-input placeholder="Input your weight (kg)" [(ngModel)]="weightOption" />
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleHeight" nzTitle="Set your height" (nzOnCancel)="handleCancelHeight()" (nzOnOk)="handleOkHeight()">
+    <input nz-input placeholder="Input your height (cm)" [(ngModel)]="heightOption" />
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleDateOfBirthday" nzTitle="Set your date of birthday" (nzOnCancel)="handleCancelDateOfBirthday()" (nzOnOk)="handleOkDateOfBirthday()">
+    <nz-date-picker [(ngModel)]="dateOfBirthdayOption" ></nz-date-picker>
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleActivity" nzTitle="Set your activity" (nzOnCancel)="handleCancelActivity()" (nzOnOk)="handleOkActivity()">
+    <nz-select [(ngModel)]="activityOption" nzAllowClear nzPlaceHolder="Choose">
+        <nz-option nzValue="1.0" nzLabel="leżący lub siedzący tryb życia, brak aktywności fizycznej"></nz-option>
+        <nz-option nzValue="1.2" nzLabel="praca siedząca, aktywność fizyczna na niskim poziomie"></nz-option>
+        <nz-option nzValue="1.4" nzLabel="praca nie fizyczna, trening 2 razy w tygodniu"></nz-option>
+        <nz-option nzValue="1.6" nzLabel="lekka praca fizyczna, trening 3-4 razy w tygodniu"></nz-option>
+        <nz-option nzValue="1.8" nzLabel="praca fizyczna, trening 5 razy w tygodniu"></nz-option>
+        <nz-option nzValue="2.0" nzLabel="ciężka praca fizyczna, codzienny trening"></nz-option>
+
+      </nz-select>
+</nz-modal>
+
+
+<ng-template #sexNotDefined>
+    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account to make amazing things :)"></nz-alert> 
+    <button nz-button [nzType]="'primary'" (click)="showModalSex()"><span>Set sex</span></button>       
+</ng-template>
+
+<ng-template #weightNotDefined>
+    <nz-alert nzType="warning" nzMessage="Weight not defined, please update your account to make amazing things :)"></nz-alert>  
+    <button nz-button [nzType]="'primary'" (click)="showModalWeight()"><span>Set weight</span></button>
+</ng-template>
+
+<ng-template #heightNotDefined>
+    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account to make amazing things :)"></nz-alert>  
+    <button nz-button [nzType]="'primary'" (click)="showModalHeight()"><span>Set height</span></button>
+</ng-template>
+
+<ng-template #dateOfBirthdayNotDefined>
+    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account to make amazing things :)"></nz-alert>  
+    <button nz-button [nzType]="'primary'" (click)="showModalDateOfBirthday()"><span>Set date of birthday</span></button>
+</ng-template>
+
+<ng-template #activityNotDefined>
+    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account to make amazing things :)"></nz-alert>  
+    <button nz-button [nzType]="'primary'" (click)="showModalActivity()"><span>Set your activity</span></button>
+</ng-template>

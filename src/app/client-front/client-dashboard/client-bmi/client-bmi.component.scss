@@ -1,0 +1,12 @@
+.box{
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    h1{
+        margin-right: 15px;
+        margin-bottom:5px;
+    }
+    span{
+        text-decoration: underline;
+    }
+}

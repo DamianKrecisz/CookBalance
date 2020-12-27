@@ -2,6 +2,9 @@ import { Roles } from "./roles";
 export interface User {
     uid: string;
     email: string;
-    displayName: string;
-    emailVerified: boolean;
+    sex?: string;
+    weight?: number;
+    height?: number;
+    dateOfBirthday?: Date;
+    activity?: string;
  }
