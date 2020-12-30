@@ -11,7 +11,6 @@ import { ClientFavoriteRecipesComponent } from './client-front/client-dashboard/
 import { ClientBmiComponent } from './client-front/client-dashboard/client-bmi/client-bmi.component';
 import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
 import { ClientCaloriesRequiredComponent } from './client-front/client-dashboard/client-calories-required/client-calories-required.component';
-import { AdminRecipesComponent } from './admin-front/dashboard/admin-recipes/admin-recipes.component';
 import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/start' },
@@ -50,11 +49,6 @@ const routes: Routes = [
       {
         path: 'client-calories-required',
         component: ClientCaloriesRequiredComponent,
-        outlet: 'clientDashboardOutlet'
-      },
-      {
-        path: 'admin-recipes',
-        component: AdminRecipesComponent,
         outlet: 'clientDashboardOutlet'
       },
       {

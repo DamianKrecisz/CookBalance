@@ -30,7 +30,7 @@ export class ClientDetailsComponent implements OnInit {
   isVisibleHeight =false;
   isVisibleDateOfBirthday=false;
   isVisibleActivity=false;
-  listOfData: User[];
+  listOfData=[];
 
   constructor(
     public authService: AuthService,

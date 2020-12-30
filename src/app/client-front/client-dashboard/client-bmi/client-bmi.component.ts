@@ -12,7 +12,7 @@ export class ClientBmiComponent implements OnInit {
 
   BMI:number;
   BMIdescription:String;
-  listOfData: User[];
+  listOfData = [];
   weight:number;
   height:number;
   
@@ -30,7 +30,7 @@ export class ClientBmiComponent implements OnInit {
       })
       this.weight=this.listOfData[0].weight;
       this.height=this.listOfData[0].height;
-      this.BMI= ((this.weight)/(this.height/100*this.height/100)).toFixed(2);
+      this.BMI= this.weight/(this.height/100*this.height/100);
     
     if(this.BMI <16){
       this.BMIdescription="wygłodzenie";

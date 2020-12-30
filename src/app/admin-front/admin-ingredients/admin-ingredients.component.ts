@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ingredients } from 'src/app/interfaces/ingredients';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -8,11 +10,19 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AdminIngredientsComponent implements OnInit {
 
+  validateForm!: FormGroup;
+
   constructor(
-    public databaseService: DatabaseService
+    public databaseService: DatabaseService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
+    this.validateForm = this.fb.group({
+      product: [null, [Validators.required]],
+      unit: [null, [Validators.required]]
+
+    });
     this.databaseService.getAllIngredients().subscribe(data => {
       this.listOfData = data.map(e => {
         return {
@@ -39,5 +49,12 @@ export class AdminIngredientsComponent implements OnInit {
     this.listOfData = this.listOfData.filter(d => d.id !== id);
   }
 
- 
+  submitForm(): void {
+    for (const i in this.validateForm.controls) {
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+    this.databaseService.createIngredients(this.validateForm.value);
+    this.validateForm.reset();
+  }
 }
