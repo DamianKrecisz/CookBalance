@@ -1,0 +1,36 @@
+<div *ngIf="recipe">
+    <h1>{{recipe.title}} </h1>
+    <div nz-row>
+        <div nz-col nzSpan="6">
+            <h2>Składniki:</h2>
+            <ul>
+                <li *ngFor="let item of recipe.ingredients">{{item.ingredient}} - {{item.qty}}</li>
+            </ul>
+        </div>
+        <div nz-col nzSpan="6">
+            <h2>Kroki:</h2>
+            <ul>
+                <li *ngFor="let item of recipe.steps">{{item}}</li>
+            </ul>
+        </div>
+        <div nz-col nzOffset="2" nzSpan="10">
+            <img src="{{recipe.imgUrl}}" alt="image" class="imageRecipe">
+        </div>
+
+    </div>
+
+    <div nz-row>
+        <div nz-col nzOffset="14" nzSpan="10">
+            <div nz-row>
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+                    {{recipe.preparationTime}} min</div>
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+                    {{recipe.portions}} porcji</div>
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="dashboard" nzTheme="outline"></i>
+                    {{recipe.difficultLevel}}</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<a (click)="backToAllRecipes()">Zobacz wszystkie przepisy</a>

@@ -19,7 +19,8 @@ export class ClientFavoriteRecipesComponent implements OnInit {
   d: Array<any> = [];
   listOfData: [] = [];
   listOfIngredients = [];
-  
+  selectedValue = null;
+  showSuccessAlert=false;
 
   constructor(     
     public databaseService: DatabaseService,
@@ -31,9 +32,9 @@ export class ClientFavoriteRecipesComponent implements OnInit {
       title: [null, [Validators.required]],
       difficultLevel: [null, [Validators.required]],
       portions: [null, [Validators.required]],
-      //ingredients: [null, [Validators.required]],
-      //steps: [null, [Validators.required]],
+      imgUrl: [null, [Validators.required]],
       url: [null, [Validators.required]], 
+      preparationTime: [null, [Validators.required]], 
     });
 
     
@@ -96,6 +97,8 @@ export class ClientFavoriteRecipesComponent implements OnInit {
       title: this.validateForm.value.title,
       difficultLevel: this.validateForm.value.difficultLevel,
       portions: this.validateForm.value.portions,
+      imgUrl: this.validateForm.value.imgUrl,
+      preparationTime: this.validateForm.value.preparationTime,
       url: this.validateForm.value.url,
       ingredients: this.d,
       steps: this.b,
@@ -103,15 +106,19 @@ export class ClientFavoriteRecipesComponent implements OnInit {
     }
 
     console.log(model);
-   
+    this.databaseService.createRecipe(model);
+    this.showSuccessAlert=true;
+    this.validateForm.reset();
     this.isOkLoading = true;
     setTimeout(() => {
       this.isVisible = false;
       this.isOkLoading = false;
-    }, 500);
+      this.showSuccessAlert=false;
+    }, 1500);
   }
 
   addField(e?: MouseEvent): void {
+    console.log(this.validateForm.value)
     if (e) {
       e.preventDefault();
     }
@@ -132,14 +139,20 @@ export class ClientFavoriteRecipesComponent implements OnInit {
 
   }
 
-  removeField(i: { id: number; ingredient: string}, e: MouseEvent): void {
-    e.preventDefault();
+  removeField(i: { id: number; ingredient: string},e: MouseEvent): void {
     if (this.listOfControl.length > 1) {
+      console.log();
       const index = this.listOfControl.indexOf(i);
+      let qtyIndex = index;
       this.listOfControl.splice(index, 1);
       this.validateForm.removeControl(i.ingredient);
+      this.validateForm.removeControl(this.listOfControlQty[qtyIndex].qty);
+      this.listOfControlQty.splice(qtyIndex, 1);
+
     }
+
   }
+
 
   addFieldStep(e?: MouseEvent): void {
     if (e) {

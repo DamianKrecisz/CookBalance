@@ -12,17 +12,32 @@ import { ClientBmiComponent } from './client-front/client-dashboard/client-bmi/c
 import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
 import { ClientCaloriesRequiredComponent } from './client-front/client-dashboard/client-calories-required/client-calories-required.component';
 import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
+import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
+import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
+import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/start' },
   { path: 'start', component: StartComponent },
   { path: 'login', component: ClientLoginComponent },
   { path: 'register', component: ClientRegisterComponent },
+  //{ path: 'client-single-recipe/:id', component: ClientSingleRecipesComponent
+  //},
   {
     path: 'client-dashboard', component: ClientDashboardComponent,
     children: [
       {
+        path: 'client-single-recipe/:id',
+        component: ClientSingleRecipesComponent,
+        outlet: 'clientDashboardOutlet'
+      },
+      {
         path: 'client-menu',
         component: ClientMenuComponent,
+        outlet: 'clientDashboardOutlet'
+      },
+      {
+        path: 'admin-edit-recipes',
+        component: AdminEditRecipesComponent,
         outlet: 'clientDashboardOutlet'
       },
       {
@@ -55,6 +70,11 @@ const routes: Routes = [
         path: 'admin-ingredients',
         component: AdminIngredientsComponent,
         outlet: 'clientDashboardOutlet'
+      },
+      {
+        path: 'client-browse-recipes',
+        component: ClientBrowseRecipesComponent,
+        outlet: 'clientDashboardOutlet',
       }
     ]
   },
@@ -63,7 +83,8 @@ const routes: Routes = [
     children: [
     ]
   },
-  { path: '**', redirectTo: '/userLogin' }
+  //{ path: '**', redirectTo: '/userLogin' },
+
 
 
 ];

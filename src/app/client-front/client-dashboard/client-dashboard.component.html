@@ -1,7 +1,7 @@
 <nz-layout class="layout">
     <nz-sider>
       <div class="logo">
-          <img src="/assets/img/logo.png" alt="logo">
+          <img src="/assets/img/logo.svg" alt="logo">
       </div>
       <ul nz-menu nzTheme="dark" nzMode="inline">
         <li nz-menu-item nzMatchRouter> 
@@ -22,7 +22,11 @@
         </li>
         <li nz-menu-item  nzMatchRouter>
           <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Przepisy</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Dodaj przepis</a>
+        </li>
+        <li nz-menu-item  nzMatchRouter>
+          <i nz-icon nzType="upload"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Przepisy</a>
         </li>
         <li nz-menu-item  nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
@@ -37,6 +41,11 @@
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Składniki</a>
         </li>
+        <li nz-menu-item  nzMatchRouter>
+          <i nz-icon nzType="bar-chart"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edytuj przepis</a>
+        </li>
+       
       </ul>
     </nz-sider>
     <nz-layout class="right-layout">

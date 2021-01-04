@@ -49,9 +49,14 @@
   flex-direction: row;
   margin-left: 14%;
 }
-.dynamic-delete-button{
+.delete-ingredent{
   position: absolute;
     right: -35%;
     z-index: 9;
     top: 0;
+}
+.showSuccessAlert{
+  position: fixed;
+    z-index: 1;
+    right: 5%;
 }

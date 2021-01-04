@@ -1,4 +1,6 @@
-export interface ingredients {
+
+export interface ingredientsInterface {
+    id: string;
     product: string;
-    unit: string;
+    unit: number;
 }

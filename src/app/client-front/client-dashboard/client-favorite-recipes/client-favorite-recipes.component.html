@@ -1,3 +1,5 @@
+<nz-alert *ngIf="showSuccessAlert" class="showSuccessAlert" nzType="success" nzMessage="Zapisano przepis" nzDescription="Prawidłowo wprowadzony przepis został zapisany w bazie danych." nzShowIcon >
+</nz-alert>
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
   <!--Title-->
@@ -8,6 +10,21 @@
     </nz-form-control>
   </nz-form-item>
 
+  <!--Image url-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="imgUrl">Link do zdjęcia</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="imgUrl" id="imgUrl" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Preparation time-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="preparationTime">Czas przygotowania(min)</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="preparationTime" id="preparationTime" />
+    </nz-form-control>
+  </nz-form-item>
 
   <!--Difficult Level-->
   <nz-form-item>
@@ -63,14 +80,14 @@
         
         <nz-form-control   nzErrorTip="Please select item to reservation.">
 
-          <nz-select nzPlaceHolder="Wybierz składnik" class="passenger-input"
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz składnik" class="passenger-input"
             [formControlName]="control.ingredient" [attr.id]="control.id">
             <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient.product}}"
-              nzLabel="{{ingredient.product}}">
+              nzLabel="{{ingredient.product}} - jednostka: {{ingredient.unit}}">
             </nz-option>
           </nz-select>
 
-          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(control, $event)"></i>
+          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button delete-ingredent" (click)="removeField(control, $event)" ></i>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -78,14 +95,15 @@
       <nz-form-item *ngFor="let controlQty of listOfControlQty; let i = index">
      
         <nz-form-control  nzErrorTip="Please select item to reservation.">
-          <input type="number" class="passenger-input" nz-input placeholder="ilość" [formControlName]="controlQty.qty" />
+          <input type="number" id="qtyId-{{i}}" class="passenger-input" nz-input placeholder="ilość" [formControlName]="controlQty.qty" />
         </nz-form-control>
       </nz-form-item>
+      
     </div>
   </div>
   <!--Add new field ingredients-->
   <nz-form-item>
-    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 4 }">
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 6 }">
       <button nz-button nzType="dashed" class="add-field" (click)="addField($event)">
         <i nz-icon nzType="plus"></i>
         Dodaj kolejny składnik
@@ -102,7 +120,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-control>
+    <nz-form-control [nzXs]="{ span: 20, offset: 6 }">
       <button nz-button nzType="primary">Wyślij przepis do bazy danych</button>
     </nz-form-control>
   </nz-form-item>

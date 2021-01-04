@@ -28,6 +28,9 @@ import { ClientBmiComponent } from './client-front/client-dashboard/client-bmi/c
 import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
 import { ClientCaloriesRequiredComponent } from './client-front/client-dashboard/client-calories-required/client-calories-required.component';
 import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
+import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
+import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
+import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
 
 registerLocaleData(pl);
 
@@ -47,7 +50,10 @@ registerLocaleData(pl);
     ClientBmiComponent,
     ClientShopListComponent,
     ClientCaloriesRequiredComponent,
-    AdminIngredientsComponent
+    ClientBrowseRecipesComponent,
+    ClientSingleRecipesComponent,
+    AdminIngredientsComponent,
+    AdminEditRecipesComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
