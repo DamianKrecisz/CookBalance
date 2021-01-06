@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-admin-edit-recipes',
@@ -7,9 +9,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminEditRecipesComponent implements OnInit {
 
-  constructor() { }
+  listOfData: any;
+
+  constructor(
+    public databaseService: DatabaseService,
+  ) { }
 
   ngOnInit() {
+    this.databaseService.getAllRecipes().subscribe(data => {
+      this.listOfData = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        }
+      })
+    })
+  }
+
+  startEdit(item){
+    console.log(item);
   }
 
 }

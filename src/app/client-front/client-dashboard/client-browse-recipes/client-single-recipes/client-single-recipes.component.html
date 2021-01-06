@@ -20,7 +20,13 @@
     </div>
 
     <div nz-row>
-        <div nz-col nzOffset="14" nzSpan="10">
+        <div nz-col nzSpan="4">
+            <div class="addToFavorite" (click)="addToFavorite()">
+                Dodaj do ulubionych
+                <i nz-icon nzType="heart" nzTheme="outline"></i>
+            </div>
+        </div>
+        <div nz-col nzOffset="10" nzSpan="10">
             <div nz-row>
                 <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>
                     {{recipe.preparationTime}} min</div>
@@ -29,8 +35,15 @@
                 <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="dashboard" nzTheme="outline"></i>
                     {{recipe.difficultLevel}}</div>
             </div>
+            <div nz-row>
+                <div nz-col nz-span="24">
+                    Pełną instrukcję znajdziesz pod adresem <a href="{{recipe.url}}">kuchnialidla.pl</a>
+                </div>
+            </div>
         </div>
     </div>
 
 </div>
 <a (click)="backToAllRecipes()">Zobacz wszystkie przepisy</a>
+<div *ngIf="authService.userData as user"><strong>{{user.uid}}</strong>
+</div>

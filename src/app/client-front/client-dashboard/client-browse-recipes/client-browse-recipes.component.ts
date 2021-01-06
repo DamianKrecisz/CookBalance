@@ -10,7 +10,6 @@ import { ClientSingleRecipesComponent } from './client-single-recipes/client-sin
   styleUrls: ['./client-browse-recipes.component.scss']
 })
 export class ClientBrowseRecipesComponent implements OnInit {
-  @Input() item: Array<[]>;
 
   listOfData = [];
 
@@ -18,7 +17,6 @@ export class ClientBrowseRecipesComponent implements OnInit {
     public databaseService: DatabaseService,
     private modal: NzModalService,
     private router: Router,
-    private activeRoute: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -32,29 +30,10 @@ export class ClientBrowseRecipesComponent implements OnInit {
       console.log(this.listOfData)
     })
   }
-send(e){  
-  const url = '/client-dashboard/(clientDashboardOutlet:client-single-recipe/'+e.id+')';
-  console.log(url);
-  console.log(e.id);
-//[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
-//http://localhost:4200/client-dashboard/(clientDashboardOutlet:client-single-recipe/NaOjVwKZshx9IJ7khlLH)
-  //this.router.navigate(['/client-dashboard/(clientDashboardOutlet:client-single-recipe/', e.id ]);
-  //this.router.navigate([{ outlets: { clientDashboardOutlet: ["../../client-dashboard"] } }]);
-  //this.router.navigate(['.'], {relativeTo:this.activeRoute.});
-  //this.router.navigate(['./client-single-recipe', { relativeTo: this.activeRoute }]);
- this.router.navigateByUrl(url);
 
-
-
-}
-  createComponentModal(): void {
-    this.modal.create({
-      nzContent: ClientSingleRecipesComponent,
-      
-      
-    });
-
-    
+  send(e) {
+    const url = '/client-dashboard/(clientDashboardOutlet:client-single-recipe/' + e.id + ')';
+    this.router.navigateByUrl(url);
   }
 
 }

@@ -1,10 +1,20 @@
-<div class="container">
-    <h1>CookBalance App</h1>
-    <h2>Please login or register</h2>
-    <div class="container-buttons">
-        <button nz-button nzType="primary" [routerLink]="['/login']" >Login</button>
-        <button nz-button nzType="default" [routerLink]="['/register']" >Register</button>
+<div class="showcase">
+    <div class="container">
+       
+        <div class="items">
+
+
+            <h1>CookBalance App</h1>
+            <div class="container-buttons">
+                <button nz-button nzType="primary" [routerLink]="['/login']">Login</button>
+                <button nz-button nzType="default" [routerLink]="['/register']">Register</button>
+            </div>
+        </div>
     </div>
-    <app-user-test></app-user-test>
-    <app-admin-test></app-admin-test>
+
+
+    <video src="../../../assets/video.mp4" muted loop autoplay></video>
+    <div class="overlay">
+
+    </div>
 </div>

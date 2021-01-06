@@ -105,7 +105,6 @@ export class ClientFavoriteRecipesComponent implements OnInit {
       //qty: this.c
     }
 
-    console.log(model);
     this.databaseService.createRecipe(model);
     this.showSuccessAlert=true;
     this.validateForm.reset();
@@ -118,7 +117,6 @@ export class ClientFavoriteRecipesComponent implements OnInit {
   }
 
   addField(e?: MouseEvent): void {
-    console.log(this.validateForm.value)
     if (e) {
       e.preventDefault();
     }
@@ -141,7 +139,6 @@ export class ClientFavoriteRecipesComponent implements OnInit {
 
   removeField(i: { id: number; ingredient: string},e: MouseEvent): void {
     if (this.listOfControl.length > 1) {
-      console.log();
       const index = this.listOfControl.indexOf(i);
       let qtyIndex = index;
       this.listOfControl.splice(index, 1);
