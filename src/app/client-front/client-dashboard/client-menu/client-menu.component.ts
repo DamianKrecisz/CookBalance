@@ -91,10 +91,11 @@ export class ClientMenuComponent implements OnInit {
   }
 
   downloadListOfAllIngredients() {
-    let xx = []
+    let xx;
     this.listOfIdRecipes.forEach(element => {
       this.databaseService.getSingleRecipe(element).subscribe(data => {
-        data.ingredients.forEach(element => {
+        xx.push(data);
+        xx.ingredients.forEach(element => {
           console.log(element);
           this.listOfTotalIngredients.push(element);
         });
