@@ -31,6 +31,7 @@ import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin
 import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
 import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
 import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
+import { AdminAddRecipeComponent } from './admin-front/dashboard/admin-add-recipe/admin-add-recipe.component';
 
 registerLocaleData(pl);
 
@@ -53,7 +54,8 @@ registerLocaleData(pl);
     ClientBrowseRecipesComponent,
     ClientSingleRecipesComponent,
     AdminIngredientsComponent,
-    AdminEditRecipesComponent
+    AdminEditRecipesComponent,
+    AdminAddRecipeComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

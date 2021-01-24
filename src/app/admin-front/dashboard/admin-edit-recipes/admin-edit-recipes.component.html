@@ -1,4 +1,5 @@
-<nz-alert *ngIf="showSuccessAlert" class="showSuccessAlert" nzType="success" nzMessage="Zapisano przepis" nzDescription="Prawidłowo wprowadzony przepis został zapisany w bazie danych." nzShowIcon >
+<nz-alert *ngIf="showSuccessAlert" class="showSuccessAlert" nzType="success" nzMessage="Zapisano przepis"
+    nzDescription="Prawidłowo wprowadzony przepis został zapisany w bazie danych." nzShowIcon>
 </nz-alert>
 
 <h1>Wybierz przepis do edycji</h1>
@@ -6,6 +7,89 @@
     <div *ngFor="let item of listOfData">
         <span (click)="startEdit(item)">
             {{item.title}}
-        </span> 
+        </span>
     </div>
 </div>
+<div class="itemsToEdit">
+    <div class="item">
+        <strong>Tytuł:</strong> {{itemToEdit.title}}
+        <button nz-button nzType="default" (click)="editItem('title',itemToEdit.title)">Edit</button>
+    </div>
+    <div class="item">
+        <strong>Link do zdjęcia:</strong> {{itemToEdit.imgUrl}}
+        <button nz-button nzType="default" (click)="editItem('imgUrl',itemToEdit.imgUrl)">Edit</button>
+    </div>
+    <div class="item">
+        <strong>Czas przygotania(min):</strong> {{itemToEdit.preparationTime}}
+        <button nz-button nzType="default" (click)="editItem('preparationTime',itemToEdit.preparationTime)">Edit</button>
+    </div>
+    <div class="item">
+        <strong>Poziom trudności:</strong> {{itemToEdit.difficultLevel}}
+        <button nz-button nzType="default" (click)="editItem('difficultLevel',itemToEdit.difficultLevel)">Edit</button>
+    </div>
+    <div class="item">
+        <strong>Porcje:</strong> {{itemToEdit.portions}}
+        <button nz-button nzType="default" (click)="editItem('portions',itemToEdit.portions)">Edit</button>
+    </div>
+    <div class="item">
+        <strong>Kroki:</strong>
+        <li *ngFor="let item of itemToEdit.steps ; let i = index">
+            <p>
+                {{i}}: {{item}} 
+                <button nz-button nzType="default" (click)="editSteps(item,i,itemToEdit.steps)">Edit</button>
+                <button nz-button nzType="default" (click)="deleteSteps(i)">Delete</button>
+            </p>
+        </li>
+        <button nz-button nzType="default" (click)="addStep()">Add Step</button>
+    </div>
+    <div class="item">
+        <strong>Składniki:</strong>
+        <ul>
+            <li *ngFor="let item of itemToEdit.ingredients ; let i = index">
+                <p>
+                    Ingredient ID: {{item.ingredient}} 
+                    <button nz-button nzType="default" (click)="editIngredient(item.ingredient, i)">Edit</button>
+                </p>
+                <p>
+                    Ingredient Qty: {{item.qty}} 
+                    <button nz-button nzType="default" (click)="editIngredient(item.qty, i)">Edit</button>
+                </p>
+                <p>
+                    <button nz-button nzType="default" (click)="deleteIngredient(i)">Delete</button>
+                </p>
+            </li>
+        </ul>
+        <button nz-button nzType="default" (click)="addIngredient()">Dodaj składnik</button>
+
+    </div>
+    <div class="item">
+        <strong>Link:</strong> {{itemToEdit.url}}
+        <button nz-button nzType="default" (click)="editItem('url')">Edit</button>
+    </div>
+</div>
+
+
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+
+    Please input new {{actualItemEditing}}
+    <input *ngIf="showStringField" nz-input placeholder="string" [(ngModel)]="stringToUpdate" />
+    <input *ngIf="showNumberField" nz-input placeholder="number" type="number" [(ngModel)]="numberToUpdate" />
+
+    <nz-select *ngIf="showIngredientField"  nzShowSearch nzAllowClear nzPlaceHolder="Wybierz składnik" class="passenger-input"
+        [(ngModel)]="selectToUpdate">
+        <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient.id}}"
+            nzLabel="{{ingredient.id}} - {{ingredient.product}} - jednostka: {{ingredient.unit}}">
+        </nz-option>
+    </nz-select>
+
+    
+    <nz-select  *ngIf="showDifficultLevelField" nzPlaceHolder="Czym mniejszy tym łatwiejszy"  id="difficultLevel"  [(ngModel)]="difficultLevelToUpdate">
+        <nz-option nzValue="1/5" nzLabel="1/5"></nz-option>
+        <nz-option nzValue="2/5" nzLabel="2/5"></nz-option>
+        <nz-option nzValue="3/5" nzLabel="3/5"></nz-option>
+        <nz-option nzValue="4/5" nzLabel="4/5"></nz-option>
+        <nz-option nzValue="5/5" nzLabel="5/5"></nz-option>
+      </nz-select>
+
+</nz-modal>

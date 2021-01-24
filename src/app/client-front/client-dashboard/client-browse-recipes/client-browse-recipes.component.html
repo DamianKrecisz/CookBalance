@@ -1,5 +1,5 @@
 <div nz-row  class="allRecipes" >
-    <div nz-col nzSpan="7" *ngFor="let item of listOfData">
+    <div class="single-recipe" *ngFor="let item of listOfData">
         <!--[routerLink]="['/client-single-recipe', item.id]"-->
         <!--[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
         <a (click)="send(item)">

@@ -11,10 +11,39 @@ ul {
     text-align: center;
     font-size: 1.5em;
 }
-.addToFavorite{
+
+.favoritesActions {
     cursor: pointer;
 }
-.addToFavorite:hover{
+
+.favoritesActions:hover {
     font-size: 16px;
     transition: 0.3s;
 }
+
+nz-alert {
+    position: absolute;
+    top: 10vh;
+    right: 5vw;
+}
+
+.ingredients{
+    counter-reset: section;
+
+}
+.ingredient {
+	display: flex;
+}
+
+.ingredient:before {
+    counter-increment: section;
+    content: counter(section) ".";
+    position: absolute;
+    margin-left: -20px;
+}
+.ingredient-qty{
+    margin:0 5px;
+}[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }

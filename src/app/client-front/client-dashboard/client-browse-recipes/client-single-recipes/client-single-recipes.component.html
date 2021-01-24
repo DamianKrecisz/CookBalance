@@ -3,8 +3,16 @@
     <div nz-row>
         <div nz-col nzSpan="6">
             <h2>Składniki:</h2>
-            <ul>
-                <li *ngFor="let item of recipe.ingredients">{{item.ingredient}} - {{item.qty}}</li>
+            <ul class="ingredients">
+                <li class="ingredient" *ngFor="let item of ingredients; index as j">{{item.product}} -
+                    <div *ngFor="let item of recipe.ingredients; index as i">
+                        <div *ngIf="i==j" class="ingredient-qty">
+                            {{item.qty}} 
+                        </div>
+                    </div> {{item.unit}}
+                </li>
+
+
             </ul>
         </div>
         <div nz-col nzSpan="6">
@@ -20,10 +28,14 @@
     </div>
 
     <div nz-row>
-        <div nz-col nzSpan="4">
-            <div class="addToFavorite" (click)="addToFavorite()">
+        <div nz-col nzSpan="4" class="favoritesActions">
+            <div *ngIf="showAddToFavorite" class="addToFavorite" (click)="addToFavorite()">
                 Dodaj do ulubionych
                 <i nz-icon nzType="heart" nzTheme="outline"></i>
+            </div>
+            <div *ngIf="showDeleteFromFavorite" class="deleteFromFavorite" (click)="deleteFromFavorite()">
+                Usuń z ulubionych
+                <i nz-icon nzType="close" nzTheme="outline"></i>
             </div>
         </div>
         <div nz-col nzOffset="10" nzSpan="10">
@@ -41,9 +53,31 @@
                 </div>
             </div>
         </div>
+        <a nz-dropdown [nzDropdownMenu]="menu" (nzVisibleChange)="change($event)">
+            Dodaj do jadłospisu
+            <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+              <li nz-submenu nzTitle="Jadłospis 1">
+                <ul>
+                  <li nz-menu-item>Poniedziałek</li>
+                  <li nz-menu-item>Wtorek</li>
+                  <li nz-menu-item>Środa</li>
+                  <li nz-menu-item>Czwartek</li>
+                  <li nz-menu-item>Piątek</li>
+                  <li nz-menu-item>Sobota</li>
+                  <li nz-menu-item>Niedziela</li>
+                </ul>
+              </li>
+            </ul>
+          </nz-dropdown-menu>
     </div>
 
 </div>
 <a (click)="backToAllRecipes()">Zobacz wszystkie przepisy</a>
-<div *ngIf="authService.userData as user"><strong>{{user.uid}}</strong>
-</div>
+
+<nz-alert nzType="success" nzMessage="Pomyślnie dodano do ulubionych" nzShowIcon *ngIf="showAddToFavoriteAlert">
+</nz-alert>
+<nz-alert nzType="warning" nzMessage="Pomyslnie usunięto z ulubionych" nzShowIcon *ngIf="showDeleteFromFavoriteAlert">
+</nz-alert>

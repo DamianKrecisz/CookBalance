@@ -19,6 +19,7 @@ img {
 }
 .allRecipes {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 .title {
@@ -27,3 +28,11 @@ img {
 .small-item {
     text-align: center;
 }
+.single-recipe{
+    width: 30%;
+    margin-bottom: 1%;
+}
+[nz-button] {
+    margin-right: 8px;
+    margin-bottom: 12px;
+  }

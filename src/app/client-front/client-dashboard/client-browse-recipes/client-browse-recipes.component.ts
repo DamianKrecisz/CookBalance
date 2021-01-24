@@ -1,8 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NzModalService } from 'ng-zorro-antd';
+import { Router } from '@angular/router';
 import { DatabaseService } from 'src/app/services/database.service';
-import { ClientSingleRecipesComponent } from './client-single-recipes/client-single-recipes.component';
 
 @Component({
   selector: 'app-client-browse-recipes',
@@ -15,7 +13,6 @@ export class ClientBrowseRecipesComponent implements OnInit {
 
   constructor(
     public databaseService: DatabaseService,
-    private modal: NzModalService,
     private router: Router,
   ) { }
 

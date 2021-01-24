@@ -1,0 +1,130 @@
+<nz-alert *ngIf="showSuccessAlert" class="showSuccessAlert" nzType="success" nzMessage="Zapisano przepis" nzDescription="Prawidłowo wprowadzony przepis został zapisany w bazie danych." nzShowIcon >
+</nz-alert>
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+  <!--Title-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="title">Tytuł</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="title" id="title" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Image url-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="imgUrl">Link do zdjęcia</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="imgUrl" id="imgUrl" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Preparation time-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="preparationTime">Czas przygotowania(min)</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="preparationTime" id="preparationTime" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Difficult Level-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="difficultLevel">Poziom trudności</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <nz-select nzPlaceHolder="Czym mniejszy tym łatwiejszy" class="passenger-input"
+        formControlName="difficultLevel" id="difficultLevel">
+        <nz-option nzValue="1/5" nzLabel="1/5"></nz-option>
+        <nz-option nzValue="2/5" nzLabel="2/5"></nz-option>
+        <nz-option nzValue="3/5" nzLabel="3/5"></nz-option>
+        <nz-option nzValue="4/5" nzLabel="4/5"></nz-option>
+        <nz-option nzValue="5/5" nzLabel="5/5"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Portions-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="portions">Porcje</nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="portions" id="portions" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Steps-->
+  <nz-form-item *ngFor="let controlX of listOfControlStep; let i = index">
+    <nz-form-label [nzSm]="6" [nzXs]="24" *ngIf="i == 0" [nzFor]="controlX.step">Kroki </nz-form-label>
+    <nz-form-control [nzSm]="18" [nzXs]="24" [nzOffset]="i == 0 ? 0 : 6"
+      nzErrorTip="Please input passenger's name or delete this field.">
+      <input class="step-input" nz-input placeholder="" [attr.id]="controlX.id"
+        [formControlName]="controlX.step" />
+      <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeFieldStep(controlX, $event)"></i>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Add step-->
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span:12, offset: 6 }">
+      <button nz-button nzType="dashed" class="add-button" (click)="addFieldStep($event)">
+        <i nz-icon nzType="plus"></i>
+        Dodaj kolejny krok
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--Ingredients-->
+  <div class="items-flex">
+    <nz-form-label >Składniki </nz-form-label>
+
+    <div class="w-first">
+      
+      <nz-form-item  *ngFor="let control of listOfControl; let i = index">
+        
+        <nz-form-control   nzErrorTip="Please select item to reservation.">
+
+          <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz składnik" class="passenger-input"
+            [formControlName]="control.ingredient" [attr.id]="control.id">
+            <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient}}"
+              nzLabel="{{ingredient.product}} - jednostka: {{ingredient.unit}}">
+              
+            </nz-option>
+
+          </nz-select>
+
+          <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button delete-ingredent" (click)="removeField(control, $event)" ></i>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div class="w-last">
+      <nz-form-item *ngFor="let controlQty of listOfControlQty; let i = index">
+     
+        <nz-form-control  nzErrorTip="Please select item to reservation.">
+          <input type="number" id="qtyId-{{i}}" class="passenger-input" nz-input placeholder="ilość" [formControlName]="controlQty.qty" />
+        </nz-form-control>
+      </nz-form-item>
+      
+    </div>
+  </div>
+  <!--Add new field ingredients-->
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 24, offset: 0 }" [nzSm]="{ span: 20, offset: 6 }">
+      <button nz-button nzType="dashed" class="add-field" (click)="addField($event)">
+        <i nz-icon nzType="plus"></i>
+        Dodaj kolejny składnik
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!--URL-->
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="url">Link</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="The input is not valid E-mail!">
+      <input nz-input formControlName="url" id="url" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control [nzXs]="{ span: 20, offset: 6 }">
+      <button nz-button nzType="primary">Wyślij przepis do bazy danych</button>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>

@@ -15,6 +15,9 @@ export class DatabaseService {
   getAllIngredients() {
     return this.db.collection('ingredients').snapshotChanges();
   }
+  getSingleIngredient(ingredientId) {
+    return this.db.collection('ingredients').doc(ingredientId).valueChanges();
+  }
   updateIngredient(ingredient: ingredientsInterface) {
     this.db.doc('ingredients/' + ingredient.id).update(ingredient);
   }
@@ -29,7 +32,29 @@ export class DatabaseService {
   getSingleRecipe(recipeId) {
     return this.db.collection('recipes').doc(recipeId).valueChanges()
   }
-  addFavoriteRecipe(recipeId) {
-    return this.db.collection('favoriteRecipes').add(recipeId);
+  updateRecipe(recipe){
+    this.db.doc('recipes/' + recipe.id).update(recipe);
+  }
+
+  /* Favorite recipes */
+  addFavoriteRecipe(recipe) {
+    return this.db.collection('favoriteRecipes').add(recipe);
+  }
+  getAllFavoriteRecipes() {
+    return this.db.collection('favoriteRecipes').snapshotChanges();
+  }
+  updateFavoriteRecipe(recipe) {
+    this.db.doc('favoriteRecipes/' + recipe.id).update(recipe);
+  }
+
+  /* Add new menu */
+  addNewMenu(menu) {
+    return this.db.collection('allMenu').add(menu);
+  }
+  getAllMenu() {
+    return this.db.collection('allMenu').snapshotChanges();
+  }
+  updateMenu(menu){
+    this.db.doc('allMenu/' + menu.id).update(menu);
   }
 }

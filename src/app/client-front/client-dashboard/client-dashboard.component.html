@@ -22,11 +22,15 @@
         </li>
         <li nz-menu-item  nzMatchRouter>
           <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Dodaj przepis</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Dodaj przepis</a>
         </li>
         <li nz-menu-item  nzMatchRouter>
           <i nz-icon nzType="upload"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Przepisy</a>
+        </li>
+        <li nz-menu-item  nzMatchRouter>
+          <i nz-icon nzType="upload"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Ulubione przepisy</a>
         </li>
         <li nz-menu-item  nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
@@ -45,7 +49,6 @@
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edytuj przepis</a>
         </li>
-       
       </ul>
     </nz-sider>
     <nz-layout class="right-layout">

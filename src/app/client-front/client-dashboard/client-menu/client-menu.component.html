@@ -1,1 +1,88 @@
-<p>client-menu works!</p>
+<button nz-button nzType="primary" nzBlock (click)="showModal()" class="addNewMenu">Dodaj nowy jadłospis</button>
+
+<nz-table #basicTable [nzData]="daysTable">
+  <thead>
+    <tr>
+      <th *ngFor="let data of daysTable">
+        {{data.day}}
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td *ngFor="let data of daysTable; let daysIndex = index">
+        <ul>
+          <li *ngFor="let item of data.allMeals.meals; let mealInDayIndex = index">
+            <button nz-button nzType="dashed" class="single-meal" (click)="openRecipesSelect(data,daysIndex,mealInDayIndex)">{{item.mealTitle}}</button>
+            <span (click)="openRecipesSelect(data,daysIndex,mealInDayIndex,'editing')"><i nz-icon nzType="edit" nzTheme="outline"></i></span>
+            <span (click)="deleteMenu(daysIndex,mealInDayIndex)"><i nz-icon nzType="delete" nzTheme="outline"></i></span>
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<button nz-button nzType="dashed" (click)="downloadListOfAllIngredients()">Pobierz listę wszystkich składników</button>
+<ul>
+  <li *ngFor="let item of listOfTotalIngredients">{{item.ingredient}} w ilości {{item.qty}}</li>
+</ul>
+<ul>
+  <li *ngFor="let item of activeMenuList; let i = index">
+    <button nz-button nzType="primary" nzBlock (click)="showMenu(i)" class="menu-item">{{item.menuTitle}}</button>
+  </li>
+</ul>
+
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading">
+
+  <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+
+    <nz-form-item>
+      <nz-form-label> Wpisz tytuł jadłospisu</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group>
+          <input formControlName="title" nz-input placeholder="Tytuł" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+
+    <nz-form-item>
+      <nz-form-label> Wpisz ilość tygodni</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group>
+          <input formControlName="qtyDays" nz-input placeholder="max 8" type="number" max="8" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label> Wpisz ilość posiłków dziennie</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group>
+          <input formControlName="qtyMeals" nz-input placeholder="Ilość posiłków" type="number" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+  </form>
+
+</nz-modal>
+
+<nz-modal [(nzVisible)]="isVisibleOpenRecipesSelect" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" class="passenger-input" (nzOnOk)="updateRecipes()">
+
+  <form nz-form [nzLayout]="'inline'" [formGroup]="validateFormAddRecipe" (ngSubmit)="submitForm()">
+    <nz-form-item>
+
+    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz danie" class="passenger-input" formControlName="selectToUpdate">
+      <nz-option *ngFor="let recipe of listOfRecipes " nzValue="{{recipe.id}}" nzLabel="{{recipe.title}}">
+      </nz-option>
+    </nz-select>
+
+  </nz-form-item>
+
+  </form>
+</nz-modal>
+
+<nz-alert nzType="success" *ngIf="deletedRecipe" nzMessage="Pomyślnie usunięto przepis" nzShowIcon></nz-alert>

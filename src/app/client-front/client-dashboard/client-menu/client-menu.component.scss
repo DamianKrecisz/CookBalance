@@ -1,0 +1,30 @@
+.single-meal{
+    width: 100%;
+    margin-bottom: 5px;
+}
+ul{
+    list-style-type:none;
+}
+th{
+    text-align: center;
+}
+.menu-item,
+.addNewMenu{
+    margin-bottom: 15px;
+}
+.passenger-input,
+.ant-form-inline .ant-form-item{
+    width:100%
+}
+li{
+    display: flex;
+    align-items: center;
+    i{
+       margin:0 10px;
+    }
+    i:hover{
+        cursor: pointer;
+        color:blue;
+        transition: 0.3s;
+    }
+}
