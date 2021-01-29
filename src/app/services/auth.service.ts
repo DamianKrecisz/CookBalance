@@ -13,6 +13,7 @@ import { of } from 'rxjs';
 export class AuthService {
   userData: any; 
   isLoggedIn: boolean;
+  name:any;
   constructor(
     public afs: AngularFirestore,  
     public afAuth: AngularFireAuth, 
@@ -24,6 +25,7 @@ export class AuthService {
       if (user) {
         this.userData = user;
         localStorage.setItem('user', JSON.stringify(this.userData));
+        this.name=this.userData.name;
         JSON.parse(localStorage.getItem('user'));
       } else {
         localStorage.setItem('user', null);

@@ -47,6 +47,7 @@
   <nz-table #editRowTable nzBordered [nzData]="listOfData" nzTableLayout="fixed">
     <thead>
       <tr>
+        <th>ID</th>
         <th nzWidth="25%">Produkt</th>
         <th nzWidth="15%">Jednostka</th>
         <th nzWidth="40%">Akcje</th>
@@ -55,6 +56,8 @@
     <tbody>
       <tr *ngFor="let data of editRowTable.data">
         <ng-container *ngIf="!editCache[data.id].edit; else editTemplate">
+          <td>{{ data.id }}</td>
+
           <td>{{ data.product }}</td>
           <td>{{ data.unit }}</td>
           <td><a (click)="startEdit(data.id)">Edit</a></td>

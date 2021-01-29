@@ -13,6 +13,7 @@ export class ClientMenuComponent implements OnInit {
   listOfIdRecipes = [];
   listOfTotalIngredients = [];
   daysTable = [];
+  yy = [];
 
   validateForm!: FormGroup;
   validateFormAddRecipe!: FormGroup;
@@ -30,6 +31,7 @@ export class ClientMenuComponent implements OnInit {
   day;
   idDay
   idMealInDay;
+  userID;
 
   week = [
     "Poniedziałek",
@@ -81,6 +83,7 @@ export class ClientMenuComponent implements OnInit {
 
   showMenu(index) {
     this.daysTable = this.activeMenuList[index].days;
+    this.mealTitle = this.activeMenuList[index].menuTitle;
     this.activeMenuList[index].days.forEach(element => {
       element.allMeals.meals.forEach(element => {
         if (element.mealID != '') {
@@ -90,18 +93,42 @@ export class ClientMenuComponent implements OnInit {
     });
   }
 
+
+  //to kazdego elementu przypisac ID 
   downloadListOfAllIngredients() {
     let xx;
+
     this.listOfIdRecipes.forEach(element => {
       this.databaseService.getSingleRecipe(element).subscribe(data => {
-        xx.push(data);
-        xx.ingredients.forEach(element => {
-          console.log(element);
-          this.listOfTotalIngredients.push(element);
+        xx = data;
+        xx.ingredients.forEach(el1 => {
+          this.listOfTotalIngredients.push({
+            ingredientID: el1.ingredient,
+            ingredientQty: el1.qty,
+            checked: false
+          });
         });
       })
     });
+
   }
+
+  saveList() {
+
+    for (let i = 0; this.listOfTotalIngredients.length > i; i++) {
+      this.databaseService.getSingleIngredient(this.listOfTotalIngredients[i].ingredientID).subscribe(data=>{
+        this.listOfTotalIngredients[i].ingredientDetails=data;
+      })
+    }
+
+    let model = {
+      listTitle: this.mealTitle,
+      userID: this.authService.userData.uid,
+      itemList: this.listOfTotalIngredients,
+    }
+    this.databaseService.addNewList(model);
+  }
+
 
   handleOk(): void {
     this.isOkLoading = true;
@@ -206,6 +233,11 @@ export class ClientMenuComponent implements OnInit {
     setTimeout(function () {
       this.deletedRecipe = false;
     }, 1500);
+
+  }
+
+  saveListOfIngredients() {
+
 
   }
 

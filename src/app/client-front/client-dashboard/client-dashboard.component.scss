@@ -1,46 +1,82 @@
-.logo {
-    margin: 15px;
-    border-radius: 15px;
+@import "./src/variables.scss";
+
+.header {
+  height: 5vh;
+  text-align:right;
+  color: white;
+  padding:10px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  i{
+    margin-left: 5px;
+  }
+  .left-column{
+    color: $text-color;
+    font-weight:700;
+  }
+}
+.main-layout {
+  display: flex;
+  flex-direction: row;
+  height: 95vh;
+  width: 100vw;
+  .side-menu {
+    width: 10%;
     img{
-        width:100%
+      width: 100%;
+      height:  10%;
+      
+      fill: $color-4
+    }
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border:0;
+      li{
+        margin:15px 0;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      a {
+        color: $text-color;
+      }
     }
   }
-  a{
-    color:white;
-    display:inline-block;
-  }
-  .layout {
-    min-height: 100vh;
-  }
-
-  nz-sider {
-    overflow: auto;
-    height: 100%;
-    position: fixed;
-    left: 0;
-  }
-
   .right-layout {
-    margin-left: 200px;
-    width:calc(100vw - 215px)
+    width: 90%;
+    margin: 15px;
+    box-shadow: -5px 4px 15px #4a4a4a4a;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.85);
+    position: relative;
+    overflow: hidden;
   }
+}
 
-  nz-header {
-    background: #fff;
-    padding: 0;
-  }
-
-  nz-content {
-    margin: 24px 16px 0;
-    overflow: initial;
-  }
-
-  .inner-content {
-    padding: 24px;
-    background: #fff;
-    text-align: left;
-  }
-
-  nz-footer {
-    text-align: center;
-  }
+.logout {
+  cursor: pointer;
+}
+.color-box {
+  transform-origin: bottom left;
+  background: $color-3;
+  height: 40vh;
+  position: fixed;
+  top: -48vh;
+  left: 0;
+  width: 120vw;
+  transform: rotate(12deg);
+  z-index: -1;
+  .right-color-bar {
+    background: $color-1;
+    height: 100vh;
+    position: absolute;
+    top: 100%;
+    left: 71vw;
+    width: 60vw;
+}
+}

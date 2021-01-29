@@ -13,9 +13,12 @@
       <td *ngFor="let data of daysTable; let daysIndex = index">
         <ul>
           <li *ngFor="let item of data.allMeals.meals; let mealInDayIndex = index">
-            <button nz-button nzType="dashed" class="single-meal" (click)="openRecipesSelect(data,daysIndex,mealInDayIndex)">{{item.mealTitle}}</button>
-            <span (click)="openRecipesSelect(data,daysIndex,mealInDayIndex,'editing')"><i nz-icon nzType="edit" nzTheme="outline"></i></span>
-            <span (click)="deleteMenu(daysIndex,mealInDayIndex)"><i nz-icon nzType="delete" nzTheme="outline"></i></span>
+            <button nz-button nzType="dashed" class="single-meal"
+              (click)="openRecipesSelect(data,daysIndex,mealInDayIndex)">{{item.mealTitle}}</button>
+            <span (click)="openRecipesSelect(data,daysIndex,mealInDayIndex,'editing')"><i nz-icon nzType="edit"
+                nzTheme="outline"></i></span>
+            <span (click)="deleteMenu(daysIndex,mealInDayIndex)"><i nz-icon nzType="delete"
+                nzTheme="outline"></i></span>
           </li>
         </ul>
       </td>
@@ -24,9 +27,15 @@
 </nz-table>
 
 <button nz-button nzType="dashed" (click)="downloadListOfAllIngredients()">Pobierz listę wszystkich składników</button>
-<ul>
-  <li *ngFor="let item of listOfTotalIngredients">{{item.ingredient}} w ilości {{item.qty}}</li>
+<button nz-button nzType="dashed" (click)="saveList()">Zapisz listę</button>
+
+<!--
+  <ul>
+  <li *ngFor="let item of listOfTotalIngredients">{{item.ingredientTitle}} w ilości {{item.ingredientQty}}
+    {{item.ingredientUnit}}</li>
 </ul>
+-->
+
 <ul>
   <li *ngFor="let item of activeMenuList; let i = index">
     <button nz-button nzType="primary" nzBlock (click)="showMenu(i)" class="menu-item">{{item.menuTitle}}</button>
@@ -70,17 +79,19 @@
 
 </nz-modal>
 
-<nz-modal [(nzVisible)]="isVisibleOpenRecipesSelect" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" class="passenger-input" (nzOnOk)="updateRecipes()">
+<nz-modal [(nzVisible)]="isVisibleOpenRecipesSelect" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+  class="passenger-input" (nzOnOk)="updateRecipes()">
 
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateFormAddRecipe" (ngSubmit)="submitForm()">
     <nz-form-item>
 
-    <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz danie" class="passenger-input" formControlName="selectToUpdate">
-      <nz-option *ngFor="let recipe of listOfRecipes " nzValue="{{recipe.id}}" nzLabel="{{recipe.title}}">
-      </nz-option>
-    </nz-select>
+      <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz danie" class="passenger-input"
+        formControlName="selectToUpdate">
+        <nz-option *ngFor="let recipe of listOfRecipes " nzValue="{{recipe.id}}" nzLabel="{{recipe.title}}">
+        </nz-option>
+      </nz-select>
 
-  </nz-form-item>
+    </nz-form-item>
 
   </form>
 </nz-modal>

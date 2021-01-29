@@ -1,1 +1,14 @@
-<p>client-shop-list works!</p>
+
+<ul>
+    <li *ngFor="let item of shopList;let index = index">
+        <button nz-button nzType="dashed" (click)="showCheckList(item,index)">{{item.listTitle}} {{item.userID}}</button>
+    </li>
+</ul>
+<ul>
+    <li *ngFor="let item of shopListToDisplay;let index = index">
+        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.checked }} | {{item.ingredientTitle }} - {{item.ingredientQty}} {{item.ingredientUnit}}</label>
+
+    </li>
+    <a nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?" nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="deleteShopList()" >Usuń listę zakupów</a>
+</ul>

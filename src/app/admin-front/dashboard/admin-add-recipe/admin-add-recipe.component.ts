@@ -103,13 +103,12 @@ export class AdminAddRecipeComponent implements OnInit {
       preparationTime: this.validateForm.value.preparationTime,
       url: this.validateForm.value.url,
       ingredients: this.d,
-      steps: this.b,
-      //qty: this.c
+      steps: this.b
     }
 
-    //this.databaseService.createRecipe(model);
+    this.databaseService.createRecipe(model);
     this.showSuccessAlert=true;
-    //this.validateForm.reset();
+    this.validateForm.reset();
     this.isOkLoading = true;
     console.log(model);
     console.log(this.validateForm.value)
@@ -179,9 +178,4 @@ export class AdminAddRecipeComponent implements OnInit {
       this.validateForm.removeControl(i.step);
     }
   }
-
-  /////////////////////////////////////////////////////////////////////
-
- 
-
 }

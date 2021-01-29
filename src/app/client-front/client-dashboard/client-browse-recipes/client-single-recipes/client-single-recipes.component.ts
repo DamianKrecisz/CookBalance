@@ -180,8 +180,5 @@ export class ClientSingleRecipesComponent implements OnInit {
     });
   }
 
-  change(value: boolean): void {
-    console.log(value);
-  }
 
 }

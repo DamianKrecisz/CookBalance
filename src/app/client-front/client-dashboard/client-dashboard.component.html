@@ -1,63 +1,70 @@
-<nz-layout class="layout">
-    <nz-sider>
-      <div class="logo">
-          <img src="/assets/img/logo.svg" alt="logo">
-      </div>
-      <ul nz-menu nzTheme="dark" nzMode="inline">
-        <li nz-menu-item nzMatchRouter> 
+<div class="header">
+  <div class="left-column">CookBalance</div>
+  <div class="right-column">
+    Hi {{name}} <i nz-icon nzType="logout" nzTheme="outline" (click)="logout()" class="logout"></i>
+  </div>
+</div>
+<div class="color-box">
+  <div class="right-color-bar"></div>
+</div>
+<div class="main-layout">
+
+
+    <div class="side-menu">
+      <img src="../../../assets/img/logo.svg" alt="">
+      <ul nz-menu >
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="file"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Strona główna</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="file"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-details"] } }]'>Dane osobowe</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="video-camera"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-bmi"] } }]'>BMI</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-calories-required"] } }]'>Zapotrzebowanie kaloryczne</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-calories-required"] } }]'>Zapotrzebowanie
+            kaloryczne</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="upload"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Dodaj przepis</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="upload"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Przepisy</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="upload"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Ulubione przepisy</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Jadłospis</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-shop-list"] } }]'>Listy zakupowe</a>
         </li>
-       
-        <li nz-menu-item  nzMatchRouter>
+
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Składniki</a>
         </li>
-        <li nz-menu-item  nzMatchRouter>
+        <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="bar-chart"></i>
           <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edytuj przepis</a>
         </li>
       </ul>
-    </nz-sider>
-    <nz-layout class="right-layout">
-      <nz-header></nz-header>
-      <nz-content>
-        <div class="inner-content">
-          <router-outlet name="clientDashboardOutlet"></router-outlet>
-        </div>
-      </nz-content>
-      <nz-footer>CookBalance ©2020</nz-footer>
-    </nz-layout>
-  </nz-layout>
+    </div>
+
+    <div class="right-layout">
+
+      <router-outlet name="clientDashboardOutlet"></router-outlet>
+
+    </div>
+</div>

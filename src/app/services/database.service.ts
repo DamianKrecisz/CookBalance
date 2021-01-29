@@ -32,7 +32,7 @@ export class DatabaseService {
   getSingleRecipe(recipeId) {
     return this.db.collection('recipes').doc(recipeId).valueChanges()
   }
-  updateRecipe(recipe){
+  updateRecipe(recipe) {
     this.db.doc('recipes/' + recipe.id).update(recipe);
   }
 
@@ -54,7 +54,21 @@ export class DatabaseService {
   getAllMenu() {
     return this.db.collection('allMenu').snapshotChanges();
   }
-  updateMenu(menu){
+  updateMenu(menu) {
     this.db.doc('allMenu/' + menu.id).update(menu);
+  }
+
+  /* Shop lists */
+  addNewList(list) {
+    return this.db.collection('shopList').add(list);
+  }
+  getAllShopList() {
+    return this.db.collection('shopList').snapshotChanges();
+  }
+  deleteShopList(list) {
+    return this.db.collection("shopList").doc(list).delete();
+  }
+  updateList(list) {
+    this.db.doc('shopList/' + list.id).update(list);
   }
 }

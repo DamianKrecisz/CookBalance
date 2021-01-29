@@ -8,7 +8,10 @@ import { User } from '../interfaces/user';
 export class ClientService {
 
   constructor(public db: AngularFirestore) { }
-
+ 
+  getCurrentClient(client){
+    return this.db.collection('users').doc(client).valueChanges()
+  }
   getClients() {
     return this.db.collection('users').snapshotChanges();
   }

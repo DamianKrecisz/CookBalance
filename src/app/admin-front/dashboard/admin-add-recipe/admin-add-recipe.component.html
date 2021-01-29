@@ -82,7 +82,7 @@
 
           <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Wybierz składnik" class="passenger-input"
             [formControlName]="control.ingredient" [attr.id]="control.id">
-            <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient}}"
+            <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient.id}}"
               nzLabel="{{ingredient.product}} - jednostka: {{ingredient.unit}}">
               
             </nz-option>
