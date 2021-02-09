@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class ClientLoginComponent implements OnInit {
 
   validateForm: FormGroup;
-
+  registerForm: FormGroup;
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
@@ -28,6 +28,10 @@ export class ClientLoginComponent implements OnInit {
       userName: [null, [Validators.required]],
       password: [null, [Validators.required]],
       remember: [true]
+    });
+    this.registerForm = this.fb.group({
+      usernameRegister: [null, [Validators.required]],
+      passwordRegister: [null, [Validators.required]],
     });
   }
 

@@ -15,49 +15,44 @@
       <ul nz-menu >
         <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="file"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Strona główna</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["dashboard-main-page"] } }]'>Dashboard</a>
         </li>
         <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="file"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-details"] } }]'>Dane osobowe</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-details"] } }]'>User profile</a>
         </li>
+        
+        
         <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="video-camera"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-bmi"] } }]'>BMI</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-calories-required"] } }]'>Zapotrzebowanie
-            kaloryczne</a>
+          <i nz-icon nzType="upload"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Recipes</a>
         </li>
         <li nz-menu-item nzMatchRouter>
           <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Dodaj przepis</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Favorite recipes</a>
         </li>
         <li nz-menu-item nzMatchRouter>
+          <i nz-icon nzType="bar-chart"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Saved menu</a>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <i nz-icon nzType="bar-chart"></i>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-shop-list"] } }]'>Shopping list</a>
+        </li>
+        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+          <i nz-icon nzType="minus" nzTheme="outline"></i>
+        </li>
+        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
           <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Przepisy</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Add recipe</a>
         </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Ulubione przepisy</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
+        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
           <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Jadłospis</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Ingredients</a>
         </li>
-        <li nz-menu-item nzMatchRouter>
+        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
           <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-shop-list"] } }]'>Listy zakupowe</a>
-        </li>
-
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Składniki</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edytuj przepis</a>
+          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edit recipe</a>
         </li>
       </ul>
     </div>

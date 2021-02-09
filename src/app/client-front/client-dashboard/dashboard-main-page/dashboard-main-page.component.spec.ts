@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ClientBmiComponent } from './client-bmi.component';
+import { DashboardMainPageComponent } from './dashboard-main-page.component';
 
-describe('ClientBmiComponent', () => {
-  let component: ClientBmiComponent;
-  let fixture: ComponentFixture<ClientBmiComponent>;
+describe('DashboardMainPageComponent', () => {
+  let component: DashboardMainPageComponent;
+  let fixture: ComponentFixture<DashboardMainPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ClientBmiComponent ]
+      declarations: [ DashboardMainPageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ClientBmiComponent);
+    fixture = TestBed.createComponent(DashboardMainPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -23,7 +23,7 @@ export class ClientShopListComponent implements OnInit {
 
   ngOnInit() {
     this.databaseService.getAllShopList().subscribe(data => {
-      this.shopList=[];
+      this.shopList = [];
       this.shopListTemp = data.map(e => {
         return {
           id: e.payload.doc.id,
@@ -40,21 +40,21 @@ export class ClientShopListComponent implements OnInit {
   showCheckList(item) {
     this.itemToDisplay = item;
     this.shopListToDisplay = item.itemList;
-  }
+    }
 
   deleteShopList() {
     this.nzMessageService.info('Pomyślnie usunięto');
     this.databaseService.deleteShopList(this.itemToDisplay.id);
   }
 
-  checkItem(item,index) {
+  checkItem(item, index) {
     let elementToUpdate;
-    if(item.checked==true){
-      this.itemToDisplay.itemList[index].checked=false;
-    }else{
-      this.itemToDisplay.itemList[index].checked=true;
+    if (item.checked == true) {
+      this.itemToDisplay.itemList[index].checked = false;
+    } else {
+      this.itemToDisplay.itemList[index].checked = true;
     }
-    elementToUpdate=this.itemToDisplay
+    elementToUpdate = this.itemToDisplay
     this.databaseService.updateList(elementToUpdate);
   }
 

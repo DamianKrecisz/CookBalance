@@ -2,7 +2,7 @@
     <h1>{{recipe.title}} </h1>
     <div nz-row>
         <div nz-col nzSpan="6">
-            <h2>Składniki:</h2>
+            <h2>Ingredients:</h2>
             <ul class="ingredients">
                 <li class="ingredient" *ngFor="let item of ingredients; index as j">{{item.product}} -
                     <div *ngFor="let item of recipe.ingredients; index as i">
@@ -16,66 +16,50 @@
             </ul>
         </div>
         <div nz-col nzSpan="6">
-            <h2>Kroki:</h2>
+            <h2>Steps:</h2>
             <ul>
                 <li *ngFor="let item of recipe.steps">{{item}}</li>
             </ul>
         </div>
         <div nz-col nzOffset="2" nzSpan="10">
             <img src="{{recipe.imgUrl}}" alt="image" class="imageRecipe">
+            <div nz-row class="small-items">
+                <div class="small-item"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+                    {{recipe.preparationTime}} min</div>
+                <div class="small-item"><i nz-icon nzType="pie-chart" nzTheme="outline"></i>
+                    {{recipe.portions}} porcji</div>
+                <div class="small-item"><i nz-icon nzType="dashboard" nzTheme="outline"></i>
+                    {{recipe.difficultLevel}}</div>
+            </div>
         </div>
 
     </div>
 
-    <div nz-row>
+    <div nz-row class="bottom-beam">
         <div nz-col nzSpan="4" class="favoritesActions">
-            <div *ngIf="showAddToFavorite" class="addToFavorite" (click)="addToFavorite()">
-                Dodaj do ulubionych
+            <div *ngIf="showAddToFavorite" class="btn-styles addToFavorite" (click)="addToFavorite()">
+                Add to favorite
                 <i nz-icon nzType="heart" nzTheme="outline"></i>
             </div>
-            <div *ngIf="showDeleteFromFavorite" class="deleteFromFavorite" (click)="deleteFromFavorite()">
-                Usuń z ulubionych
+            <div *ngIf="showDeleteFromFavorite" class="btn-styles deleteFromFavorite" (click)="deleteFromFavorite()">
+                Delete from favorite
                 <i nz-icon nzType="close" nzTheme="outline"></i>
             </div>
+            <button class="btn-styles" (click)="backToAllRecipes()">Zobacz wszystkie przepisy</button>
+
         </div>
         <div nz-col nzOffset="10" nzSpan="10">
             <div nz-row>
-                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="clock-circle" nzTheme="outline"></i>
-                    {{recipe.preparationTime}} min</div>
-                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="pie-chart" nzTheme="outline"></i>
-                    {{recipe.portions}} porcji</div>
-                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="dashboard" nzTheme="outline"></i>
-                    {{recipe.difficultLevel}}</div>
-            </div>
-            <div nz-row>
-                <div nz-col nz-span="24">
-                    Pełną instrukcję znajdziesz pod adresem <a href="{{recipe.url}}">kuchnialidla.pl</a>
+                <div nz-col nz-span="24" class="check-website">
+                    Full instructions can be found at: <a href="{{recipe.url}}"> <img src="../../../../../assets/img/logo-lidl.jpg" alt="logo-lidl" class="logo-lidl"> <div class="logo-lidl-text">kuchnialidla.pl</div> </a>
                 </div>
             </div>
         </div>
-        <a nz-dropdown [nzDropdownMenu]="menu" (nzVisibleChange)="change($event)">
-            Dodaj do jadłospisu
-            <i nz-icon nzType="down"></i>
-          </a>
-          <nz-dropdown-menu #menu="nzDropdownMenu">
-            <ul nz-menu>
-              <li nz-submenu nzTitle="Jadłospis 1">
-                <ul>
-                  <li nz-menu-item>Poniedziałek</li>
-                  <li nz-menu-item>Wtorek</li>
-                  <li nz-menu-item>Środa</li>
-                  <li nz-menu-item>Czwartek</li>
-                  <li nz-menu-item>Piątek</li>
-                  <li nz-menu-item>Sobota</li>
-                  <li nz-menu-item>Niedziela</li>
-                </ul>
-              </li>
-            </ul>
-          </nz-dropdown-menu>
+        
     </div>
 
 </div>
-<a (click)="backToAllRecipes()">Zobacz wszystkie przepisy</a>
+
 
 <nz-alert nzType="success" nzMessage="Pomyślnie dodano do ulubionych" nzShowIcon *ngIf="showAddToFavoriteAlert">
 </nz-alert>

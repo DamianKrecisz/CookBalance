@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientService } from 'src/app/services/client.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -11,13 +12,13 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class ClientDashboardComponent implements OnInit {
 
   name;
+  user: User;
 
 
   constructor(
     public databaseService: DatabaseService,
     public authService: AuthService,
     public clientService: ClientService
-
   ) { 
   }
 
@@ -27,11 +28,11 @@ export class ClientDashboardComponent implements OnInit {
       let x;
       x=data;
       this.name=x.name;
+      
     })
+    this.authService.user$.subscribe(user => this.user = user)
   }
- 
   logout(){
-    console.log("logout")
     this.authService.SignOut();
   }
 

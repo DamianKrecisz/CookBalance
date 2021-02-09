@@ -45,6 +45,8 @@ export class AdminEditRecipesComponent implements OnInit {
   newStep: string;
   addingNewStep = false;
   addingNewIngredient = false
+  isVisibleShow = false;
+
   constructor(
     public databaseService: DatabaseService,
   ) { }
@@ -70,7 +72,7 @@ export class AdminEditRecipesComponent implements OnInit {
   }
 
   startEdit(item) {
-
+    this.isVisibleShow=true;
     this.itemToEdit = {
       id: item.id,
       title: item.title,
@@ -249,7 +251,14 @@ export class AdminEditRecipesComponent implements OnInit {
 
     this.isVisible = false;
   }
+
+
+
+
   handleCancel(): void {
     this.isVisible = false;
+  }
+  handleCancelShow(): void {
+    this.isVisibleShow = false;
   }
 }

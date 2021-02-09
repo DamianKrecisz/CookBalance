@@ -8,14 +8,13 @@ import { ClientDashboardComponent } from './client-front/client-dashboard/client
 import { ClientDetailsComponent } from './client-front/client-dashboard/client-details/client-details.component';
 import { ClientMenuComponent } from './client-front/client-dashboard/client-menu/client-menu.component';
 import { ClientFavoriteRecipesComponent } from './client-front/client-dashboard/client-favorite-recipes/client-favorite-recipes.component';
-import { ClientBmiComponent } from './client-front/client-dashboard/client-bmi/client-bmi.component';
 import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
-import { ClientCaloriesRequiredComponent } from './client-front/client-dashboard/client-calories-required/client-calories-required.component';
 import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
 import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
 import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
 import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
 import { AdminAddRecipeComponent } from './admin-front/dashboard/admin-add-recipe/admin-add-recipe.component';
+import { DashboardMainPageComponent } from './client-front/client-dashboard/dashboard-main-page/dashboard-main-page.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/start' },
   { path: 'start', component: StartComponent },
@@ -26,6 +25,11 @@ const routes: Routes = [
   {
     path: 'client-dashboard', component: ClientDashboardComponent,
     children: [
+      {
+        path: 'dashboard-main-page',
+        component: DashboardMainPageComponent,
+        outlet: 'clientDashboardOutlet'
+      },
       {
         path: 'admin-add-recipe',
         component: AdminAddRecipeComponent,
@@ -55,21 +59,11 @@ const routes: Routes = [
         path: 'clients-favorite-recipes',
         component: ClientFavoriteRecipesComponent,
         outlet: 'clientDashboardOutlet'
-      },
-      {
-        path: 'client-bmi',
-        component: ClientBmiComponent,
-        outlet: 'clientDashboardOutlet'
       }
       ,
       {
         path: 'client-shop-list',
         component: ClientShopListComponent,
-        outlet: 'clientDashboardOutlet'
-      },
-      {
-        path: 'client-calories-required',
-        component: ClientCaloriesRequiredComponent,
         outlet: 'clientDashboardOutlet'
       },
       {

@@ -1,11 +1,41 @@
-<div class="login-container">
+<div class="container">
+  <!-- <img src="../../../assets/img/logo.svg" alt="logo" class="logo"> -->
 
 
-  <div class="image-box">
-    <img src="../../../assets/img/login-image.jpeg" alt="login-page-image">
+  <div class="registerContainer">
+
+    <form nz-form [formGroup]="registerForm" class="register-form" >
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your e-mail address">
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input formControlName="usernameRegister" placeholder="Username" #usernameRegister />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control nzErrorTip="Please input your Password!">
+          <nz-input-group nzPrefixIcon="lock">
+            <input type="password" nz-input formControlName="passwordRegister" placeholder="Password" #passwordRegister />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button class="login-form-button" [nzType]="'primary'"
+            (click)="authService.SignUp(usernameRegister.value, passwordRegister.value)">Register</button>
+        </nz-form-control>
+      </nz-form-item>
+
+    </form>
+
   </div>
+  <!-- <div class="box-container">
+    
+  </div> -->
   <div class="loginContainer">
-    <img src="../../../assets/img/logo.svg" alt="logo" class="logo">
 
     <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
       <nz-form-item>

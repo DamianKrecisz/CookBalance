@@ -1,12 +1,16 @@
 
-<ul>
+<ul class="list-shopList">
     <li *ngFor="let item of shopList;let index = index">
-        <button nz-button nzType="dashed" (click)="showCheckList(item,index)">{{item.listTitle}} {{item.userID}}</button>
+        <div class="single-list" (click)="showCheckList(item,index)">
+            <span>{{item.listTitle}} </span>
+            
+            <div class="overflow-gradient"></div>
+        </div>
     </li>
 </ul>
-<ul>
+<ul class="list-ingredients">
     <li *ngFor="let item of shopListToDisplay;let index = index">
-        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.checked }} | {{item.ingredientTitle }} - {{item.ingredientQty}} {{item.ingredientUnit}}</label>
+        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.ingredientDetails.product }} - {{item.ingredientQty}} {{item.ingredientDetails.unit}}</label>
 
     </li>
     <a nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?" nzPopconfirmPlacement="bottom"

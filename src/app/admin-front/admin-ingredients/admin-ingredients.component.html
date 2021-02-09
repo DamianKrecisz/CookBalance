@@ -1,21 +1,21 @@
 <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-control nzErrorTip="Please input product!">
-      <nz-input-group nzPrefixIcon="user">
-        <input formControlName="product" nz-input placeholder="Username" (ngModelChange)="search($event)"  />
+    <nz-form-control nzErrorTip="Please input ingredient!">
+      <nz-input-group nzPrefixIcon="unordered-list">
+        <input formControlName="product" nz-input placeholder="Ingrediend" (ngModelChange)="search($event)"  />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control nzErrorTip="Please input unit!">
-      <nz-input-group nzPrefixIcon="lock">
-        <input formControlName="unit" nz-input  placeholder="Password" />
+      <nz-input-group nzPrefixIcon="pie-chart">
+        <input formControlName="unit" nz-input  placeholder="Unit" />
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
   <nz-form-item>
     <nz-form-control>
-      <button nz-button nzType="primary" [disabled]="!validateForm.valid">Wyślij</button>
+      <button nz-button nzType="primary" [disabled]="!validateForm.valid">Add new ingredient</button>
     </nz-form-control>
   </nz-form-item>
 </form>
@@ -48,9 +48,9 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th nzWidth="25%">Produkt</th>
-        <th nzWidth="15%">Jednostka</th>
-        <th nzWidth="40%">Akcje</th>
+        <th nzWidth="25%">Product</th>
+        <th nzWidth="15%">Unit</th>
+        <th nzWidth="40%">Action</th>
       </tr>
     </thead>
     <tbody>

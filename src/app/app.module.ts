@@ -24,14 +24,13 @@ import { ClientDashboardComponent } from './client-front/client-dashboard/client
 import { ClientMenuComponent } from './client-front/client-dashboard/client-menu/client-menu.component';
 import { ClientDetailsComponent } from './client-front/client-dashboard/client-details/client-details.component';
 import { ClientFavoriteRecipesComponent } from './client-front/client-dashboard/client-favorite-recipes/client-favorite-recipes.component';
-import { ClientBmiComponent } from './client-front/client-dashboard/client-bmi/client-bmi.component';
 import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
-import { ClientCaloriesRequiredComponent } from './client-front/client-dashboard/client-calories-required/client-calories-required.component';
 import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
 import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
 import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
 import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
 import { AdminAddRecipeComponent } from './admin-front/dashboard/admin-add-recipe/admin-add-recipe.component';
+import { DashboardMainPageComponent } from './client-front/client-dashboard/dashboard-main-page/dashboard-main-page.component';
 
 registerLocaleData(pl);
 
@@ -48,14 +47,13 @@ registerLocaleData(pl);
     ClientMenuComponent,
     ClientDetailsComponent,
     ClientFavoriteRecipesComponent,
-    ClientBmiComponent,
     ClientShopListComponent,
-    ClientCaloriesRequiredComponent,
     ClientBrowseRecipesComponent,
     ClientSingleRecipesComponent,
     AdminIngredientsComponent,
     AdminEditRecipesComponent,
-    AdminAddRecipeComponent
+    AdminAddRecipeComponent,
+    DashboardMainPageComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

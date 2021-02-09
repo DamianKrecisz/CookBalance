@@ -1,3 +1,5 @@
+@import "./src/variables.scss";
+
 .imageRecipe {
     width: 100%;
 }
@@ -16,23 +18,17 @@ ul {
     cursor: pointer;
 }
 
-.favoritesActions:hover {
-    font-size: 16px;
-    transition: 0.3s;
-}
-
 nz-alert {
     position: absolute;
     top: 10vh;
     right: 5vw;
 }
 
-.ingredients{
+.ingredients {
     counter-reset: section;
-
 }
 .ingredient {
-	display: flex;
+    display: flex;
 }
 
 .ingredient:before {
@@ -41,9 +37,92 @@ nz-alert {
     position: absolute;
     margin-left: -20px;
 }
-.ingredient-qty{
-    margin:0 5px;
-}[nz-button] {
+.ingredient-qty {
+    margin: 0 5px;
+}
+[nz-button] {
     margin-right: 8px;
     margin-bottom: 12px;
-  }
+}
+.check-website {
+    text-align: right;
+}
+.btn-styles {
+    width: 15em;
+    height: 3em;
+    background-color: $color-5;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.addToFavorite,
+.deleteFromFavorite {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $color-4;
+    margin-bottom: 15px;
+}
+
+.btn-styles:hover {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(94, 94, 94, 1);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(94, 94, 94, 1);
+    box-shadow: 0px 0px 5px 0px rgba(94, 94, 94, 1);
+    transition: 0.3s;
+}
+.small-item {
+    margin-top: 2rem;
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-color;
+    -webkit-box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 25%);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 27%);
+    padding: 1em;
+    border-radius: 5%;
+    i {
+        margin-right: 10px;
+    }
+}
+.small-items {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.bottom-beam {
+    position: fixed;
+    bottom: 3em;
+    width: 85%;
+}
+.check-website{
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    a{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-left: 1rem;
+        background-color: $text-color;
+
+    }
+    .logo-lidl{
+        height: 5em;
+    }
+    .logo-lidl-text{
+        height: 100%;
+        text-transform: uppercase;
+        color:white;
+        margin-left: -1px;
+        padding-left: 5px;
+        font-size: 1em;
+    }
+}

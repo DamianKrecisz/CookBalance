@@ -21,7 +21,7 @@ export class ClientSingleRecipesComponent implements OnInit {
 
   showAddToFavoriteAlert = false;
   showDeleteFromFavoriteAlert = false;
-  ingredients:any=[];
+  ingredients: any = [];
   constructor(
     public databaseService: DatabaseService,
     private route: ActivatedRoute,
@@ -39,16 +39,16 @@ export class ClientSingleRecipesComponent implements OnInit {
           this.databaseService.getSingleIngredient(element.ingredient).subscribe(data => {
             this.ingredients.push(data);
           })
-          
+
         });
       })
     });
 
-    this.test();
+    this.favorireRecipes();
 
   }
 
-  test() {
+  favorireRecipes() {
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
       this.a = data.map(e => {
         return {
@@ -56,6 +56,12 @@ export class ClientSingleRecipesComponent implements OnInit {
           ...e.payload.doc.data()
         }
       })
+
+      if (this.a.length == 0) {
+        this.showAddToFavorite = true;
+        this.showDeleteFromFavorite = false;
+      }
+
       this.a.forEach(element => {
 
         if (element.userId == this.authService.userData.uid) {
@@ -71,11 +77,12 @@ export class ClientSingleRecipesComponent implements OnInit {
             this.showDeleteFromFavorite = false;
 
           }
-        } else{
-          
+        } else {
+
         }
       });
     })
+
 
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
       this.b = data.map(e => {
@@ -106,7 +113,7 @@ export class ClientSingleRecipesComponent implements OnInit {
 
 
   }
-  
+
   backToAllRecipes() {
     const url = "/client-dashboard/(clientDashboardOutlet:client-browse-recipes)"
     this.router.navigateByUrl(url);
@@ -122,14 +129,33 @@ export class ClientSingleRecipesComponent implements OnInit {
       })
     })
 
+    if (this.a.length == 0) {
+
+
+      let element = {
+        userId: this.authService.userData.uid,
+        recipes: []
+      }
+
+      element.recipes.push(this.recipeId)
+      this.databaseService.addFavoriteRecipe(element);
+      this.showAddToFavoriteAlert = true;
+      this.showAddToFavorite = false;
+      this.showDeleteFromFavorite = true;
+
+      setTimeout(() => {
+        this.showAddToFavoriteAlert = false;
+      }, 1000);
+
+    }
 
     this.a.forEach(element => {
 
       if (element.userId == this.authService.userData.uid) {
         if ((element.recipes).indexOf(this.recipeId) > -1) {
-          
+
         } else {
-          
+
 
           element.recipes.push(this.recipeId);
           this.databaseService.updateFavoriteRecipe(element);
@@ -173,7 +199,7 @@ export class ClientSingleRecipesComponent implements OnInit {
             this.showDeleteFromFavoriteAlert = false;
           }, 1000);
         } else {
-         
+
 
         }
       }

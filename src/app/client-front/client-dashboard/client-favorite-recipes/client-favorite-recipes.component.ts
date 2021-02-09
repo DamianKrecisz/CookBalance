@@ -22,7 +22,6 @@ export class ClientFavoriteRecipesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //console.log("userID: "+JSON.stringify(this.authService.userData.uid));
 
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
       this.a = data.map(e => {

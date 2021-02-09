@@ -71,4 +71,12 @@ export class DatabaseService {
   updateList(list) {
     this.db.doc('shopList/' + list.id).update(list);
   }
+
+  /*Activity*/
+  addNewActivities(listActivities) {
+    return this.db.collection('activityDetails').add(listActivities);
+  }
+  getAllActivities() {
+    return this.db.collection('activityDetails').snapshotChanges();
+  }
 }

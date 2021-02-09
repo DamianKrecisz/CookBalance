@@ -20,6 +20,16 @@ export class AdminGuardService {
     if(this.authService.isLoggedIn !== true) {
       this.router.navigate(['sign-in'])
     }
-    return true;
+    
+    // return true;
+    return this.authService.user$.pipe(
+      take(1),
+      map(user => user && user.roles.admin ? true : false),
+      tap(isAdmin => {
+        if (!isAdmin) {
+          console.error('Access denied - Admins only')
+        }
+      })
+    );
   }
 }

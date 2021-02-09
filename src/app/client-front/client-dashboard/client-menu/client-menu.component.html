@@ -1,4 +1,4 @@
-<button nz-button nzType="primary" nzBlock (click)="showModal()" class="addNewMenu">Dodaj nowy jadłospis</button>
+<button nz-button nzBlock (click)="showModal()" class="addNewMenu">Add new menu</button>
 
 <nz-table #basicTable [nzData]="daysTable">
   <thead>
@@ -26,9 +26,10 @@
   </tbody>
 </nz-table>
 
+<a nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" nzPopconfirmPlacement="bottom"
+  (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="xy()">Zapisz </a>
 <button nz-button nzType="dashed" (click)="downloadListOfAllIngredients()">Pobierz listę wszystkich składników</button>
-<button nz-button nzType="dashed" (click)="saveList()">Zapisz listę</button>
-
+<!-- <button nz-button nzType="dashed" (click)="saveList()">Zapisz listę</button> -->
 <!--
   <ul>
   <li *ngFor="let item of listOfTotalIngredients">{{item.ingredientTitle}} w ilości {{item.ingredientQty}}
@@ -38,17 +39,23 @@
 
 <ul>
   <li *ngFor="let item of activeMenuList; let i = index">
-    <button nz-button nzType="primary" nzBlock (click)="showMenu(i)" class="menu-item">{{item.menuTitle}}</button>
+    <div (click)="showMenu(i)" class="menu-item">
+      <span>
+        {{item.menuTitle}}
+      </span>
+      <div class="overflow-gradient"></div>
+
+    </div>
   </li>
 </ul>
 
-<nz-modal [(nzVisible)]="isVisible" nzTitle="Modal Title" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-  [nzOkLoading]="isOkLoading">
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Create new menu" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
+  [nzOkLoading]="isOkLoading" nzWidth="30vw">
 
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
     <nz-form-item>
-      <nz-form-label> Wpisz tytuł jadłospisu</nz-form-label>
+      <nz-form-label> Menu title</nz-form-label>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group>
           <input formControlName="title" nz-input placeholder="Tytuł" />
@@ -58,7 +65,7 @@
 
 
     <nz-form-item>
-      <nz-form-label> Wpisz ilość tygodni</nz-form-label>
+      <nz-form-label> Please input how many weeks</nz-form-label>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group>
           <input formControlName="qtyDays" nz-input placeholder="max 8" type="number" max="8" />
@@ -67,7 +74,7 @@
     </nz-form-item>
 
     <nz-form-item>
-      <nz-form-label> Wpisz ilość posiłków dziennie</nz-form-label>
+      <nz-form-label> Please input how many meals each day</nz-form-label>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group>
           <input formControlName="qtyMeals" nz-input placeholder="Ilość posiłków" type="number" />

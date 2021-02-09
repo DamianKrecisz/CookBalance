@@ -8,8 +8,8 @@ import { User } from '../interfaces/user';
 export class ClientService {
 
   constructor(public db: AngularFirestore) { }
- 
-  getCurrentClient(client){
+
+  getCurrentClient(client) {
     return this.db.collection('users').doc(client).valueChanges()
   }
   getClients() {
@@ -19,19 +19,30 @@ export class ClientService {
     return this.db.collection('users').add(client);
   }
   updateSexClient(userKey, value) {
-    this.db.doc('users/' + userKey).update({sex: value});  
+    this.db.doc('users/' + userKey).update({ sex: value });
+  }
+  setUserRole(userKey) {
+    this.db.doc('users/' + userKey).update(
+      {
+        roles: {
+          admin: false,
+          user: true
+        }
+      }
+    );
+
   }
   updateWeightClient(userKey, value) {
-    this.db.doc('users/' + userKey).update({weight: value});  
+    this.db.doc('users/' + userKey).update({ weight: value });
   }
   updateHeightClient(userKey, value) {
-    this.db.doc('users/' + userKey).update({height: value});  
+    this.db.doc('users/' + userKey).update({ height: value });
   }
-  updateDateOfBirthdayClient(userKey,value){
-    this.db.doc('users/' + userKey).update({dateOfBirthday:value});
+  updateDateOfBirthdayClient(userKey, value) {
+    this.db.doc('users/' + userKey).update({ dateOfBirthday: value });
   }
-  updateActivityClient(userKey,value){
-    this.db.doc('users/'+userKey).update({activity:value});
+  updateActivityClient(userKey, value) {
+    this.db.doc('users/' + userKey).update({ activity: value });
   }
   deleteClient(policyId: string) {
     this.db.doc('users/' + policyId).delete();

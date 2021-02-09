@@ -1,0 +1,48 @@
+@import "./src/variables.scss";
+
+.list-shopList {
+    list-style-type: none;
+    .single-list {
+        margin-bottom: 2rem;
+        cursor: pointer;
+        width: 50%;
+        height: 5rem;
+        font-size: 2em;
+        background-color: $color-1-opacity;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-radius: 15px;
+        align-items: center;
+        overflow:hidden;
+        span {
+            margin-left: 1rem;
+        }
+        .overflow-gradient {
+            background-color: $color-4;
+            max-width: 20vw;
+            width: 15vw;
+            height: 100vh;
+            transform: rotate(335deg);
+            transition: 0.2s;
+        }
+    }
+    .single-list:hover{
+        .overflow-gradient {
+            max-width: 17vw;
+            width: 17vw;
+            transition: 0.3s  ease-in-out;
+        }
+    }
+}
+
+.list-ingredients{
+    list-style-type:none;
+    overflow-y: scroll;
+    height: 90%;
+    overflow-x: hidden;
+    li{
+       padding:1rem 0;
+        border-bottom: 1px solid lightgrey;
+    }
+}

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -32,6 +34,7 @@ export class ClientMenuComponent implements OnInit {
   idDay
   idMealInDay;
   userID;
+  newListToSend
 
   week = [
     "Poniedziałek",
@@ -47,8 +50,14 @@ export class ClientMenuComponent implements OnInit {
     private fb: FormBuilder,
     private databaseService: DatabaseService,
     public authService: AuthService,
-
+    public db: AngularFirestore,
+    private nzMessageService: NzMessageService
   ) { }
+
+  cancel(): void {
+  }
+
+ 
 
   ngOnInit(): void {
 
@@ -113,23 +122,48 @@ export class ClientMenuComponent implements OnInit {
 
   }
 
+
+  
   saveList() {
 
-    for (let i = 0; this.listOfTotalIngredients.length > i; i++) {
-      this.databaseService.getSingleIngredient(this.listOfTotalIngredients[i].ingredientID).subscribe(data=>{
-        this.listOfTotalIngredients[i].ingredientDetails=data;
-      })
-    }
-
-    let model = {
-      listTitle: this.mealTitle,
-      userID: this.authService.userData.uid,
-      itemList: this.listOfTotalIngredients,
-    }
-    this.databaseService.addNewList(model);
+  
   }
 
+  confirm(): void {
 
+
+    var result = [];
+
+    this.listOfTotalIngredients.forEach(function (a) {
+      if (!this[a.ingredientID]) {
+        this[a.ingredientID] = { ingredientID: a.ingredientID, ingredientQty: 0, checked:false,ingredientDetails:a.ingredientDetails };
+        result.push(this[a.ingredientID]);
+      }
+      this[a.ingredientID].ingredientQty += a.ingredientQty;
+    }, Object.create(null));
+
+    console.log(result);
+
+    // console.log(this.listOfTotalIngredients)
+
+    this.nzMessageService.info('click OK !');
+    this.newListToSend = {
+      listTitle: this.mealTitle,
+      userID: this.authService.userData.uid,
+      itemList: result
+    }
+    // console.log(this.newListToSend)
+    this.databaseService.addNewList(this.newListToSend);
+  }
+
+  xy() {
+    for (let i = 0; this.listOfTotalIngredients.length > i; i++) {
+      this.databaseService.getSingleIngredient(this.listOfTotalIngredients[i].ingredientID).subscribe(data => {
+        this.listOfTotalIngredients[i].ingredientDetails = data
+      })
+    }
+    
+  }
   handleOk(): void {
     this.isOkLoading = true;
     this.createMenu(
