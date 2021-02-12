@@ -21,6 +21,9 @@ export class DatabaseService {
   updateIngredient(ingredient: ingredientsInterface) {
     this.db.doc('ingredients/' + ingredient.id).update(ingredient);
   }
+  deleteIngredient(ingredientId){
+    return this.db.collection('ingredients').doc(ingredientId).delete();
+  }
 
   /* Recipes */
   createRecipe(recipe) {
@@ -34,6 +37,9 @@ export class DatabaseService {
   }
   updateRecipe(recipe) {
     this.db.doc('recipes/' + recipe.id).update(recipe);
+  }
+  deleteRecipe(recipeId) {
+    return this.db.collection('recipes').doc(recipeId).delete()
   }
 
   /* Favorite recipes */

@@ -1,0 +1,19 @@
+
+<ul class="list-shopList">
+    <li *ngFor="let item of shopList;let index = index">
+        <div class="single-list" (click)="showCheckList(item,index)">
+            <span>{{item.listTitle}} </span>
+            
+            <div class="overflow-gradient"></div>
+        </div>
+    </li>
+</ul>
+<ul class="list-ingredients" *ngIf="showList==true">
+    <a nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?" nzPopconfirmPlacement="bottom"
+    (nzOnConfirm)="deleteShopList()" >Usuń listę zakupów</a>
+    <li *ngFor="let item of shopListToDisplay;let index = index">
+        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.ingredientDetails.product }} - {{item.ingredientQty}} {{item.ingredientDetails.unit}}</label>
+
+    </li>
+   
+</ul>

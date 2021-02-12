@@ -12,25 +12,16 @@ import pl from '@angular/common/locales/pl';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from "@angular/fire/auth";
-import { DashboardComponent } from './admin-front/dashboard/dashboard.component';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { StartComponent } from './client-front/start/start.component';
-import { ClientLoginComponent } from './client-front/client-login/client-login.component';
-import { ClientRegisterComponent } from './client-front/client-register/client-register.component';
-import { UserTestComponent } from './client-front/start/user-test/user-test.component';
-import { AdminTestComponent } from './client-front/start/admin-test/admin-test.component';
 import { AuthService } from './services/auth.service';
-import { ClientDashboardComponent } from './client-front/client-dashboard/client-dashboard.component';
-import { ClientMenuComponent } from './client-front/client-dashboard/client-menu/client-menu.component';
-import { ClientDetailsComponent } from './client-front/client-dashboard/client-details/client-details.component';
-import { ClientFavoriteRecipesComponent } from './client-front/client-dashboard/client-favorite-recipes/client-favorite-recipes.component';
-import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
-import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
-import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
-import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
-import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
-import { AdminAddRecipeComponent } from './admin-front/dashboard/admin-add-recipe/admin-add-recipe.component';
-import { DashboardMainPageComponent } from './client-front/client-dashboard/dashboard-main-page/dashboard-main-page.component';
+import { AdminIngredientsComponent } from './pages/dashboard/admin-components/admin-ingredients/admin-ingredients.component';
+import { AdminEditRecipesComponent } from './pages/dashboard/admin-components/admin-edit-recipes/admin-edit-recipes.component';
+import { AdminAddRecipeComponent } from './pages/dashboard/admin-components/admin-add-recipe/admin-add-recipe.component';
+import { LoginRegisterComponent } from './pages/login-register/login-register.component';
+import { MainPageComponent } from './pages/main-page/main-page-page.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardMainPageComponent } from './pages/dashboard/dashboard-main-page/dashboard-main-page.component';
+import { UserModuleModule } from './pages/dashboard/user-components/user-module.module';
 
 registerLocaleData(pl);
 
@@ -38,22 +29,12 @@ registerLocaleData(pl);
   declarations: [
     AppComponent,
     DashboardComponent,
-    StartComponent,
-    ClientLoginComponent,
-    ClientRegisterComponent,
-    UserTestComponent,
-    AdminTestComponent,
-    ClientDashboardComponent,
-    ClientMenuComponent,
-    ClientDetailsComponent,
-    ClientFavoriteRecipesComponent,
-    ClientShopListComponent,
-    ClientBrowseRecipesComponent,
-    ClientSingleRecipesComponent,
     AdminIngredientsComponent,
     AdminEditRecipesComponent,
     AdminAddRecipeComponent,
-    DashboardMainPageComponent
+    DashboardMainPageComponent,
+    LoginRegisterComponent,
+    MainPageComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -67,10 +48,8 @@ registerLocaleData(pl);
     FormsModule,
     ReactiveFormsModule,
     AngularFireAuthModule,
-    
-    AngularFireAuthModule,
     AngularFirestoreModule,
-    ReactiveFormsModule
+    UserModuleModule
   ],
   providers: [AuthService, { provide: NZ_I18N, useValue: pl_PL }],
   bootstrap: [AppComponent]

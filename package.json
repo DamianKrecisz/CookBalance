@@ -20,6 +20,7 @@
     "@angular/platform-browser": "~8.2.14",
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
+    "@swimlane/ngx-charts": "^17.0.0",
     "angular-cli-ghpages": "^0.6.2",
     "angular-rename": "^1.0.7",
     "express": "^4.17.1",

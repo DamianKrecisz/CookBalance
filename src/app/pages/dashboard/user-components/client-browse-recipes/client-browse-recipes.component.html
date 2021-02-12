@@ -1,0 +1,18 @@
+<div nz-row  class="allRecipes" >
+    <div class="single-recipe" *ngFor="let item of listOfData">
+        <!--[routerLink]="['/client-single-recipe', item.id]"-->
+        <!--[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
+        <a (click)="openRecipe(item)">
+
+            <div class="image">
+                <img src="{{item.imgUrl}}" alt="">
+            </div>
+            <span class="title">{{item.title}}</span>
+            <div nz-row class="small-items">
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="clock-circle" nzTheme="outline"></i> {{item.preparationTime}} min</div>
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="pie-chart" nzTheme="outline"></i> {{item.portions}} porcji</div>
+                <div nz-col nzSpan="8" class="small-item"><i nz-icon nzType="dashboard" nzTheme="outline"></i> {{item.difficultLevel}}</div>
+              </div>
+        </a>
+    </div>
+</div>

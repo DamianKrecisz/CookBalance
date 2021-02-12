@@ -1,29 +1,25 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DashboardComponent } from './admin-front/dashboard/dashboard.component';
-import { StartComponent } from './client-front/start/start.component';
-import { ClientLoginComponent } from './client-front/client-login/client-login.component';
-import { ClientRegisterComponent } from './client-front/client-register/client-register.component';
-import { ClientDashboardComponent } from './client-front/client-dashboard/client-dashboard.component';
-import { ClientDetailsComponent } from './client-front/client-dashboard/client-details/client-details.component';
-import { ClientMenuComponent } from './client-front/client-dashboard/client-menu/client-menu.component';
-import { ClientFavoriteRecipesComponent } from './client-front/client-dashboard/client-favorite-recipes/client-favorite-recipes.component';
-import { ClientShopListComponent } from './client-front/client-dashboard/client-shop-list/client-shop-list.component';
-import { AdminIngredientsComponent } from './admin-front/admin-ingredients/admin-ingredients.component';
-import { ClientBrowseRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-browse-recipes.component';
-import { ClientSingleRecipesComponent } from './client-front/client-dashboard/client-browse-recipes/client-single-recipes/client-single-recipes.component';
-import { AdminEditRecipesComponent } from './admin-front/dashboard/admin-edit-recipes/admin-edit-recipes.component';
-import { AdminAddRecipeComponent } from './admin-front/dashboard/admin-add-recipe/admin-add-recipe.component';
-import { DashboardMainPageComponent } from './client-front/client-dashboard/dashboard-main-page/dashboard-main-page.component';
+import { AdminIngredientsComponent } from './pages/dashboard/admin-components/admin-ingredients/admin-ingredients.component';
+import { AdminEditRecipesComponent } from './pages/dashboard/admin-components/admin-edit-recipes/admin-edit-recipes.component';
+import { AdminAddRecipeComponent } from './pages/dashboard/admin-components/admin-add-recipe/admin-add-recipe.component';
+import { AdminGuardService } from './services/admin-guard.service';
+import { LoginRegisterComponent } from './pages/login-register/login-register.component';
+import { MainPageComponent } from './pages/main-page/main-page-page.component';
+import { DashboardMainPageComponent } from './pages/dashboard/dashboard-main-page/dashboard-main-page.component';
+import { ClientSingleRecipesComponent } from './pages/dashboard/user-components/client-single-recipes/client-single-recipes.component';
+import { ClientMenuComponent } from './pages/dashboard/user-components/client-menu/client-menu.component';
+import { ClientDetailsComponent } from './pages/dashboard/user-components/client-details/client-details.component';
+import { ClientFavoriteRecipesComponent } from './pages/dashboard/user-components/client-favorite-recipes/client-favorite-recipes.component';
+import { ClientShopListComponent } from './pages/dashboard/user-components/client-shop-list/client-shop-list.component';
+import { ClientBrowseRecipesComponent } from './pages/dashboard/user-components/client-browse-recipes/client-browse-recipes.component';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/start' },
-  { path: 'start', component: StartComponent },
-  { path: 'login', component: ClientLoginComponent },
-  { path: 'register', component: ClientRegisterComponent },
-  //{ path: 'client-single-recipe/:id', component: ClientSingleRecipesComponent
-  //},
+  { path: 'start', component: MainPageComponent },
+  { path: 'login', component: LoginRegisterComponent },
   {
-    path: 'client-dashboard', component: ClientDashboardComponent,
+    path: 'client-dashboard', component: DashboardComponent, canActivate: [AdminGuardService] ,
     children: [
       {
         path: 'dashboard-main-page',
@@ -83,9 +79,6 @@ const routes: Routes = [
     children: [
     ]
   },
-  //{ path: '**', redirectTo: '/userLogin' },
-
-
 
 ];
 

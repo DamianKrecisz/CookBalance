@@ -5,8 +5,9 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { switchMap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ClientService } from './client.service';
+import { NzNotificationService } from 'ng-zorro-antd';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +16,15 @@ export class AuthService {
   userData: any;
   isLoggedIn: boolean;
   name: any;
+
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
     public router: Router,
     public ngZone: NgZone,
-    public clientService: ClientService
+    public clientService: ClientService,
+    private notification: NzNotificationService
   ) {
-
     this.afAuth.authState.subscribe(user => {
       if (user) {
         this.userData = user;
@@ -41,14 +43,15 @@ export class AuthService {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.isLoggedIn = true;
+        console.log(result)
+        this.createNotification('success', 'Hello '+result.user.email,'Your last login was '+ result.user.metadata.lastSignInTime);
         this.ngZone.run(() => {
           this.router.navigate(['client-dashboard']);
         });
         this.SetUserData(result.user);
       }).catch((error) => {
         this.isLoggedIn = false;
-
-        console.log(error.message)
+        this.createNotification('error', 'Login error',error.message);
       })
   }
 
@@ -56,35 +59,38 @@ export class AuthService {
   SignUp(email, password) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
+        console.log(result.user)
         this.SetUserData(result.user);
         this.isLoggedIn = true;
         this.ngZone.run(() => {
           this.router.navigate(['client-dashboard']);
         });
+        this.createNotification('success',"You have successfully registered!",'Hello '+result.user.email);
       }).catch((error) => {
-        console.log(error.message)
+        this.createNotification('error', 'Register error', error.message)
       })
   }
 
-  verifyPassword(email, password) {
+  verifyPasswordAndDeleteUser(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((result) => {
+      .then(() => {
         var user = this.afAuth.auth.currentUser;
         user.delete();
+        this.createNotification('success',"Success !",'Your account has been successfully deleted');
         localStorage.removeItem('user');
         this.router.navigate(['/']);
       }).catch((error) => {
-        console.log(error.message)
+        this.createNotification('error',"Error !",error.message);
       })
   }
 
   resetPassword(email) {
     this.afAuth.auth.sendPasswordResetEmail(email).then(
-      () => {
-        console.log("success")
+      (result) => {
+        this.createNotification('success', "Success !", 'Your password has been reset');
       },
-      err => {
-        console.log(err);
+      error => {
+        this.createNotification('error', 'Error !', error.message)
       }
     );
 
@@ -96,8 +102,8 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       roles: {
-        user:true,
-        admin:false
+        user: true,
+        admin: false
       }
     }
     return userRef.set(userData, {
@@ -109,9 +115,11 @@ export class AuthService {
     return this.afAuth.auth.signOut().then(() => {
       localStorage.removeItem('user');
       this.router.navigate(['/']);
+      this.createNotification('success', 'Success!', 'Successfully logged out!')
+
     })
   }
- 
+
   /* Auth roles */
   onlyForAdmin(user: User): boolean {
     const allowed = ['admin']
@@ -154,4 +162,13 @@ export class AuthService {
     }
     return false
   }
+
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(
+      type,
+      title,
+      description
+    );
+  }
+
 }

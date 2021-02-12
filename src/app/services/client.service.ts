@@ -21,17 +21,6 @@ export class ClientService {
   updateSexClient(userKey, value) {
     this.db.doc('users/' + userKey).update({ sex: value });
   }
-  setUserRole(userKey) {
-    this.db.doc('users/' + userKey).update(
-      {
-        roles: {
-          admin: false,
-          user: true
-        }
-      }
-    );
-
-  }
   updateWeightClient(userKey, value) {
     this.db.doc('users/' + userKey).update({ weight: value });
   }
@@ -44,7 +33,7 @@ export class ClientService {
   updateActivityClient(userKey, value) {
     this.db.doc('users/' + userKey).update({ activity: value });
   }
-  deleteClient(policyId: string) {
-    this.db.doc('users/' + policyId).delete();
+  deleteClient(userKey: string) {
+    this.db.doc('users/' + userKey).delete();
   }
 }
