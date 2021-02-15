@@ -11,11 +11,11 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./client-menu.component.scss']
 })
 export class ClientMenuComponent implements OnInit {
+  
   listOfRecipes = [];
   listOfIdRecipes = [];
   listOfTotalIngredients = [];
   daysTable = [];
-  yy = [];
 
   validateForm!: FormGroup;
   validateFormAddRecipe!: FormGroup;
@@ -24,6 +24,7 @@ export class ClientMenuComponent implements OnInit {
   isVisibleOpenRecipesSelect = false;
   isOkLoading = false;
   deletedRecipe = false;
+  showTable = false;
 
   activeMenuList: any;
 
@@ -36,7 +37,7 @@ export class ClientMenuComponent implements OnInit {
   userID;
   newListToSend
 
-  week = [
+  listOfDaysInWeek = [
     "Poniedziałek",
     "Wtorek",
     "Środa",
@@ -53,11 +54,6 @@ export class ClientMenuComponent implements OnInit {
     public db: AngularFirestore,
     private nzMessageService: NzMessageService
   ) { }
-
-  cancel(): void {
-  }
-
- 
 
   ngOnInit(): void {
 
@@ -89,10 +85,9 @@ export class ClientMenuComponent implements OnInit {
       })
     })
   }
-  showTable=false;
 
   showMenu(index) {
-    this.showTable=true
+    this.showTable = true
     this.daysTable = this.activeMenuList[index].days;
     this.mealTitle = this.activeMenuList[index].menuTitle;
     this.activeMenuList[index].days.forEach(element => {
@@ -102,12 +97,12 @@ export class ClientMenuComponent implements OnInit {
         }
       });
     });
-    let xx;
+    let tempObject;
 
     this.listOfIdRecipes.forEach(element => {
       this.databaseService.getSingleRecipe(element).subscribe(data => {
-        xx = data;
-        xx.ingredients.forEach(el1 => {
+        tempObject = data;
+        tempObject.ingredients.forEach(el1 => {
           this.listOfTotalIngredients.push({
             ingredientID: el1.ingredient,
             ingredientQty: el1.qty,
@@ -116,11 +111,7 @@ export class ClientMenuComponent implements OnInit {
         });
       })
     });
-    console.log(this.daysTable)
   }
-
-
-
 
   confirm(): void {
 
@@ -128,13 +119,11 @@ export class ClientMenuComponent implements OnInit {
 
     this.listOfTotalIngredients.forEach(function (a) {
       if (!this[a.ingredientID]) {
-        this[a.ingredientID] = { ingredientID: a.ingredientID, ingredientQty: 0, checked:false,ingredientDetails:a.ingredientDetails };
+        this[a.ingredientID] = { ingredientID: a.ingredientID, ingredientQty: 0, checked: false, ingredientDetails: a.ingredientDetails };
         result.push(this[a.ingredientID]);
       }
       this[a.ingredientID].ingredientQty += a.ingredientQty;
     }, Object.create(null));
-
-
 
     this.nzMessageService.info('click OK !');
     this.newListToSend = {
@@ -145,14 +134,15 @@ export class ClientMenuComponent implements OnInit {
     this.databaseService.addNewList(this.newListToSend);
   }
 
-  xy() {
+  saveList() {
     for (let i = 0; this.listOfTotalIngredients.length > i; i++) {
       this.databaseService.getSingleIngredient(this.listOfTotalIngredients[i].ingredientID).subscribe(data => {
         this.listOfTotalIngredients[i].ingredientDetails = data
       })
     }
-    
+
   }
+
   handleOk(): void {
     this.isOkLoading = true;
     this.createMenu(
@@ -180,62 +170,59 @@ export class ClientMenuComponent implements OnInit {
   }
 
   createMenu(title, qtyDays, qtyMeals) {
-    let dayss = [];
-    let meals = [];
+    let tempArrayDays = [];
+    let tempArrayMeals = [];
     for (let i = 0; i < qtyMeals; i++) {
-      meals.push({
+      tempArrayMeals.push({
         mealTitle: '',
         mealID: '',
       })
     }
     for (let i = 0; i < qtyDays; i++) {
-      dayss.push({
-        day: this.week[i],
+      tempArrayDays.push({
+        day: this.listOfDaysInWeek[i],
         allMeals: {
-          meals
+          tempArrayMeals
         }
       })
     }
-    let menu = {
+    let menuToUpdate = {
       userID: this.authService.userData.uid,
       menuTitle: title,
-      days: dayss
+      days: tempArrayDays
     }
-    this.databaseService.addNewMenu(menu);
+    this.databaseService.addNewMenu(menuToUpdate);
   }
 
   openRecipesSelect(item, daysIndex, mealInDayIndex, editing) {
 
     this.idDay = daysIndex;
     this.idMealInDay = mealInDayIndex;
-
     this.day = item.day;
     this.mealID = this.daysTable[this.idDay].allMeals.meals[this.idMealInDay].mealID;
     this.mealTitle = this.daysTable[this.idDay].allMeals.meals[this.idMealInDay].mealID;
+
     if (this.mealID == '' || editing == 'editing') {
       this.isVisibleOpenRecipesSelect = true;
     }
 
   }
 
-
   updateRecipes() {
 
     this.mealID = this.validateFormAddRecipe.value.selectToUpdate;
-    let xx = [];
-    xx.push(this.activeMenuList[0])
+    let tempArray = [];
+    tempArray.push(this.activeMenuList[0])
     let titleMenu;
     this.databaseService.getSingleRecipe(this.mealID).subscribe(data => {
       titleMenu = data;
-      xx[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = titleMenu.title;
-      xx[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = this.mealID;
-      this.databaseService.updateMenu(xx[0]);
+      tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = titleMenu.title;
+      tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = this.mealID;
+      this.databaseService.updateMenu(tempArray[0]);
     })
 
-
-
     this.validateFormAddRecipe.reset();
-    this.daysTable = xx[0].days;
+    this.daysTable = tempArray[0].days;
 
   }
 
@@ -244,19 +231,18 @@ export class ClientMenuComponent implements OnInit {
     this.idDay = daysIndex;
     this.idMealInDay = mealInDayIndex;
 
-    let xy = [];
-    xy.push(this.activeMenuList[0])
-    xy[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = '';
-    xy[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = '';
+    let tempArray = [];
+    tempArray.push(this.activeMenuList[0])
+    tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = '';
+    tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = '';
 
-    this.daysTable = xy[0].days;
-    this.databaseService.updateMenu(xy[0]);
+    this.daysTable = tempArray[0].days;
+    this.databaseService.updateMenu(tempArray[0]);
     this.deletedRecipe = true;
     setTimeout(function () {
       this.deletedRecipe = false;
     }, 1500);
 
   }
-
 
 }

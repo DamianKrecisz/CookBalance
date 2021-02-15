@@ -1,10 +1,8 @@
-<div class="container">
-  <!-- <img src="../../../assets/img/logo.svg" alt="logo" class="logo"> -->
-
+<!-- <div class="container">
 
   <div class="registerContainer">
-
     <form nz-form [formGroup]="registerForm" class="register-form" >
+      <h2>Register</h2>
 
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your e-mail address">
@@ -32,12 +30,10 @@
     </form>
 
   </div>
-  <!-- <div class="box-container">
-    
-  </div> -->
+ 
   <div class="loginContainer">
-
-    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+    <form nz-form [formGroup]="loginForm" class="login-form">
+      <h2>Login</h2>
       <nz-form-item>
         <nz-form-control nzErrorTip="Please input your username!">
           <nz-input-group nzPrefixIcon="user">
@@ -63,5 +59,68 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+
+  </div>
+
+</div> -->
+
+<div class="main">
+
+
+  <div class="container" id="container" [ngClass]="{'right-panel-active': rightPanelActive === true}"  >
+    <div class="form-container sign-up-container">
+      <form [formGroup]="registerForm">
+        <h1>Create Account</h1>
+        <div class="social-container">
+          <button class="social" (click)="authService.FacebookAuth()"><i nz-icon nzType="facebook" nzTheme="outline"></i></button>
+          <button class="social" (click)="authService.GoogleAuth()"><i nz-icon nzType="google-plus" nzTheme="outline"></i></button>
+          <button class="social"><i nz-icon nzType="linkedin" nzTheme="outline"></i></button>
+        </div>
+        <span>or use your email for registration</span>
+        <input type="text" placeholder="Name" />
+        <input type="email" placeholder="Email" formControlName="usernameRegister"/>
+        <input type="password" placeholder="Password" formControlName="passwordRegister"/>
+        
+
+        <button (click)="authService.SignUp(usernameRegister.value, passwordRegister.value)">Sign Up</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form [formGroup]="loginForm" class="login-form">
+        <h1>Sign in</h1>
+        <div class="social-container">
+          <button class="social" (click)="authService.FacebookAuth()"><i nz-icon nzType="facebook" nzTheme="outline"></i></button>
+          <button class="social" (click)="authService.GoogleAuth()"><i nz-icon nzType="google-plus" nzTheme="outline"></i></button>
+          <button class="social"><i nz-icon nzType="linkedin" nzTheme="outline"></i></button>
+        </div>
+        <span>or use your account</span>
+        <input type="email" placeholder="Email" formControlName="userName"  />
+        <input type="password" placeholder="Password"formControlName="password"   />
+        <!-- (click)="authService.SignIn(userName.value, password.value)" -->
+        <button type="submit" (click)="authService.SignIn(loginForm.value.userName, loginForm.value.password)">Sign In</button>
+      </form>
+    </div>
+    <div class="overlay-container" >
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <button class="ghost" id="signIn"(click)="changeMethodVisible()">Sign In</button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signUp" (click)="changeMethodVisible()">Sign Up</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <b> Follow me on </b>
+    <div class="icons">
+      <a href="https://github.com/DamianKrecisz" target="_blank" class="social"><i nz-icon nzType="github" nzTheme="outline"></i></a>
+      <a href="https://www.linkedin.com/in/damiankrecisz/" target="_blank" class="social"><i nz-icon nzType="linkedin" nzTheme="outline"></i></a>
+    </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 <div nz-row  class="allRecipes" >
-    <div nz-col nzSpan="7" *ngFor="let item of listOfFavoriteRecipes">
+    <div nz-col nzSpan="7" *ngFor="let item of listOfUserFavoriteRecipes">
         <!--[routerLink]="['/client-single-recipe', item.id]"-->
         <!--[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
-        <a (click)="send(item)">
+        <a (click)="openRecipe(item)">
 
             <div class="image">
                 <img src="{{item.imgUrl}}" alt="">

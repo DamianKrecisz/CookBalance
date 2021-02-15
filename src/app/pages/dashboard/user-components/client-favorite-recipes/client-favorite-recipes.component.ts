@@ -9,21 +9,20 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ClientFavoriteRecipesComponent implements OnInit {
 
-  a: any = [];
+  listOfAllFavoriteRecipes: any = [];
 
-  listOfFavoriteRecipes: any = [];
+  listOfUserFavoriteRecipes: any = [];
 
   constructor(
     public databaseService: DatabaseService,
     private router: Router,
     public authService: AuthService,
-
   ) { }
 
   ngOnInit(): void {
 
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
-      this.a = data.map(e => {
+      this.listOfAllFavoriteRecipes = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object
@@ -31,12 +30,12 @@ export class ClientFavoriteRecipesComponent implements OnInit {
       })
 
 
-      this.a.forEach(element => {
+      this.listOfAllFavoriteRecipes.forEach(element => {
         if (element.userId == this.authService.userData.uid) {
           for (let i = 0; i < element.recipes.length; i++) {
             this.databaseService.getSingleRecipe(element.recipes[i]).subscribe(data => {
               var obj = Object.assign(data, { "id": element.recipes[i] });
-              this.listOfFavoriteRecipes.push(obj);
+              this.listOfUserFavoriteRecipes.push(obj);
             });
           }
         }
@@ -46,10 +45,9 @@ export class ClientFavoriteRecipesComponent implements OnInit {
 
   }
 
-  send(e) {
+  openRecipe(e) {
     const url = '/client-dashboard/(clientDashboardOutlet:client-single-recipe/' + e.id + ')';
     this.router.navigateByUrl(url);
   }
-
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NzNotificationService } from 'ng-zorro-antd';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -14,19 +15,18 @@ export class ClientSingleRecipesComponent implements OnInit {
   recipe: any;
   recipeId: any;
   newItem: any[] = [];
-  a: any;
-  b: any;
+  ingredients: any[] = [];
+
+  listOfAllFavoriteRecipes: any;
   showAddToFavorite = false;
   showDeleteFromFavorite = false;
 
-  showAddToFavoriteAlert = false;
-  showDeleteFromFavoriteAlert = false;
-  ingredients: any = [];
   constructor(
     public databaseService: DatabaseService,
     private route: ActivatedRoute,
     private router: Router,
     public authService: AuthService,
+    private notification: NzNotificationService
 
   ) { }
 
@@ -44,74 +44,37 @@ export class ClientSingleRecipesComponent implements OnInit {
       })
     });
 
-    this.favorireRecipes();
+    this.getUserFavoriteRecipes();
 
   }
 
-  favorireRecipes() {
+  getUserFavoriteRecipes() {
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
-      this.a = data.map(e => {
+      this.listOfAllFavoriteRecipes = data.map(e => {
         return {
           id: e.payload.doc.id,
-          ...e.payload.doc.data()  as Object
+          ...e.payload.doc.data() as Object
         }
       })
 
-      if (this.a.length == 0) {
+      if (this.listOfAllFavoriteRecipes.length == 0) {
         this.showAddToFavorite = true;
         this.showDeleteFromFavorite = false;
       }
 
-      this.a.forEach(element => {
+      this.listOfAllFavoriteRecipes.forEach(element => {
 
         if (element.userId == this.authService.userData.uid) {
           if ((element.recipes).indexOf(this.recipeId) > -1) {
-
             this.showAddToFavorite = false;
             this.showDeleteFromFavorite = true;
-
-
           } else {
-
             this.showAddToFavorite = true;
             this.showDeleteFromFavorite = false;
-
-          }
-        } else {
-
-        }
-      });
-    })
-
-
-    this.databaseService.getAllFavoriteRecipes().subscribe(data => {
-      this.b = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data()  as Object
-        }
-      })
-      this.b.forEach(element => {
-
-        if (element.userId == this.authService.userData.uid && element.recipes != this.recipeId) {
-          if ((element.recipes).indexOf(this.recipeId) > -1) {
-
-            this.showAddToFavorite = false;
-            this.showDeleteFromFavorite = true;
-
-
-          } else {
-
-            this.showAddToFavorite = true;
-            this.showDeleteFromFavorite = false;
-
           }
         }
       });
     })
-
-
-
   }
 
   backToAllRecipes() {
@@ -121,7 +84,7 @@ export class ClientSingleRecipesComponent implements OnInit {
 
   addToFavorite() {
     this.databaseService.getAllFavoriteRecipes().subscribe(data => {
-      this.a = data.map(e => {
+      this.listOfAllFavoriteRecipes = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object
@@ -129,62 +92,40 @@ export class ClientSingleRecipesComponent implements OnInit {
       })
     })
 
-    if (this.a.length == 0) {
+    if (this.listOfAllFavoriteRecipes.length == 0) {
 
 
-      let element = {
+      let tempObject = {
         userId: this.authService.userData.uid,
         recipes: []
       }
 
-      element.recipes.push(this.recipeId)
-      this.databaseService.addFavoriteRecipe(element);
-      this.showAddToFavoriteAlert = true;
+      tempObject.recipes.push(this.recipeId)
+      this.createNotification('success', 'Success!', 'Item has been successfully added to your favorites')
+
+      this.databaseService.addFavoriteRecipe(tempObject);
       this.showAddToFavorite = false;
       this.showDeleteFromFavorite = true;
-
-      setTimeout(() => {
-        this.showAddToFavoriteAlert = false;
-      }, 1000);
-
     }
 
-    this.a.forEach(element => {
+    this.listOfAllFavoriteRecipes.forEach(element => {
 
       if (element.userId == this.authService.userData.uid) {
-        if ((element.recipes).indexOf(this.recipeId) > -1) {
-
-        } else {
-
-
+        if (((element.recipes).indexOf(this.recipeId) > -1) == false) {
           element.recipes.push(this.recipeId);
+          console.log(element)
           this.databaseService.updateFavoriteRecipe(element);
-
+          this.createNotification('success', 'Success!', 'Item has been successfully added to your favorites')
           this.showAddToFavorite = false;
           this.showDeleteFromFavorite = true;
-
-          this.showAddToFavoriteAlert = true;
-
-          setTimeout(() => {
-            this.showAddToFavoriteAlert = false;
-          }, 1000);
-
         }
       }
     });
   }
 
-  deleteFromFavorite(recipe) {
-    this.databaseService.getAllFavoriteRecipes().subscribe(data => {
-      this.b = data.map(e => {
-        return {
-          id: e.payload.doc.id,
-          ...e.payload.doc.data() as Object
-        }
-      })
-    })
+  deleteFromFavorite() {
 
-    this.b.forEach(el => {
+    this.listOfAllFavoriteRecipes.forEach(el => {
       if (el.userId == this.authService.userData.uid) {
         el.recipes.forEach((element, index) => {
 
@@ -193,16 +134,16 @@ export class ClientSingleRecipesComponent implements OnInit {
             this.databaseService.updateFavoriteRecipe(el);
             this.showAddToFavorite = true;
             this.showDeleteFromFavorite = false;
-            this.showDeleteFromFavoriteAlert = true;
-            setTimeout(() => {
-              this.showDeleteFromFavoriteAlert = false;
-            }, 1000);
+
           }
         });
-
       }
     });
+    this.createNotification('success', 'Success!', 'Item has been successfully removed from favorites')
   }
 
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(type, title, description);
+  }
 
 }

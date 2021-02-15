@@ -11,55 +11,53 @@ import { DatabaseService } from 'src/app/services/database.service';
 export class AdminIngredientsComponent implements OnInit {
 
   validateForm!: FormGroup;
+  editCache: { [key: string]: { edit: boolean; data: ingredientsInterface } } = {};
+  listOfAllIngredients = [];
 
   constructor(
     public databaseService: DatabaseService,
-    private fb: FormBuilder
+    private formBuilder: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.validateForm = this.fb.group({
+
+    this.validateForm = this.formBuilder.group({
       product: [null, [Validators.required]],
       unit: [null, [Validators.required]]
-
     });
+
     this.databaseService.getAllIngredients().subscribe(data => {
-      this.listOfData = data.map(e => {
+      this.listOfAllIngredients = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object
-        } 
+        }
       })
       this.updateEditCache();
     })
   }
-
-  /*------------------------------------------*/
-
-  editCache: { [key: string]: { edit: boolean; data: ingredientsInterface } } = {};
-  listOfData=[];
 
   startEdit(id: string): void {
     this.editCache[id].edit = true;
   }
 
   cancelEdit(id: string): void {
-    const index = this.listOfData.findIndex(item => item.id === id);
+    const index = this.listOfAllIngredients.findIndex(item => item.id === id);
     this.editCache[id] = {
-      data: { ...this.listOfData[index] },
+      data: { ...this.listOfAllIngredients[index] },
       edit: false
     };
   }
 
   saveEdit(id: string): void {
-    const index = this.listOfData.findIndex(item => item.id === id);
-    Object.assign(this.listOfData[index], this.editCache[id].data);
+    const index = this.listOfAllIngredients.findIndex(item => item.id === id);
+    Object.assign(this.listOfAllIngredients[index], this.editCache[id].data);
     this.editCache[id].edit = false;
     this.databaseService.updateIngredient(this.editCache[id].data);
   }
 
   updateEditCache(): void {
-    this.listOfData.forEach(item => {
+    this.listOfAllIngredients.forEach(item => {
       this.editCache[item.id] = {
         edit: false,
         data: { ...item }
@@ -67,11 +65,7 @@ export class AdminIngredientsComponent implements OnInit {
     });
   }
 
-  
-
-
-  /*-------------------------------------------*/
-  submitForm(): void {
+  sendNewIngredient(): void {
     for (const i in this.validateForm.controls) {
       this.validateForm.controls[i].markAsDirty();
       this.validateForm.controls[i].updateValueAndValidity();
@@ -79,22 +73,20 @@ export class AdminIngredientsComponent implements OnInit {
     this.databaseService.createIngredients(this.validateForm.value);
     this.validateForm.reset();
   }
-  search(e): void {
+
+  searchExistingIngredient(e): void {
     if (e == '') {
       this.databaseService.getAllIngredients().subscribe(data => {
-        this.listOfData = data.map(e => {
+        this.listOfAllIngredients = data.map(e => {
           return {
             id: e.payload.doc.id,
             ...e.payload.doc.data() as Object
-          } 
+          }
         })
-  
+
       })
     } else {
-      this.listOfData = this.listOfData.filter(
-        item => item.product.indexOf(e) !== -1
-      );
-
+      this.listOfAllIngredients = this.listOfAllIngredients.filter(item => item.product.indexOf(e) !== -1);
     }
   }
 }

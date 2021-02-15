@@ -99,30 +99,96 @@ nz-alert {
     position: fixed;
     bottom: 3em;
     width: 85%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    @include respond-below(sm) {
+        bottom:0;
+        .check-website{
+            margin-top: 1rem;
+        }
+        position: relative !important;
+        flex-direction: column !important;
+        width: 100%;
+        .favoritesActions{
+            width: 100%;
+            i{
+                margin-left: 5px;
+            }
+            .deleteFromFavorite,
+            .addToFavorite, 
+            button{
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
 }
-.check-website{
-    display:flex;
+.check-website {
+    display: flex;
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
 
-    a{
+    a {
         display: flex;
         flex-direction: row;
         align-items: center;
         margin-left: 1rem;
         background-color: $text-color;
-
     }
-    .logo-lidl{
+    .logo-lidl {
         height: 5em;
     }
-    .logo-lidl-text{
+    .logo-lidl-text {
         height: 100%;
         text-transform: uppercase;
-        color:white;
+        color: white;
         margin-left: -1px;
         padding-left: 5px;
         font-size: 1em;
+    }
+}
+
+.first-row {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    @include respond-below(sm) {
+        h2{
+        }
+        flex-direction: column-reverse;
+        ul{
+            padding:1rem !important;
+        }
+        .small-items {
+            flex-direction: column;
+            .small-item {
+                width: 100%;
+            }
+        }
+        flex-direction: column-reverse;
+        .ingredients-row {
+            width: 100% !important;
+        }
+        .steps {
+            margin-top: 1rem ;
+
+            width: 100% !important;
+        }
+        .image {
+            margin-left: 0% !important;
+            width: 100% !important;
+        }
+    }
+    .ingredients-row {
+    }
+    .steps {
+        width: 30%;
+    }
+    .image {
+        margin-left: 5%;
+        width: 45%;
     }
 }

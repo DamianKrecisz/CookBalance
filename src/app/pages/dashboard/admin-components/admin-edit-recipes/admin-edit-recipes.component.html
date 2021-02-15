@@ -5,9 +5,9 @@
 
 
 <h1>Select a recipe to edit</h1>
-<div *ngIf="listOfData">
+<div *ngIf="listOfAllRecipes">
     <ul>
-        <div *ngFor="let item of listOfData">
+        <div *ngFor="let item of listOfAllRecipes">
             <li>
                 <span (click)="startEdit(item)">
                     {{item.title}}
@@ -17,7 +17,7 @@
     </ul>
 </div>
 
-<nz-modal [(nzVisible)]="isVisibleShow" nzTitle="You are editing {{itemToEdit.title}}" (nzOnCancel)="handleCancelShow()"
+<nz-modal [(nzVisible)]="isVisibleEditing" nzTitle="You are editing {{itemToEdit.title}}" (nzOnCancel)="handleCancelShow()"
     (nzOnOk)="handleOk()" nzWidth="80vw" [nzStyle]="{ top: '2vh' }">
 
 
@@ -27,35 +27,30 @@
             <div class="itemToClickToEdit" (click)="editItem('title',itemToEdit.title)">
                 {{itemToEdit.title}}
             </div>
-            <!-- <button nz-button nzType="dashed" (click)="editItem('title',itemToEdit.title)">Edit</button> -->
         </div>
         <div class="item">
             <div class="item-title"><strong>Link to image:</strong></div>
             <div class="itemToClickToEdit" (click)="editItem('imgUrl',itemToEdit.imgUrl)">
                 {{itemToEdit.imgUrl}}
             </div>
-            <!-- <button nz-button nzType="dashed" (click)="editItem('imgUrl',itemToEdit.imgUrl)">Edit</button> -->
         </div>
         <div class="item">
             <div class="item-title"><strong>Preparation time (min):</strong></div>
             <div class="itemToClickToEdit" (click)="editItem('preparationTime',itemToEdit.preparationTime)">
                 {{itemToEdit.preparationTime}}
             </div>
-            <!-- <button nz-button nzType="dashed" (click)="editItem('preparationTime',itemToEdit.preparationTime)">Edit</button> -->
         </div>
         <div class="item">
             <div class="item-title"><strong>Difficult level:</strong></div>
             <div class="itemToClickToEdit" (click)="editItem('difficultLevel',itemToEdit.difficultLevel)">
                 {{itemToEdit.difficultLevel}}
             </div>
-            <!-- <button nz-button nzType="dashed" (click)="editItem('difficultLevel',itemToEdit.difficultLevel)">Edit</button> -->
         </div>
         <div class="item">
             <div class="item-title"><strong>Portions:</strong></div>
             <div class="itemToClickToEdit" (click)="editItem('portions',itemToEdit.portions)">
                 {{itemToEdit.portions}}
             </div>
-            <!-- <button nz-button nzType="dashed" (click)="editItem('portions',itemToEdit.portions)">Edit</button> -->
         </div>
         <div class="item">
             <div class="item-title"><strong>Url:</strong></div>
@@ -127,14 +122,14 @@
     <input *ngIf="showNumberField" nz-input placeholder="Field accept only number" type="number" [(ngModel)]="numberToUpdate" />
 
     <nz-select *ngIf="showIngredientField" nzShowSearch nzAllowClear nzPlaceHolder="Choose ingredient"
-        class="passenger-input" [(ngModel)]="selectToUpdate">
+        class="width-100" [(ngModel)]="selectToUpdate">
         <nz-option *ngFor="let ingredient of listOfIngredients " nzValue="{{ingredient.id}}"
             nzLabel="{{ingredient.id}} - {{ingredient.product}} - jednostka: {{ingredient.unit}}">
         </nz-option>
     </nz-select>
 
 
-    <nz-select *ngIf="showDifficultLevelField" nzPlaceHolder="Lower is easier" id="difficultLevel" class="passenger-input"
+    <nz-select *ngIf="showDifficultLevelField" nzPlaceHolder="Lower is easier" id="difficultLevel" class="width-100"
         [(ngModel)]="difficultLevelToUpdate">
         <nz-option nzValue="1/5" nzLabel="1/5"></nz-option>
         <nz-option nzValue="2/5" nzLabel="2/5"></nz-option>

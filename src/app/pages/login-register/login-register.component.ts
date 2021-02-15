@@ -9,14 +9,11 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginRegisterComponent implements OnInit {
 
-  validateForm: FormGroup;
+  loginForm: FormGroup;
   registerForm: FormGroup;
-  submitForm(): void {
-    for (const i in this.validateForm.controls) {
-      this.validateForm.controls[i].markAsDirty();
-      this.validateForm.controls[i].updateValueAndValidity();
-    }
-  }
+
+  rightPanelActive: boolean = false;
+
 
   constructor(
     public authService: AuthService,
@@ -24,10 +21,10 @@ export class LoginRegisterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
+
+    this.loginForm = this.fb.group({
       userName: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      remember: [true]
+      password: [null, [Validators.required]]
     });
     this.registerForm = this.fb.group({
       usernameRegister: [null, [Validators.required]],
@@ -35,6 +32,12 @@ export class LoginRegisterComponent implements OnInit {
     });
   }
 
+  changeMethodVisible() {
+    if (this.rightPanelActive == false) {
+      this.rightPanelActive = true;
+    } else {
+      this.rightPanelActive = false;
+    }
+  }
 
-  
 }

@@ -22,6 +22,7 @@ import { MainPageComponent } from './pages/main-page/main-page-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { DashboardMainPageComponent } from './pages/dashboard/dashboard-main-page/dashboard-main-page.component';
 import { UserModuleModule } from './pages/dashboard/user-components/user-module.module';
+import { AdminModuleModule } from './pages/dashboard/admin-components/admin-module.module';
 
 registerLocaleData(pl);
 
@@ -29,9 +30,6 @@ registerLocaleData(pl);
   declarations: [
     AppComponent,
     DashboardComponent,
-    AdminIngredientsComponent,
-    AdminEditRecipesComponent,
-    AdminAddRecipeComponent,
     DashboardMainPageComponent,
     LoginRegisterComponent,
     MainPageComponent
@@ -49,7 +47,8 @@ registerLocaleData(pl);
     ReactiveFormsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
-    UserModuleModule
+    UserModuleModule,
+    AdminModuleModule
   ],
   providers: [AuthService, { provide: NZ_I18N, useValue: pl_PL }],
   bootstrap: [AppComponent]

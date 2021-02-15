@@ -14,8 +14,8 @@ export class ClientShopListComponent implements OnInit {
   shopListTemp;
   shopListToDisplay = [];
   itemToDisplay;
-  xy;
   showList = false;
+
   constructor(
     private databaseService: DatabaseService,
     private authService: AuthService,
@@ -70,7 +70,6 @@ export class ClientShopListComponent implements OnInit {
     }
     (this.itemToDisplay.itemList).sort(this.dynamicSort("checked"))
     elementToUpdate = this.itemToDisplay;
-    console.log(this.itemToDisplay)
     this.databaseService.updateList(elementToUpdate);
   }
 

@@ -33,7 +33,6 @@ export class ClientDetailsComponent implements OnInit {
   isVisibleHeight = false;
   isVisibleDateOfBirthday = false;
   isVisibleActivity = false;
-  listOfData = [];
   bmi;
   bmi_description;
   calories;
@@ -57,9 +56,10 @@ export class ClientDetailsComponent implements OnInit {
       this.weight = data.weight;
       this.height = data.height;
     })
-    const myData = JSON.parse(localStorage.getItem('user'));
+
+    const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
     let dataTemp;
-    this.clientService.getCurrentClient(myData.uid).subscribe(data => {
+    this.clientService.getCurrentClient(userFromLocalStorage.uid).subscribe(data => {
       dataTemp=data;
       this.uid = dataTemp.uid;
       this.email = dataTemp.email;
@@ -159,7 +159,7 @@ export class ClientDetailsComponent implements OnInit {
 
   confirmChangePassword(): void {
     this.nzMessageService.success('Reset link are send to your e-mail addres');
-    //this.authService.resetPassword(this.authService.userData.email);
+    this.authService.resetPassword(this.authService.userData.email);
   }
   showModalDeleteAccount() {
     this.isVisibleDeleteAccount = true;

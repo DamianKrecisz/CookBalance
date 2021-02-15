@@ -3,14 +3,16 @@
 .single-meal {
     width: 100%;
     margin-bottom: 5px;
+    @include respond-below(sm) {
+        min-width: 60vw;
+        overflow-x: hidden;
+    }
 }
 ul {
     list-style-type: none;
     padding: 0;
     margin-top: 1rem;
-}
-th {
-    text-align: center;
+   
 }
 .addNewMenu {
     margin-bottom: 15px;
@@ -24,6 +26,7 @@ th {
 li {
     display: flex;
     align-items: center;
+    margin-bottom: 1rem;
     i {
         margin: 0 10px;
     }
@@ -34,6 +37,12 @@ li {
     }
 }
 .menu-item {
+    @include respond-below(sm) {
+       width: 100% !important;   
+       span{
+           font-size: 0.6em;
+       }
+      }
     cursor: pointer;
     width: 50%;
     height: 5rem;
@@ -68,7 +77,6 @@ li {
 .container-days {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     flex-wrap: wrap;
     .single-day {
         border: 1px solid lightgrey;
@@ -76,6 +84,7 @@ li {
         border-radius: 5px;
         min-width: 10vw;
         margin-top: 1rem;
+        margin-right: 1rem;
         .day-title{
             border-bottom: 1px solid lightgrey;
             padding-bottom: 1rem;
@@ -86,5 +95,16 @@ li {
     }
 }
 .saveList{
-    margin-top: 1rem;
+    button{
+        margin:1rem 0;
+    }
+    @include respond-below(sm) {
+        width: 100%;
+    }
+}
+
+.ant-modal{
+    @include respond-below(sm) {
+       width: 90vw !important;
+    } 
 }

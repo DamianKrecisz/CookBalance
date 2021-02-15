@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd';
 import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
@@ -9,77 +10,64 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AdminAddRecipeComponent implements OnInit {
 
- 
+
   validateForm!: FormGroup;
-  listOfControl: Array<{ id: number; ingredient: string}> = [];
+  listOfControlIngredient: Array<{ id: number; ingredient: string }> = [];
   listOfControlStep: Array<{ id: number; step: string }> = [];
   listOfControlQty: Array<{ id: number; qty: string }> = [];
 
-  a: Array<any> = [];
-  b: Array<any> = [];
-  c: Array<any> = [];
-  d: Array<any> = [];
-  listOfData: [] = [];
+  listOfIngredientsID: Array<any> = [];
+  listOfStep: Array<any> = [];
+  listOfQtyIngredient: Array<any> = [];
+  listOfIngredientsToSend: Array<any> = [];
   listOfIngredients = [];
-  selectedValue = null;
-  showSuccessAlert=false;
+  showSuccessAlert = false;
 
-  constructor(     
+  constructor(
     public databaseService: DatabaseService,
-    private fb: FormBuilder
-    ) { }
+    private formBuilder: FormBuilder,
+    private notification: NzNotificationService
+  ) { }
 
   ngOnInit(): void {
-    this.validateForm = this.fb.group({
+    this.validateForm = this.formBuilder.group({
       title: [null, [Validators.required]],
       difficultLevel: [null, [Validators.required]],
       portions: [null, [Validators.required]],
       imgUrl: [null, [Validators.required]],
-      url: [null, [Validators.required]], 
-      preparationTime: [null, [Validators.required]], 
+      url: [null, [Validators.required]],
+      preparationTime: [null, [Validators.required]],
     });
 
-    
     this.databaseService.getAllIngredients().subscribe(data => {
       this.listOfIngredients = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object
-        } 
+        }
       })
     })
 
-    this.addField();
+    this.addFieldIngredient();
     this.addFieldStep();
   }
 
-  isVisible = false;
-  isOkLoading = false;
+  addNewRecipe(): void {
 
-  showModal(): void {
-    this.isVisible = true;
-  }
-
-  handleCancel(): void {
-    this.isVisible = false;
-  }
-
-  submitForm(): void {
-    
     for (let [key, value] of Object.entries(this.validateForm.value)) {
       if (key.includes("ingredient")) {
-        this.a.push(value);
+        this.listOfIngredientsID.push(value);
       }
     }
-    
+
     for (let [key, value] of Object.entries(this.validateForm.value)) {
       if (key.includes("step")) {
-        this.b.push(value);
+        this.listOfStep.push(value);
       }
     }
     for (let [key, value] of Object.entries(this.validateForm.value)) {
       if (key.includes("qty")) {
-        this.c.push(value);
+        this.listOfQtyIngredient.push(value);
       }
     }
 
@@ -88,40 +76,36 @@ export class AdminAddRecipeComponent implements OnInit {
       this.validateForm.controls[i].updateValueAndValidity();
     }
 
-    for( let i=0;i<this.a.length;i++){
-      let ABC = {
-        ingredient:this.a[i],
-        qty:this.c[i],
+    for (let i = 0; i < this.listOfIngredientsID.length; i++) {
+      let modelOfIngredient = {
+        ingredient: this.listOfIngredientsID[i],
+        qty: this.listOfQtyIngredient[i],
       }
-      this.d.push(ABC)
+      this.listOfIngredientsToSend.push(modelOfIngredient)
     }
-    let model = {
+    let modelToSend = {
       title: this.validateForm.value.title,
       difficultLevel: this.validateForm.value.difficultLevel,
       portions: this.validateForm.value.portions,
       imgUrl: this.validateForm.value.imgUrl,
       preparationTime: this.validateForm.value.preparationTime,
       url: this.validateForm.value.url,
-      ingredients: this.d,
-      steps: this.b
+      ingredients: this.listOfIngredientsToSend,
+      steps: this.listOfStep
     }
 
-    this.databaseService.createRecipe(model);
-    this.showSuccessAlert=true;
+    this.databaseService.createRecipe(modelToSend);
+    this.showSuccessAlert = true;
     this.validateForm.reset();
-    this.isOkLoading = true;
-    setTimeout(() => {
-      this.isVisible = false;
-      this.isOkLoading = false;
-      this.showSuccessAlert=false;
-    }, 1500);
+
+    this.createNotification('success', 'Succes!', 'New recipe has been sent to the database')
   }
 
-  addField(e?: MouseEvent): void {
+  addFieldIngredient(e?: MouseEvent): void {
     if (e) {
       e.preventDefault();
     }
-    const id = this.listOfControl.length > 0 ? this.listOfControl[this.listOfControl.length - 1].id + 1 : 0;
+    const id = this.listOfControlIngredient.length > 0 ? this.listOfControlIngredient[this.listOfControlIngredient.length - 1].id + 1 : 0;
     const control = {
       id,
       ingredient: `ingredient-${id}`
@@ -130,29 +114,25 @@ export class AdminAddRecipeComponent implements OnInit {
       id,
       qty: `qty-${id}`
     };
-    const index = this.listOfControl.push(control);
+    const index = this.listOfControlIngredient.push(control);
     this.listOfControlQty.push(controlQty);
 
-    this.validateForm.addControl(this.listOfControl[index - 1].ingredient, new FormControl(null, Validators.required));
+    this.validateForm.addControl(this.listOfControlIngredient[index - 1].ingredient, new FormControl(null, Validators.required));
     this.validateForm.addControl(this.listOfControlQty[index - 1].qty, new FormControl(null, Validators.required));
-
-
 
   }
 
-  removeField(i: { id: number; ingredient: string},e: MouseEvent): void {
-    if (this.listOfControl.length > 1) {
-      const index = this.listOfControl.indexOf(i);
+  removeField(i: { id: number; ingredient: string }, e: MouseEvent): void {
+    if (this.listOfControlIngredient.length > 1) {
+      const index = this.listOfControlIngredient.indexOf(i);
       let qtyIndex = index;
-      this.listOfControl.splice(index, 1);
+      this.listOfControlIngredient.splice(index, 1);
       this.validateForm.removeControl(i.ingredient);
       this.validateForm.removeControl(this.listOfControlQty[qtyIndex].qty);
       this.listOfControlQty.splice(qtyIndex, 1);
-
     }
-
+    this.createNotification('success', 'Succes!', 'Field has been removed successfully')
   }
-
 
   addFieldStep(e?: MouseEvent): void {
     if (e) {
@@ -175,5 +155,11 @@ export class AdminAddRecipeComponent implements OnInit {
       this.listOfControlStep.splice(index, 1);
       this.validateForm.removeControl(i.step);
     }
+    this.createNotification('success', 'Succes!', 'Field has been removed successfully')
   }
+
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(type, title, description);
+  }
+  
 }

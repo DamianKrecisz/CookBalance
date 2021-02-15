@@ -10,7 +10,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class AdminEditRecipesComponent implements OnInit {
 
-  listOfData: any;
+  listOfAllRecipes: any;
   title;
   itemToEdit = {
     id: '',
@@ -33,9 +33,6 @@ export class AdminEditRecipesComponent implements OnInit {
   showNumber;
   isVisible = false;
   listOfIngredients = [];
-  ing;
-  qty;
-  ingredientValue: number;
   numberField = true;
   showNumberField;
   showStringField;
@@ -45,7 +42,7 @@ export class AdminEditRecipesComponent implements OnInit {
   newStep: string;
   addingNewStep = false;
   addingNewIngredient = false
-  isVisibleShow = false;
+  isVisibleEditing = false;
 
   constructor(
     public databaseService: DatabaseService,
@@ -54,13 +51,14 @@ export class AdminEditRecipesComponent implements OnInit {
   ngOnInit() {
 
     this.databaseService.getAllRecipes().subscribe(data => {
-      this.listOfData = data.map(e => {
+      this.listOfAllRecipes = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object
         }
       })
     })
+
     this.databaseService.getAllIngredients().subscribe(data => {
       this.listOfIngredients = data.map(e => {
         return {
@@ -69,10 +67,11 @@ export class AdminEditRecipesComponent implements OnInit {
         }
       })
     })
+    
   }
 
   startEdit(item) {
-    this.isVisibleShow=true;
+    this.isVisibleEditing = true;
     this.itemToEdit = {
       id: item.id,
       title: item.title,
@@ -85,7 +84,6 @@ export class AdminEditRecipesComponent implements OnInit {
       steps: item.steps,
     }
     this.actualItemEditingID = item.id;
-
   }
 
   editItem(item, value) {
@@ -138,17 +136,17 @@ export class AdminEditRecipesComponent implements OnInit {
   }
 
   deleteSteps(index) {
-    let xyz = [];
-    xyz.push(this.itemToEdit);
-    xyz[0].steps.splice(index, 1);
-    this.databaseService.updateRecipe(xyz[0]);
+    let tempArray = [];
+    tempArray.push(this.itemToEdit);
+    tempArray[0].steps.splice(index, 1);
+    this.databaseService.updateRecipe(tempArray[0]);
   }
 
   deleteIngredient(index) {
-    let xyz = [];
-    xyz.push(this.itemToEdit);
-    xyz[0].ingredients.splice(index, 1);
-    this.databaseService.updateRecipe(xyz[0]);
+    let tempArray = [];
+    tempArray.push(this.itemToEdit);
+    tempArray[0].ingredients.splice(index, 1);
+    this.databaseService.updateRecipe(tempArray[0]);
   }
   addStep() {
     this.isVisible = true;
@@ -162,21 +160,20 @@ export class AdminEditRecipesComponent implements OnInit {
     this.addingNewIngredient = true;
   }
   addNewIngredient(newItem) {
-
-    let xx = [];
-    xx.push(this.itemToEdit);
-    xx[0].ingredients.push(newItem);
-    this.databaseService.updateRecipe(xx[0]);
+    let tempArray = [];
+    tempArray.push(this.itemToEdit);
+    tempArray[0].ingredients.push(newItem);
+    this.databaseService.updateRecipe(tempArray[0]);
     this.addingNewStep = false;
     this.showIngredientField = false;
     this.showNumberField = false;
   }
 
   addNewStep(newItem) {
-    let xx = [];
-    xx.push(this.itemToEdit);
-    xx[0].steps.push(newItem);
-    this.databaseService.updateRecipe(xx[0]);
+    let tempArray = [];
+    tempArray.push(this.itemToEdit);
+    tempArray[0].steps.push(newItem);
+    this.databaseService.updateRecipe(tempArray[0]);
     this.addingNewStep = false;
   }
 
@@ -188,17 +185,14 @@ export class AdminEditRecipesComponent implements OnInit {
     }
 
     if (this.addingNewIngredient == true) {
-      let newIngredient = {
+      let tempObject = {
         ingredient: this.selectToUpdate,
         qty: this.numberToUpdate
       }
-      this.addNewIngredient(newIngredient);
+      this.addNewIngredient(tempObject);
       this.showIngredientField = true;
       this.showNumberField = true;
     }
-
-
-
 
     for (let [key, value] of Object.entries(this.itemToEdit)) {
 
@@ -209,14 +203,11 @@ export class AdminEditRecipesComponent implements OnInit {
         } else if (typeof value === "string") {
           if (key == 'difficultLevel') {
             this.itemToEdit[key] = this.difficultLevelToUpdate;
-
           } else {
-
             this.itemToEdit[key] = this.stringToUpdate;
           }
         }
-        //this.databaseService.updateRecipe(this.itemToEdit);
-
+        this.databaseService.updateRecipe(this.itemToEdit);
       }
     }
 
@@ -233,32 +224,30 @@ export class AdminEditRecipesComponent implements OnInit {
     if (typeof this.indexIngredient !== 'undefined') {
       for (let [key, value] of Object.entries(this.itemToEdit.ingredients[this.indexIngredient])) {
         if (value == this.actualItemEditing) {
-          let xx = [];
-          xx.push(this.itemToEdit);
+          let tempListOfNewIngredient = [];
+          tempListOfNewIngredient.push(this.itemToEdit);
           if (key == 'qty') {
-            xx[0].ingredients[this.indexIngredient].qty = this.numberToUpdate;
+            tempListOfNewIngredient[0].ingredients[this.indexIngredient].qty = this.numberToUpdate;
 
           } else if (key == 'ingredient') {
-            xx[0].ingredients[this.indexIngredient].ingredient = this.selectToUpdate;
+            tempListOfNewIngredient[0].ingredients[this.indexIngredient].ingredient = this.selectToUpdate;
           }
-          this.databaseService.updateRecipe(xx[0]);
+          this.databaseService.updateRecipe(tempListOfNewIngredient[0]);
         }
       }
     }
     this.stringToUpdate = undefined;
     this.numberToUpdate = undefined;
     this.selectToUpdate = undefined;
-
     this.isVisible = false;
   }
-
-
-
 
   handleCancel(): void {
     this.isVisible = false;
   }
+
   handleCancelShow(): void {
-    this.isVisibleShow = false;
+    this.isVisibleEditing = false;
   }
+
 }

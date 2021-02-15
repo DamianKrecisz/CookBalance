@@ -2,6 +2,15 @@
 
 .list-shopList {
     list-style-type: none;
+    @include respond-below(sm) {
+        padding: 0;
+        .single-list{
+            width: 100% !important;
+            span{
+                font-size: 0.6em;
+            }
+        }
+    }
     .single-list {
         margin-bottom: 2rem;
         cursor: pointer;
@@ -37,6 +46,9 @@
 }
 
 .list-ingredients{
+    @include respond-below(sm) {
+      padding: 0 1rem 0 0;        
+    }
     list-style-type:none;
     overflow-y: scroll;
     height: 90%;

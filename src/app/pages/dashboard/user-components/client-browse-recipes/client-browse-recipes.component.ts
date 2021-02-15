@@ -10,7 +10,7 @@ import { DatabaseService } from 'src/app/services/database.service';
 })
 export class ClientBrowseRecipesComponent implements OnInit {
 
-  listOfData = [];
+  listOfAllRecipes = [];
 
   constructor(
     public databaseService: DatabaseService,
@@ -19,7 +19,7 @@ export class ClientBrowseRecipesComponent implements OnInit {
 
   ngOnInit() {
     this.databaseService.getAllRecipes().subscribe(data => {
-      this.listOfData = data.map(e => {
+      this.listOfAllRecipes = data.map(e => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data() as Object

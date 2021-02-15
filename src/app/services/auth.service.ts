@@ -38,24 +38,21 @@ export class AuthService {
     })
   }
 
-  // Login
   SignIn(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
         this.isLoggedIn = true;
-        console.log(result)
-        this.createNotification('success', 'Hello '+result.user.email,'Your last login was '+ result.user.metadata.lastSignInTime);
+        this.createNotification('success', 'Hello ' + result.user.email, 'Your last login was ' + result.user.metadata.lastSignInTime);
         this.ngZone.run(() => {
           this.router.navigate(['client-dashboard']);
         });
-        this.SetUserData(result.user);
+        // this.SetUserData(result.user);
       }).catch((error) => {
         this.isLoggedIn = false;
-        this.createNotification('error', 'Login error',error.message);
+        this.createNotification('error', 'Login error', error.message);
       })
   }
 
-  // Register
   SignUp(email, password) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
       .then((result) => {
@@ -65,7 +62,7 @@ export class AuthService {
         this.ngZone.run(() => {
           this.router.navigate(['client-dashboard']);
         });
-        this.createNotification('success',"You have successfully registered!",'Hello '+result.user.email);
+        this.createNotification('success', "You have successfully registered!", 'Hello ' + result.user.email);
       }).catch((error) => {
         this.createNotification('error', 'Register error', error.message)
       })
@@ -76,11 +73,11 @@ export class AuthService {
       .then(() => {
         var user = this.afAuth.auth.currentUser;
         user.delete();
-        this.createNotification('success',"Success !",'Your account has been successfully deleted');
+        this.createNotification('success', "Success !", 'Your account has been successfully deleted');
         localStorage.removeItem('user');
         this.router.navigate(['/']);
       }).catch((error) => {
-        this.createNotification('error',"Error !",error.message);
+        this.createNotification('error', "Error !", error.message);
       })
   }
 
@@ -96,6 +93,26 @@ export class AuthService {
 
   }
 
+  GoogleAuth() {
+    return this.AuthLogin(new auth.GoogleAuthProvider());
+  }
+
+  AuthLogin(provider) {
+    return this.afAuth.auth.signInWithPopup(provider)
+      .then((result) => {
+        this.isLoggedIn = true;
+        this.SetUserData(result.user);
+        this.createNotification('success', 'Hello ' + result.user.email, 'Your last login was ' + result.user.metadata.lastSignInTime);
+        this.ngZone.run(() => {
+          this.router.navigate(['client-dashboard']);
+        });
+      }).catch((error) => {
+        this.createNotification('error', 'Error !', error.message)
+      })
+  }
+  FacebookAuth() {
+    return this.AuthLogin(new auth.FacebookAuthProvider());
+  }  
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {
@@ -120,23 +137,7 @@ export class AuthService {
     })
   }
 
-  /* Auth roles */
   onlyForAdmin(user: User): boolean {
-    const allowed = ['admin']
-    return this.checkAuthorization(user, allowed)
-  }
-
-  canRead(user: User): boolean {
-    const allowed = ['admin']
-    return this.checkAuthorization(user, allowed)
-  }
-
-  canEdit(user: User): boolean {
-    const allowed = ['admin', 'user']
-    return this.checkAuthorization(user, allowed)
-  }
-
-  canDelete(user: User): boolean {
     const allowed = ['admin']
     return this.checkAuthorization(user, allowed)
   }

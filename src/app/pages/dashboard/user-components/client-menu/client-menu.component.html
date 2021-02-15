@@ -8,7 +8,7 @@
 
         <ul>
           <li *ngFor="let day of item.allMeals.meals; let mealInDayIndex = index">
-            
+
             <button nz-button nzType="dashed" class="single-meal"
               (click)="openRecipesSelect(day,daysIndex,mealInDayIndex)">{{day.mealTitle}}</button>
 
@@ -23,18 +23,11 @@
     </div>
   </div>
   <a class="saveList" nz-popconfirm nzPopconfirmTitle="Are you sure delete this task?" nzPopconfirmPlacement="bottom"
-    (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="xy()">
+    (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="saveList()">
     <button nz-button nzType="dashed"><i nz-icon nzType="save" nzTheme="outline"></i> Zapisz nową listę
       składników</button>
   </a>
 </div>
-<!-- <button nz-button nzType="dashed" (click)="saveList()">Zapisz listę</button> -->
-<!--
-  <ul>
-  <li *ngFor="let item of listOfTotalIngredients">{{item.ingredientTitle}} w ilości {{item.ingredientQty}}
-    {{item.ingredientUnit}}</li>
-</ul>
--->
 
 <ul>
   <li *ngFor="let item of activeMenuList; let i = index">
@@ -49,7 +42,7 @@
 </ul>
 
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Create new menu" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-  [nzOkLoading]="isOkLoading" nzWidth="30vw">
+  [nzOkLoading]="isOkLoading" class="createNewMenuModal">
 
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
 

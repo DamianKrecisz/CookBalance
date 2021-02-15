@@ -21,6 +21,7 @@ export class DashboardMainPageComponent implements OnInit {
   totalIngredients;
   totalSavedMenus;
   totalSavedShopList;
+
   constructor(
     private databaseService: DatabaseService,
     private clientService: ClientService
@@ -66,7 +67,6 @@ export class DashboardMainPageComponent implements OnInit {
         }
       })
       this.totalSavedMenus = this.listAllMenu.length;
-
 
     })
    

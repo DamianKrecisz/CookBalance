@@ -1,9 +1,6 @@
 <div nz-row  class="allRecipes" >
-    <div class="single-recipe" *ngFor="let item of listOfData">
-        <!--[routerLink]="['/client-single-recipe', item.id]"-->
-        <!--[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
+    <div class="single-recipe" *ngFor="let item of listOfAllRecipes">
         <a (click)="openRecipe(item)">
-
             <div class="image">
                 <img src="{{item.imgUrl}}" alt="">
             </div>

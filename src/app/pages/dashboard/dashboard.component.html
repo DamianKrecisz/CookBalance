@@ -1,4 +1,9 @@
 <div class="header">
+  <div class="hamburger" (click)="hamburger()" [ngClass]="{open: hamburgerOpen==true}">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <div class="left-column">CookBalance</div>
   <div class="right-column">
     Hi {{userEmail}} <i nz-icon nzType="logout" nzTheme="outline" (click)="logout()" class="logout"></i>
@@ -10,57 +15,56 @@
 <div class="main-layout">
 
 
-    <div class="side-menu">
-      <img src="../../../assets/img/logo.svg" alt="">
-      <ul nz-menu >
-        
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="file"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-details"] } }]'>User profile</a>
-        </li>
-        
-        
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Recipes</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Favorite recipes</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Saved menu</a>
-        </li>
-        <li nz-menu-item nzMatchRouter>
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-shop-list"] } }]'>Shopping list</a>
-        </li>
-        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
-          <i nz-icon nzType="minus" nzTheme="outline"></i>
-        </li>
-        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
-          <i nz-icon nzType="file"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["dashboard-main-page"] } }]'>Dashboard</a>
-        </li>
-        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
-          <i nz-icon nzType="upload"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Add recipe</a>
-        </li>
-        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Ingredients</a>
-        </li>
-        <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
-          <i nz-icon nzType="bar-chart"></i>
-          <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edit recipe</a>
-        </li>
-      </ul>
-    </div>
+  <div class="side-menu" [ngClass]="{sideMenuOpen: hamburgerOpen==true}">
+    <ul nz-menu (click)="hideHamburger()">
 
-    <div class="right-layout">
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="file"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-details"] } }]'>User profile</a>
+      </li>
 
-      <router-outlet name="clientDashboardOutlet"></router-outlet>
 
-    </div>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="upload"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-browse-recipes"] } }]'>Recipes</a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="upload"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["clients-favorite-recipes"] } }]'>Favorite recipes</a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="bar-chart"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-menu"] } }]'>Saved menu</a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <i nz-icon nzType="bar-chart"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["client-shop-list"] } }]'>Shopping list</a>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+        <i nz-icon nzType="minus" nzTheme="outline"></i>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+        <i nz-icon nzType="file"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["dashboard-main-page"] } }]'>Dashboard</a>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+        <i nz-icon nzType="upload"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-add-recipe"] } }]'>Add recipe</a>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+        <i nz-icon nzType="bar-chart"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-ingredients"] } }]'>Ingredients</a>
+      </li>
+      <li nz-menu-item nzMatchRouter *ngIf="authService.onlyForAdmin(user)">
+        <i nz-icon nzType="bar-chart"></i>
+        <a [routerLink]='[{ outlets: { clientDashboardOutlet: ["admin-edit-recipes"] } }]'>Edit recipe</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="right-layout">
+
+    <router-outlet name="clientDashboardOutlet"></router-outlet>
+
+  </div>
 </div>
