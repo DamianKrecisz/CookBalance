@@ -17,6 +17,13 @@
   width: 768px;
   max-width: 100%;
   min-height: 480px;
+  @include respond-below(sm) {
+    display:flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+
+  }
 }
 
 .form-container form {
@@ -94,6 +101,10 @@ button:not(.social).ghost {
   left: 0;
   width: 50%;
   z-index: 2;
+   @include respond-below(sm) {
+    width: 100%;
+    top: 10%;
+  }
 }
 
 .sign-up-container {
@@ -101,6 +112,10 @@ button:not(.social).ghost {
   width: 50%;
   z-index: 1;
   opacity: 0;
+   @include respond-below(sm) {
+    width: 100%;
+    top: 10%;
+  }
 }
 
 .overlay-container {
@@ -112,6 +127,11 @@ button:not(.social).ghost {
   overflow: hidden;
   transition: transform 0.6s ease-in-out;
   z-index: 100;
+  @include respond-below(sm) {
+    left: 0;
+    width: 100%;
+    height: 30%;
+  }
 }
 
 .overlay {
@@ -152,11 +172,15 @@ button:not(.social).ghost {
 /* Move signin to right */
 .container.right-panel-active .sign-in-container {
   transform: translateY(100%);
+ 
 }
 
 /* Move overlay to left */
 .container.right-panel-active .overlay-container {
   transform: translateX(-100%);
+  @include respond-below(sm) {
+    transform: translateX(0%);
+  }
 }
 
 /* Bring signup over signin */
@@ -164,6 +188,8 @@ button:not(.social).ghost {
   transform: translateX(100%);
   opacity: 1;
   z-index: 5;
+  @include respond-below(sm) {
+    transform: translateX(0%);  }
 }
 
 /* Move overlay back to right */
@@ -184,7 +210,11 @@ button:not(.social).ghost {
 .footer {
   margin-top: 25px;
   text-align: center;
+  @include respond-below(sm) {
+    margin-bottom: 25px;
+  }
 }
 button:focus{
   outline: none;
 }
+

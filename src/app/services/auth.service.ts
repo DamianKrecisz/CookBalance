@@ -111,6 +111,7 @@ export class AuthService {
       })
   }
   FacebookAuth() {
+    console.log(this.AuthLogin(new auth.FacebookAuthProvider()))
     return this.AuthLogin(new auth.FacebookAuthProvider());
   }  
   SetUserData(user) {
