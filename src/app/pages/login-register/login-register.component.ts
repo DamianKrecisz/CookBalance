@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NzNotificationService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class LoginRegisterComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
+    private notification: NzNotificationService
   ) { }
 
   ngOnInit(): void {
@@ -39,5 +41,18 @@ export class LoginRegisterComponent implements OnInit {
       this.rightPanelActive = false;
     }
   }
+  temporarilyUnavailable(){
+    this.createNotification('warning', 'Service temporary unavaliable  !', 'Sorry, the login method is currently unavailable. Please try another one. Sorry for the inconvenience.')
 
+  }
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(
+      type,
+      title,
+      description
+    );
+  }
+  test(a){
+    console.log(a)
+  }
 }

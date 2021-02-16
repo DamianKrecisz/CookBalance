@@ -20,6 +20,8 @@ img {
 .allRecipes {
     display: flex;
     justify-content: space-between;
+    overflow-y: scroll;
+    height: 100%;
 }
 .title {
     margin: 10px 20px;
