@@ -71,11 +71,7 @@ export class AuthService {
   verifyPasswordAndDeleteUser(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(() => {
-        var user = this.afAuth.auth.currentUser;
-        user.delete();
-        this.createNotification('success', "Success !", 'Your account has been successfully deleted');
-        localStorage.removeItem('user');
-        this.router.navigate(['/']);
+        this.deleteAccount();
       }).catch((error) => {
         this.createNotification('error', "Error !", error.message);
       })
@@ -111,9 +107,17 @@ export class AuthService {
       })
   }
   FacebookAuth() {
-    console.log(this.AuthLogin(new auth.FacebookAuthProvider()))
     return this.AuthLogin(new auth.FacebookAuthProvider());
   }  
+  deleteAccount(){
+    var user = this.afAuth.auth.currentUser;
+    console.log(user.uid)
+    user.delete();
+    this.clientService.deleteClient(user.uid)
+    this.createNotification('success', "Success !", 'Your account has been successfully deleted');
+    localStorage.removeItem('user');
+    this.router.navigate(['/']);
+  }
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const userData: User = {

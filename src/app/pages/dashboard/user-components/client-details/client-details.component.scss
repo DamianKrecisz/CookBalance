@@ -5,7 +5,9 @@
     flex-direction: column;
     justify-content: space-between;
     height:90%;
-   
+   input{
+    touch-action: manipulation;
+   }
     .container-box {
         display: flex;
         flex-direction: row;

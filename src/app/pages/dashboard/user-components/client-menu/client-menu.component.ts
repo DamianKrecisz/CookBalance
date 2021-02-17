@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -52,7 +52,9 @@ export class ClientMenuComponent implements OnInit {
     private databaseService: DatabaseService,
     public authService: AuthService,
     public db: AngularFirestore,
-    private nzMessageService: NzMessageService
+    private nzMessageService: NzMessageService,
+    private notification: NzNotificationService
+
   ) { }
 
   ngOnInit(): void {
@@ -132,6 +134,7 @@ export class ClientMenuComponent implements OnInit {
       itemList: result
     }
     this.databaseService.addNewList(this.newListToSend);
+    this.createNotification('success','Success !','New shoppping list is created. Check it on Shopping list tab')
   }
 
   saveList() {
@@ -244,5 +247,11 @@ export class ClientMenuComponent implements OnInit {
     }, 1500);
 
   }
-
+  createNotification(type: string, title: string, description: string): void {
+    this.notification.create(
+      type,
+      title,
+      description
+    );
+  }
 }

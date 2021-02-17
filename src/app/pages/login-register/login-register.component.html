@@ -6,17 +6,17 @@
       <form [formGroup]="registerForm">
         <h1>Create Account</h1>
         <div class="social-container">
-          <button class="social" (click)="temporarilyUnavailable()"><i nz-icon nzType="facebook"
-              nzTheme="outline"></i></button>
+          <button class="social " (click)="temporarilyUnavailable()"><i nz-icon nzType="facebook"
+              nzTheme="outline" class="fb-icon"></i></button>
           <button class="social" (click)="authService.GoogleAuth()"><i nz-icon nzType="google-plus"
-              nzTheme="outline"></i></button>
+              nzTheme="outline" class="google-icon"></i></button>
         </div>
         <span>or use your email for registration</span>
         <input type="email" placeholder="Email" formControlName="usernameRegister" />
         <input type="password" placeholder="Password" formControlName="passwordRegister" />
 
 
-        <button (click)="authService.SignUp(registerForm.value.usernameRegister, registerForm.value.passwordRegister)">Sign Up</button>
+        <button class="signButton" (click)="authService.SignUp(registerForm.value.usernameRegister, registerForm.value.passwordRegister)">Sign Up</button>
       </form>
     </div>
     <div class="form-container sign-in-container">
@@ -32,7 +32,7 @@
         <input type="email" placeholder="Email" formControlName="userName" />
         <input type="password" placeholder="Password" formControlName="password" />
         <!-- (click)="authService.SignIn(userName.value, password.value)" -->
-        <button type="submit" (click)="authService.SignIn(loginForm.value.userName, loginForm.value.password)">Sign
+        <button class="signButton" (click)="authService.SignIn(loginForm.value.userName, loginForm.value.password)">Sign
           In</button>
       </form>
     </div>

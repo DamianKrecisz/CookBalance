@@ -39,7 +39,7 @@ export class ClientDetailsComponent implements OnInit {
   activitiesList;
   activityToDisplay;
   isVisibleDeleteAccount = false;
-
+  registerType:string;
   constructor(
     public authService: AuthService,
     public clientService: ClientService,
@@ -55,12 +55,13 @@ export class ClientDetailsComponent implements OnInit {
       this.sex = data.sex;
       this.weight = data.weight;
       this.height = data.height;
+      this.dateOfBirthday = data.dateOfBirthday;
     })
-
+    this.registerType=this.authService.userData.providerData[0].providerId
     const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
     let dataTemp;
     this.clientService.getCurrentClient(userFromLocalStorage.uid).subscribe(data => {
-      dataTemp=data;
+      dataTemp = data;
       this.uid = dataTemp.uid;
       this.email = dataTemp.email;
       this.sex = dataTemp.sex;
@@ -68,7 +69,9 @@ export class ClientDetailsComponent implements OnInit {
       this.height = dataTemp.height;
       this.dateOfBirthday = dataTemp.dateOfBirthday;
       this.name = dataTemp.name;
-      this.bmi = ((this.weight) / ((this.height / 100) * (this.height / 100))).toPrecision(4);
+      if (this.weight != null && this.height != null) {
+        this.bmi = ((this.weight) / ((this.height / 100) * (this.height / 100))).toPrecision(4);
+      }
       this.activity = dataTemp.activity;
       var today = new Date();
       var age = today.getFullYear() - (this.dateOfBirthday.toDate()).getFullYear()
@@ -79,26 +82,28 @@ export class ClientDetailsComponent implements OnInit {
         this.calories = ((655 + (9.6 * this.weight) + (1.8 * this.height) - (4.7 * age)) * Number(this.activity)).toFixed(0);
       }
 
-      this.databaseService.getAllActivities().subscribe(data => {
-        this.activitiesList = data.map(e => {
-          return {
-            id: e.payload.doc.id,
-            ...e.payload.doc.data() as Object
-          }
-        })
-        this.activitiesList.forEach(element => {
-          if (element.value == this.activity) {
-            this.activityToDisplay = element.details;
-          }
-        });
-      })
 
     })
-
-
+    this.updateItem();
   }
-
-
+  confirmDeleteGoogleAccount(){
+    this.authService.deleteAccount();
+  }
+  updateItem() {
+    this.databaseService.getAllActivities().subscribe(data => {
+      this.activitiesList = data.map(e => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data() as Object
+        }
+      })
+      this.activitiesList.forEach(element => {
+        if (element.value == this.activity) {
+          this.activityToDisplay = element.details;
+        }
+      });
+    })
+  }
 
   showModalSex(): void {
     this.isVisibleSex = true;
@@ -151,6 +156,8 @@ export class ClientDetailsComponent implements OnInit {
   handleOkActivity(): void {
     this.isVisibleActivity = false;
     this.clientService.updateActivityClient(this.uid, this.activityOption);
+    this.updateItem();
+    this.activity = this.activityOption;
   }
   handleCancelActivity(): void {
     this.isVisibleActivity = false;

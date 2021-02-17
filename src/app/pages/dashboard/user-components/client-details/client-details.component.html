@@ -36,19 +36,25 @@
     <div class="container-description">
         <h2>Your stable basic caloric requirements: <span class="underline">{{calories}}</span></h2>
 
-        <h2>Your BMI is: <span *ngIf="bmi else bmiNotDefined"><span class="underline">{{bmi}}</span></span> </h2>
+        <h2>Your BMI is: <span class="underline">{{bmi}}</span> </h2>
     </div>
 
     <div class="container-actions">
-        <a nz-popconfirm class="button-action" nzPopconfirmTitle="Are you sure to change your password?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirmChangePassword()" >Change your password</a >
-        <a class="button-action delete-button"(click)="showModalDeleteAccount()">Delete your account</a >
+        <a *ngIf="registerType!='google.com'" nz-popconfirm class="button-action"
+            nzPopconfirmTitle="Are you sure to change your password?" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirmChangePassword()">Change your password</a>
+        <a *ngIf="registerType!='google.com'" class="button-action delete-button"
+            (click)="showModalDeleteAccount()">Delete your account</a>
+        <a class="button-action delete-button" *ngIf="registerType=='google.com'" nz-popconfirm
+            nzPopconfirmTitle="Are you sure delete this account?" nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirmDeleteGoogleAccount()" (nzOnCancel)="cancel()">Delete your account google</a>
     </div>
 </div>
 
 <!-- Modals -->
 
 <nz-modal [(nzVisible)]="isVisibleSex" nzTitle="Set your sex" (nzOnCancel)="handleCancelSex()" (nzOnOk)="handleOkSex()">
-    <nz-select [(ngModel)]="sexOption" nzAllowClear nzPlaceHolder="Choose">
+    <nz-select [(ngModel)]="sexOption" nzAllowClear nzPlaceHolder="Choose your sex">
         <nz-option nzValue="men" nzLabel="men"></nz-option>
         <nz-option nzValue="women" nzLabel="women"></nz-option>
     </nz-select>
@@ -56,29 +62,33 @@
 
 <nz-modal [(nzVisible)]="isVisibleWeight" nzTitle="Set your weight" (nzOnCancel)="handleCancelWeight()"
     (nzOnOk)="handleOkWeight()">
-    <input nz-input placeholder="Input your weight (kg)" [(ngModel)]="weightOption" />
+
+    <input nz-input placeholder="Input your weight (kg)" [(ngModel)]="weightOption" #weightInput />{{
+    weightInput.focus() }}
+
 </nz-modal>
 
 <nz-modal [(nzVisible)]="isVisibleHeight" nzTitle="Set your height" (nzOnCancel)="handleCancelHeight()"
     (nzOnOk)="handleOkHeight()">
-    <input nz-input placeholder="Input your height (cm)" [(ngModel)]="heightOption" />
+    <input nz-input placeholder="Input your height (cm)" [(ngModel)]="heightOption" #heightInput />{{
+    heightInput.focus() }}
 </nz-modal>
-
 <nz-modal [(nzVisible)]="isVisibleDateOfBirthday" nzTitle="Set your date of birthday"
     (nzOnCancel)="handleCancelDateOfBirthday()" (nzOnOk)="handleOkDateOfBirthday()">
-    <nz-date-picker [(ngModel)]="dateOfBirthdayOption"></nz-date-picker>
+    <nz-date-picker [(ngModel)]="dateOfBirthdayOption" nzPlaceHolder="Choose date"></nz-date-picker>
 </nz-modal>
 
 <nz-modal [(nzVisible)]="isVisibleActivity" nzTitle="Set your activity" (nzOnCancel)="handleCancelActivity()"
     (nzOnOk)="handleOkActivity()">
-    <nz-select [(ngModel)]="activityOption" nzAllowClear nzPlaceHolder="Choose">
-        <nz-option *ngFor="let item of activitiesList" nzValue="{{item.value}}" nzLabel="{{item.details}}"></nz-option>
+    <nz-select [(ngModel)]="activityOption" nzAllowClear nzPlaceHolder="Choose your activity">
+        <nz-option *ngFor="let item of activitiesList; let i = index" nzValue="{{item.value}}" nzLabel="{{i+1}}. {{item.details}}"></nz-option>
 
     </nz-select>
 </nz-modal>
 
-<nz-modal [(nzVisible)]="isVisibleDeleteAccount" nzTitle="Confirm your password" (nzOnCancel)="handleCancelDeleteAccount()" (nzOnOk)="handleOkDeleteAccount()" >
-          <input nz-input placeholder="Basic usage" [(ngModel)]="confirmPassword" />
+<nz-modal [(nzVisible)]="isVisibleDeleteAccount" nzTitle="Confirm your password"
+    (nzOnCancel)="handleCancelDeleteAccount()" (nzOnOk)="handleOkDeleteAccount()">
+    <input nz-input placeholder="Basic usage" [(ngModel)]="confirmPassword" />
 
 </nz-modal>
 
@@ -97,27 +107,20 @@
 </ng-template>
 
 <ng-template #heightNotDefined>
-    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account">
+    <nz-alert nzType="warning" nzMessage="Height not defined, please update your account">
     </nz-alert>
     <button nz-button [nzType]="'primary'" (click)="showModalHeight()"><span>Set height</span></button>
 </ng-template>
 
 <ng-template #dateOfBirthdayNotDefined>
-    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account">
+    <nz-alert nzType="warning" nzMessage="Date not defined, please update your account">
     </nz-alert>
     <button nz-button [nzType]="'primary'" (click)="showModalDateOfBirthday()"><span>Set date of
             birthday</span></button>
 </ng-template>
 
 <ng-template #activityNotDefined>
-    <nz-alert nzType="warning" nzMessage="Sex not defined, please update your account">
-    </nz-alert>
-    <button nz-button [nzType]="'primary'" (click)="showModalActivity()"><span>Set your activity</span></button>
-</ng-template>
-
-
-<ng-template #bmiNotDefined>
-    <nz-alert nzType="warning" nzMessage="We can't calculate your BMI yet, please update your details">
+    <nz-alert nzType="warning" nzMessage="Activity not defined, please update your account">
     </nz-alert>
     <button nz-button [nzType]="'primary'" (click)="showModalActivity()"><span>Set your activity</span></button>
 </ng-template>

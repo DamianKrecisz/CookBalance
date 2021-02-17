@@ -11,13 +11,19 @@
 ul {
     list-style-type: none;
     padding: 0;
-    margin-top: 1rem;
+    margin-bottom: 1rem;
    
 }
 .addNewMenu {
-    margin-bottom: 15px;
-    background-color: $color-1;
-    color: white;
+    cursor: pointer;
+    font-size: 4rem;
+    position: absolute;
+    right: 4rem;
+    color: $color-3
+}
+.addNewMenu:hover{
+    color:$color-3-opacity;
+transition: 0.3s;
 }
 .passenger-input,
 .ant-form-inline .ant-form-item {
