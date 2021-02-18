@@ -1,19 +1,31 @@
+<div class="no-shopping-list" *ngIf="noShoppingList == true">
+    You don't have saved shopping list yet.
+</div>
 
-<ul class="list-shopList">
+<h1 *ngIf="showList == true">Shopping list: {{listTitle}}</h1>
+<ul class="list-shopList" *ngIf="showList!=true">
     <li *ngFor="let item of shopList;let index = index">
         <div class="single-list" (click)="showCheckList(item,index)">
-            <span>{{item.listTitle}} </span>
-            
+            <span>Shopping list: {{item.listTitle}} </span>
+
             <div class="overflow-gradient"></div>
         </div>
     </li>
 </ul>
 <ul class="list-ingredients" *ngIf="showList==true">
-    <a nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?" nzPopconfirmPlacement="bottom"
-    (nzOnConfirm)="deleteShopList()" >Usuń listę zakupów</a>
+
     <li *ngFor="let item of shopListToDisplay;let index = index">
-        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.ingredientDetails.product }} - {{item.ingredientQty}} {{item.ingredientDetails.unit}}</label>
+        <label nz-checkbox [ngModel]=item.checked (click)="checkItem(item,index)">{{item.ingredientDetails.product }} -
+            {{item.ingredientQty}} {{item.ingredientDetails.unit}}</label>
 
     </li>
-   
+    <li>
+        <a *ngIf="showList==true" nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?"
+            nzPopconfirmPlacement="bottom" (nzOnConfirm)="deleteShopList()"><button class="deleteButton" nz-button nzType="dashed"><i nz-icon
+                    nzType="delete" nzTheme="outline"></i>Usuń listę zakupów</button>
+        </a>
+    </li>
+    <li>
+        <button class="deleteButton" nz-button nzType="dashed" (click)="returnLink()"><i nz-icon nzType="rollback" nzTheme="outline"></i>Back to shopping list page</button>
+    </li>
 </ul>

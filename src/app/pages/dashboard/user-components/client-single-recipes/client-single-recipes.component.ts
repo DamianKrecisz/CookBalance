@@ -56,14 +56,11 @@ export class ClientSingleRecipesComponent implements OnInit {
           ...e.payload.doc.data() as Object
         }
       })
-
-      if (this.listOfAllFavoriteRecipes.length == 0) {
+      if (this.listOfAllFavoriteRecipes) {
         this.showAddToFavorite = true;
         this.showDeleteFromFavorite = false;
       }
-
       this.listOfAllFavoriteRecipes.forEach(element => {
-
         if (element.userId == this.authService.userData.uid) {
           if ((element.recipes).indexOf(this.recipeId) > -1) {
             this.showAddToFavorite = false;
@@ -71,8 +68,9 @@ export class ClientSingleRecipesComponent implements OnInit {
           } else {
             this.showAddToFavorite = true;
             this.showDeleteFromFavorite = false;
+    
           }
-        }
+        } 
       });
     })
   }
@@ -93,36 +91,45 @@ export class ClientSingleRecipesComponent implements OnInit {
     })
 
     if (this.listOfAllFavoriteRecipes.length == 0) {
-
-
-      let tempObject = {
-        userId: this.authService.userData.uid,
-        recipes: []
-      }
-
-      tempObject.recipes.push(this.recipeId)
-      this.createNotification('success', 'Success!', 'Item has been successfully added to your favorites')
-
-      this.databaseService.addFavoriteRecipe(tempObject);
-      this.showAddToFavorite = false;
-      this.showDeleteFromFavorite = true;
+      console.log(this.listOfAllFavoriteRecipes.length)
+      this.createNewObject();
     }
-
+    let noElementsWithUserID;
     this.listOfAllFavoriteRecipes.forEach(element => {
-
+      console.log(element)
       if (element.userId == this.authService.userData.uid) {
         if (((element.recipes).indexOf(this.recipeId) > -1) == false) {
           element.recipes.push(this.recipeId);
-          console.log(element)
-          this.databaseService.updateFavoriteRecipe(element);
+          
           this.createNotification('success', 'Success!', 'Item has been successfully added to your favorites')
           this.showAddToFavorite = false;
           this.showDeleteFromFavorite = true;
+          this.databaseService.updateFavoriteRecipe(element);
+          return noElementsWithUserID=false;
         }
       }
+      else if (element.userId != this.authService.userData.uid) {
+        return noElementsWithUserID=true;
+      }
     });
-  }
+    if(noElementsWithUserID == true){
+      this.createNewObject();
+    }
 
+  }
+  createNewObject() {
+    let tempObject = {
+      userId: this.authService.userData.uid,
+      recipes: []
+    }
+
+    tempObject.recipes.push(this.recipeId)
+    this.createNotification('success', 'Success!', 'Item has been successfully added to your favorites')
+
+    this.showAddToFavorite = false;
+    this.showDeleteFromFavorite = true;
+    this.databaseService.addFavoriteRecipe(tempObject);
+  }
   deleteFromFavorite() {
 
     this.listOfAllFavoriteRecipes.forEach(el => {

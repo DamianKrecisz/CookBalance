@@ -12,7 +12,7 @@ export class ClientFavoriteRecipesComponent implements OnInit {
   listOfAllFavoriteRecipes: any = [];
 
   listOfUserFavoriteRecipes: any = [];
-
+  noFavoriteRecipes=false;
   constructor(
     public databaseService: DatabaseService,
     private router: Router,
@@ -36,12 +36,18 @@ export class ClientFavoriteRecipesComponent implements OnInit {
             this.databaseService.getSingleRecipe(element.recipes[i]).subscribe(data => {
               var obj = Object.assign(data, { "id": element.recipes[i] });
               this.listOfUserFavoriteRecipes.push(obj);
+              this.noFavoriteRecipes=false;
             });
-          }
-        }
-      });
+          }     
 
+        }    
+
+      });
+     
     })
+    if((this.listOfUserFavoriteRecipes).length == 0){
+      this.noFavoriteRecipes=true;
+    }
 
   }
 
@@ -49,5 +55,8 @@ export class ClientFavoriteRecipesComponent implements OnInit {
     const url = '/client-dashboard/(clientDashboardOutlet:client-single-recipe/' + e.id + ')';
     this.router.navigateByUrl(url);
   }
-
+  navigateToAllRecipes() {
+    const url = "/client-dashboard/(clientDashboardOutlet:client-browse-recipes)"
+    this.router.navigateByUrl(url);
+  }
 }

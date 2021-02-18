@@ -1,4 +1,6 @@
-<div nz-row  class="allRecipes" >
+<h1>List of all recipes in database</h1>
+
+<div class="allRecipes" >
     <div class="single-recipe" *ngFor="let item of listOfAllRecipes">
         <a (click)="openRecipe(item)">
             <div class="image">

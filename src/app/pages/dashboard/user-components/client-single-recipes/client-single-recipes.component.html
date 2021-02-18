@@ -18,7 +18,7 @@
         <div class="steps">
             <h2>Steps:</h2>
             <ul>
-                <li *ngFor="let item of recipe.steps">{{item}}</li>
+                <li class="step" *ngFor="let item of recipe.steps"><span>{{item}}</span></li>
             </ul>
         </div>
         <div class="image"><img src="{{recipe.imgUrl}}" alt="image" class="imageRecipe">

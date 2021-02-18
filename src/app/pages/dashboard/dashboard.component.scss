@@ -54,7 +54,8 @@
     box-sizing: border-box;
     background: rgba(255, 255, 255, 0.85);
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+
   }
 }
 
@@ -83,7 +84,10 @@
 .hamburger {
   display: none;
 }
-
+.activeBlur{
+  filter: blur(3px);
+  transition: 0.3s;
+}
 @include respond-below(sm) {
   .right-layout{
     overflow-y: hidden;

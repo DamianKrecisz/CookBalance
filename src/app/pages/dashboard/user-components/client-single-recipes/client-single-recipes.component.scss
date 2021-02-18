@@ -95,6 +95,18 @@ nz-alert {
     justify-content: space-around;
 }
 
+.step{
+    margin-bottom: 1.5rem;
+    line-height: 1.5rem;
+    span{
+        position: relative;
+        left: 10px;
+    }
+}
+li::marker,
+.ingredient:before{
+    font-weight: 600;
+}
 .bottom-beam {
     position: fixed;
     bottom: 3em;
@@ -104,21 +116,21 @@ nz-alert {
     justify-content: space-between;
     align-items: flex-end;
     @include respond-below(sm) {
-        bottom:0;
-        .check-website{
+        bottom: 0;
+        .check-website {
             margin-top: 1rem;
         }
         position: relative !important;
         flex-direction: column !important;
         width: 100%;
-        .favoritesActions{
+        .favoritesActions {
             width: 100%;
-            i{
+            i {
                 margin-left: 5px;
             }
             .deleteFromFavorite,
-            .addToFavorite, 
-            button{
+            .addToFavorite,
+            button {
                 width: 100%;
                 justify-content: center;
             }
@@ -156,11 +168,11 @@ nz-alert {
     flex-direction: row;
     width: auto;
     @include respond-below(sm) {
-        h2{
+        h2 {
         }
         flex-direction: column-reverse;
-        ul{
-            padding:1rem !important;
+        ul {
+            padding: 1rem !important;
         }
         .small-items {
             flex-direction: column;
@@ -173,7 +185,7 @@ nz-alert {
             width: 100% !important;
         }
         .steps {
-            margin-top: 1rem ;
+            margin-top: 1rem;
 
             width: 100% !important;
         }

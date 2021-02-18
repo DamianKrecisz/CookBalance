@@ -1,9 +1,10 @@
-<div nz-row  class="allRecipes" >
-    <div nz-col nzSpan="7" *ngFor="let item of listOfUserFavoriteRecipes">
-        <!--[routerLink]="['/client-single-recipe', item.id]"-->
-        <!--[routerLink]='[{ outlets: { clientDashboardOutlet: ["client-single-recipe,item.id"] } }]'-->
+<div class="no-favorite-recipes" *ngIf="noFavoriteRecipes == true">
+    You don't have your favorite recipes yet. You can add them <span class="navigateToAllRecipes" (click)="navigateToAllRecipes()">here</span>
+</div>
+<h1 *ngIf="noFavoriteRecipes != true">List of all your favorite recipes</h1>
+<div class="allRecipes" >
+    <div class="single-recipe" *ngFor="let item of listOfUserFavoriteRecipes">
         <a (click)="openRecipe(item)">
-
             <div class="image">
                 <img src="{{item.imgUrl}}" alt="">
             </div>
@@ -16,3 +17,4 @@
         </a>
     </div>
 </div>
+

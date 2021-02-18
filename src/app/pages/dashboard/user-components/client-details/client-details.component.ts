@@ -40,6 +40,7 @@ export class ClientDetailsComponent implements OnInit {
   activityToDisplay;
   isVisibleDeleteAccount = false;
   registerType:string;
+  bmiDescription:string;
   constructor(
     public authService: AuthService,
     public clientService: ClientService,
@@ -71,6 +72,15 @@ export class ClientDetailsComponent implements OnInit {
       this.name = dataTemp.name;
       if (this.weight != null && this.height != null) {
         this.bmi = ((this.weight) / ((this.height / 100) * (this.height / 100))).toPrecision(4);
+        if(this.bmi<18.4){
+            this.bmiDescription="Underweight";
+        }else if(this.bmi>=18.5 && this.bmi < 24.9){
+          this.bmiDescription="Normal and Healthy Weight";
+        } else if(this.bmi >= 25 && this.bmi < 29.9){
+          this.bmiDescription="Overweight";
+        }else if(this.bmi >=30){
+          this.bmiDescription="Obese";
+        }
       }
       this.activity = dataTemp.activity;
       var today = new Date();

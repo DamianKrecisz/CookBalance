@@ -62,7 +62,7 @@
     </ul>
   </div>
 
-  <div class="right-layout">
+  <div class="right-layout" [ngClass]="{activeBlur: hamburgerOpen==true}">
 
     <router-outlet name="clientDashboardOutlet"></router-outlet>
 

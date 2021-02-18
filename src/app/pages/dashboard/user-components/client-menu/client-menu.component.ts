@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
@@ -11,12 +12,12 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./client-menu.component.scss']
 })
 export class ClientMenuComponent implements OnInit {
-  
+
   listOfRecipes = [];
   listOfIdRecipes = [];
   listOfTotalIngredients = [];
   daysTable = [];
-
+  tempTitle:string;
   validateForm!: FormGroup;
   validateFormAddRecipe!: FormGroup;
 
@@ -27,7 +28,8 @@ export class ClientMenuComponent implements OnInit {
   showTable = false;
 
   activeMenuList: any;
-
+  menusAreNotAvaliable:boolean = true;
+  activeMenuListToDisplay=[];
   meal;
   mealTitle;
   mealID;
@@ -36,7 +38,8 @@ export class ClientMenuComponent implements OnInit {
   idMealInDay;
   userID;
   newListToSend
-
+  indexMenu;
+  menuID;
   listOfDaysInWeek = [
     "Poniedziałek",
     "Wtorek",
@@ -52,17 +55,15 @@ export class ClientMenuComponent implements OnInit {
     private databaseService: DatabaseService,
     public authService: AuthService,
     public db: AngularFirestore,
-    private nzMessageService: NzMessageService,
-    private notification: NzNotificationService
-
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit(): void {
-
     this.validateForm = this.fb.group({
       title: [null, [Validators.required]],
       qtyDays: [null, [Validators.required]],
-      qtyMeals: [null, [Validators.required]]
+      qtyMeals: [null, [Validators.required]],
+      qtyWeeks: [null, [Validators.required]]
     });
 
     this.validateFormAddRecipe = this.fb.group({
@@ -76,6 +77,17 @@ export class ClientMenuComponent implements OnInit {
           ...e.payload.doc.data() as Object
         }
       })
+      this.activeMenuListToDisplay=[];
+      this.activeMenuList.forEach(element => {
+        if(element.userID == this.authService.userData.uid){
+          this.activeMenuListToDisplay.push(element);
+        }
+      });
+      if(this.activeMenuListToDisplay.length != 0){
+        this.menusAreNotAvaliable=false;
+      }else{
+        this.menusAreNotAvaliable=true;
+      }
     })
 
     this.databaseService.getAllRecipes().subscribe(data => {
@@ -86,14 +98,20 @@ export class ClientMenuComponent implements OnInit {
         }
       })
     })
-  }
 
+  }
+  backToPreviousPage(){
+   this.showTable=false;
+  }
   showMenu(index) {
-    this.showTable = true
-    this.daysTable = this.activeMenuList[index].days;
-    this.mealTitle = this.activeMenuList[index].menuTitle;
-    this.activeMenuList[index].days.forEach(element => {
-      element.allMeals.meals.forEach(element => {
+    this.indexMenu=index;
+    this.showTable = true;
+    this.menuID = this.activeMenuListToDisplay[index].id;
+    this.daysTable = this.activeMenuListToDisplay[index].days;
+    this.mealTitle = this.activeMenuListToDisplay[index].menuTitle;
+    this.tempTitle=this.activeMenuListToDisplay[index].menuTitle;
+    this.activeMenuListToDisplay[index].days.forEach(element => {
+      element.allMeals.forEach(element => {
         if (element.mealID != '') {
           this.listOfIdRecipes.push(element.mealID);
         }
@@ -113,6 +131,8 @@ export class ClientMenuComponent implements OnInit {
         });
       })
     });
+    console.log(this.activeMenuListToDisplay[index])
+
   }
 
   confirm(): void {
@@ -127,14 +147,18 @@ export class ClientMenuComponent implements OnInit {
       this[a.ingredientID].ingredientQty += a.ingredientQty;
     }, Object.create(null));
 
-    this.nzMessageService.info('click OK !');
     this.newListToSend = {
       listTitle: this.mealTitle,
       userID: this.authService.userData.uid,
       itemList: result
     }
-    this.databaseService.addNewList(this.newListToSend);
-    this.createNotification('success','Success !','New shoppping list is created. Check it on Shopping list tab')
+    if(this.newListToSend.listTitle == 'undefined' || this.newListToSend.itemList.length == 0){
+      this.createNotification('error','Error!','Something went wrong while creating the shopping list - try again')
+    }else{
+      this.createNotification('success', 'Success !', 'New shoppping list is created. Check it on Shopping list tab')
+      this.databaseService.addNewList(this.newListToSend);
+
+    }
   }
 
   saveList() {
@@ -147,12 +171,22 @@ export class ClientMenuComponent implements OnInit {
   }
 
   handleOk(): void {
-    this.isOkLoading = true;
-    this.createMenu(
-      this.validateForm.value.title,
-      this.validateForm.value.qtyDays,
-      this.validateForm.value.qtyMeals
-    )
+    console.log(this.validateForm.value)
+    if (this.validateForm.status == "VALID") {
+      this.createMenu(
+        this.validateForm.value.title,
+        this.validateForm.value.qtyDays,
+        this.validateForm.value.qtyWeeks,
+        this.validateForm.value.qtyMeals
+      );
+      this.createNotification('success', 'Success !', 'New menu has been successfully added to the database');
+      this.validateForm.reset();
+    } else {
+      this.createNotification('error', 'Error !', 'The form for adding a new menu is not valid')
+    }
+
+    this.isVisible = false;
+
   }
 
   showModal(): void {
@@ -172,7 +206,7 @@ export class ClientMenuComponent implements OnInit {
     }
   }
 
-  createMenu(title, qtyDays, qtyMeals) {
+  createMenu(title, qtyDays, qtyWeeks, qtyMeals) {
     let tempArrayDays = [];
     let tempArrayMeals = [];
     for (let i = 0; i < qtyMeals; i++) {
@@ -181,14 +215,16 @@ export class ClientMenuComponent implements OnInit {
         mealID: '',
       })
     }
-    for (let i = 0; i < qtyDays; i++) {
-      tempArrayDays.push({
-        day: this.listOfDaysInWeek[i],
-        allMeals: {
-          tempArrayMeals
-        }
-      })
+    for (let x = 0; x < qtyWeeks; x++) {
+      for (let i = 0; i < qtyDays; i++) {
+       
+        tempArrayDays.push({
+          day: this.listOfDaysInWeek[i],
+          allMeals: tempArrayMeals
+        })
+      }
     }
+
     let menuToUpdate = {
       userID: this.authService.userData.uid,
       menuTitle: title,
@@ -202,9 +238,8 @@ export class ClientMenuComponent implements OnInit {
     this.idDay = daysIndex;
     this.idMealInDay = mealInDayIndex;
     this.day = item.day;
-    this.mealID = this.daysTable[this.idDay].allMeals.meals[this.idMealInDay].mealID;
-    this.mealTitle = this.daysTable[this.idDay].allMeals.meals[this.idMealInDay].mealID;
-
+    this.mealID = this.daysTable[this.idDay].allMeals[this.idMealInDay].mealID;
+ 
     if (this.mealID == '' || editing == 'editing') {
       this.isVisibleOpenRecipesSelect = true;
     }
@@ -215,36 +250,40 @@ export class ClientMenuComponent implements OnInit {
 
     this.mealID = this.validateFormAddRecipe.value.selectToUpdate;
     let tempArray = [];
-    tempArray.push(this.activeMenuList[0])
+    tempArray.push(this.activeMenuListToDisplay[this.indexMenu])
     let titleMenu;
     this.databaseService.getSingleRecipe(this.mealID).subscribe(data => {
+      
       titleMenu = data;
-      tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = titleMenu.title;
-      tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = this.mealID;
+      tempArray[0].days[this.idDay].allMeals[this.idMealInDay].mealTitle = titleMenu.title;
+      tempArray[0].days[this.idDay].allMeals[this.idMealInDay].mealID = this.mealID;
       this.databaseService.updateMenu(tempArray[0]);
     })
 
     this.validateFormAddRecipe.reset();
     this.daysTable = tempArray[0].days;
-
+    this.handleCancel();
   }
-
+  deleteSingleMenu(){
+    this.databaseService.deleteMenu(this.menuID);
+    this.showTable=false;
+    this.createNotification('success','Success !','Successfully deleted the menu')
+  }
   deleteMenu(daysIndex, mealInDayIndex) {
 
     this.idDay = daysIndex;
     this.idMealInDay = mealInDayIndex;
 
     let tempArray = [];
-    tempArray.push(this.activeMenuList[0])
-    tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealID = '';
-    tempArray[0].days[this.idDay].allMeals.meals[this.idMealInDay].mealTitle = '';
+    tempArray.push(this.activeMenuListToDisplay[0])
+    tempArray[0].days[this.idDay].allMeals[this.idMealInDay].mealID = '';
+    tempArray[0].days[this.idDay].allMeals[this.idMealInDay].mealTitle = '';
 
     this.daysTable = tempArray[0].days;
     this.databaseService.updateMenu(tempArray[0]);
     this.deletedRecipe = true;
-    setTimeout(function () {
-      this.deletedRecipe = false;
-    }, 1500);
+    this.createNotification('success','Success !','Successfully deleted the menu')
+
 
   }
   createNotification(type: string, title: string, description: string): void {

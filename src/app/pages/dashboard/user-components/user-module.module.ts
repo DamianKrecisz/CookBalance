@@ -10,6 +10,7 @@ import { IconsProviderModule } from 'src/app/icons-provider.module';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 
 
@@ -28,7 +29,8 @@ import { BrowserModule } from '@angular/platform-browser';
     NgZorroAntdModule,
     FormsModule,
     BrowserModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule,
   ]
 })
 export class UserModuleModule { }

@@ -18,8 +18,14 @@ ul {
     cursor: pointer;
     font-size: 4rem;
     position: absolute;
-    right: 4rem;
-    color: $color-3
+    right: 2rem;
+    top:10px;
+    color: $color-3;
+    @include respond-below(sm) {
+        top: unset;
+        bottom: 0;
+        right: 1rem;
+    }
 }
 .addNewMenu:hover{
     color:$color-3-opacity;
@@ -79,11 +85,27 @@ li {
         transition: 0.3s ease-in-out;
     }
 }
-
+.menu-visible-actions{
+    margin-top: 1rem;
+    @include respond-below(sm) {
+        display:flex;
+        flex-direction: column;
+    }
+    a{
+        margin: 1rem 1rem 0 0 ;
+        @include respond-below(sm) {
+            margin:0 0 1rem 0;
+            button{
+                width: 100%;
+            }
+        }
+    } 
+}
 .container-days {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    
     .single-day {
         border: 1px solid lightgrey;
         padding: 1rem;
@@ -91,6 +113,9 @@ li {
         min-width: 10vw;
         margin-top: 1rem;
         margin-right: 1rem;
+        @include respond-below(sm) {
+            margin-right: 0;
+        }
         .day-title{
             border-bottom: 1px solid lightgrey;
             padding-bottom: 1rem;
@@ -100,14 +125,7 @@ li {
         }
     }
 }
-.saveList{
-    button{
-        margin:1rem 0;
-    }
-    @include respond-below(sm) {
-        width: 100%;
-    }
-}
+
 
 .ant-modal{
     @include respond-below(sm) {

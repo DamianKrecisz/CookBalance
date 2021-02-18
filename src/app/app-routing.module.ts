@@ -19,7 +19,9 @@ const routes: Routes = [
   { path: 'start', component: MainPageComponent },
   { path: 'login', component: LoginRegisterComponent },
   {
-    path: 'client-dashboard', component: DashboardComponent, canActivate: [AdminGuardService] ,
+    path: 'client-dashboard', component: DashboardComponent
+    // , canActivate: [AdminGuardService] 
+    ,
     children: [
       {
         path: 'dashboard-main-page',

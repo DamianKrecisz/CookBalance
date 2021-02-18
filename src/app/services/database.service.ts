@@ -63,7 +63,10 @@ export class DatabaseService {
   updateMenu(menu) {
     this.db.doc('allMenu/' + menu.id).update(menu);
   }
-
+  deleteMenu(menuId) {
+    return this.db.collection('allMenu').doc(menuId).delete()
+  }
+  
   /* Shop lists */
   addNewList(list) {
     return this.db.collection('shopList').add(list);

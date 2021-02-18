@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { NzMessageService, NzNotificationService } from 'ng-zorro-antd';
 import { AuthService } from 'src/app/services/auth.service';
 import { DatabaseService } from 'src/app/services/database.service';
 
@@ -15,11 +15,12 @@ export class ClientShopListComponent implements OnInit {
   shopListToDisplay = [];
   itemToDisplay;
   showList = false;
-
+  noShoppingList;
+  listTitle:string;
   constructor(
     private databaseService: DatabaseService,
     private authService: AuthService,
-    private nzMessageService: NzMessageService
+    private notification: NzNotificationService,
   ) { }
 
   ngOnInit() {
@@ -36,16 +37,22 @@ export class ClientShopListComponent implements OnInit {
           this.shopList.push(el);
         }
       });
+      if((this.shopList.length)== 0 ){
+        this.noShoppingList=true; 
+      }
     })
   }
   showCheckList(item) {
     this.itemToDisplay = item;
     this.shopListToDisplay = item.itemList;
     this.showList = true;
+    this.listTitle=item.listTitle;
   }
 
   deleteShopList() {
-    this.nzMessageService.info('Pomyślnie usunięto');
+    this.createNotification("success","Success!","The shopping list was successfully deleted");
+    this.shopListToDisplay=[];
+    this.showList=false;
     this.databaseService.deleteShopList(this.itemToDisplay.id);
   }
   
@@ -72,5 +79,16 @@ export class ClientShopListComponent implements OnInit {
     elementToUpdate = this.itemToDisplay;
     this.databaseService.updateList(elementToUpdate);
   }
-
+  returnLink(){
+    this.listTitle='';
+    this.shopListToDisplay=undefined;
+    this.showList=false;
+  }
+createNotification(type: string, title: string, description: string): void {
+    this.notification.create(
+      type,
+      title,
+      description
+    );
+  }
 }

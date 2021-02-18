@@ -1,13 +1,16 @@
-<a (click)="showModal()" class="addNewMenu"><i nz-icon nzType="plus-circle" nzTheme="outline"></i></a>
+<h1 *ngIf="menusAreNotAvaliable == true">You do not have any saved menus yet</h1>
+<a *ngIf="!showTable" (click)="showModal()" class="addNewMenu"><i nz-icon nzType="plus-circle"
+    nzTheme="outline"></i></a>
 <div *ngIf="showTable==true">
 
+  <h1>{{tempTitle}}</h1>
   <div class="container-days">
     <div class="single-day" *ngFor="let item of daysTable; let daysIndex = index">
       <div class="day-title">{{item.day}}</div>
       <div class="day-meals">
 
         <ul>
-          <li *ngFor="let day of item.allMeals.meals; let mealInDayIndex = index">
+          <li *ngFor="let day of item.allMeals; let mealInDayIndex = index">
 
             <button nz-button nzType="dashed" class="single-meal"
               (click)="openRecipesSelect(day,daysIndex,mealInDayIndex)">{{day.mealTitle}}</button>
@@ -22,17 +25,29 @@
       </div>
     </div>
   </div>
-  <a class="saveList" nz-popconfirm nzPopconfirmTitle="Are you sure to create new shopping list ?" nzPopconfirmPlacement="bottom"
-    (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="saveList()">
-    <button nz-button nzType="dashed"><i nz-icon nzType="save" nzTheme="outline"></i>Utwórz nową listę zakupów</button>
-  </a>
+  
+  <div class="menu-visible-actions">
+
+    <a class="saveList" nz-popconfirm nzPopconfirmTitle="Are you sure to create new shopping list ?"
+      nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="saveList()">
+      <button nz-button nzType="dashed"><i nz-icon nzType="save" nzTheme="outline"></i>Create new shopping list</button>
+    </a>
+
+    <a nz-popconfirm nzPopconfirmTitle="Are you sure delete this menu?" nzPopconfirmPlacement="bottom"
+      (nzOnConfirm)="deleteSingleMenu()"> <button nz-button nzType="dashed"><i nz-icon nzType="delete"
+          nzTheme="outline"></i>DeleteMenu</button>
+    </a>
+    <a > <button nz-button nzType="dashed" *ngIf="showTable" (click)="backToPreviousPage()"><i nz-icon nzType="rollback"
+        nzTheme="outline"></i> Back to all saved menu page</button></a>
+  </div>
+
 </div>
 
-<ul>
-  <li *ngFor="let item of activeMenuList; let i = index">
+<ul *ngIf="!showTable">
+  <li *ngFor="let item of activeMenuListToDisplay; let i = index">
     <div (click)="showMenu(i)" class="menu-item">
       <span>
-        {{item.menuTitle}}
+        Menu: {{item.menuTitle}}
       </span>
       <div class="overflow-gradient"></div>
 
@@ -40,8 +55,9 @@
   </li>
 </ul>
 
+
 <nz-modal [(nzVisible)]="isVisible" nzTitle="Create new menu" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()"
-  [nzOkLoading]="isOkLoading" class="createNewMenuModal">
+  class="createNewMenuModal">
 
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="submitForm()">
 
@@ -56,10 +72,19 @@
 
 
     <nz-form-item>
-      <nz-form-label> Please input how many weeks</nz-form-label>
+      <nz-form-label> Please input how many days each week</nz-form-label>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group>
           <input formControlName="qtyDays" nz-input placeholder="max 8" type="number" nzMax="8" />
+        </nz-input-group>
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label> Please input how many weeks</nz-form-label>
+      <nz-form-control nzErrorTip="Please input your username!">
+        <nz-input-group>
+          <input formControlName="qtyWeeks" nz-input placeholder="max 8" type="number" nzMax="8" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -77,7 +102,7 @@
 
 </nz-modal>
 
-<nz-modal [(nzVisible)]="isVisibleOpenRecipesSelect" nzTitle="The first Modal" (nzOnCancel)="handleCancel()"
+<nz-modal [(nzVisible)]="isVisibleOpenRecipesSelect" nzTitle="Add new dish" (nzOnCancel)="handleCancel()"
   class="passenger-input" (nzOnOk)="updateRecipes()">
 
   <form nz-form [nzLayout]="'inline'" [formGroup]="validateFormAddRecipe" (ngSubmit)="submitForm()">
