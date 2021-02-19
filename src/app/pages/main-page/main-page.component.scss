@@ -13,6 +13,9 @@
       font-size: 8em;
       z-index: 1;
       color:white;
+      @include respond-below(sm) {
+        font-size: 3em;
+      }
     }
     a{
       cursor: pointer;
