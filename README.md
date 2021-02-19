@@ -2,18 +2,24 @@
 
 The application was developed by Damian Kręcisz - [Check my Linkedin if you want contact with me](https://www.linkedin.com/in/damiankrecisz/) :smiley:
 
+[Check demo app hosted on Firebase](https://cookbalance-41649.web.app/)
+
 
 ## Short description
 Application with cooking recipes that allows you to create menus with a ready-made shopping list
 
 
 
-## Technology stack
+## Technology stack 
 
 **Frontend:** Angular
 **UI component:** NG-ZORRO
 **Backend:** Firebase
 
+## Firebase description
+
+- All users can login and register with email/password and Google Account. Login with facebook is temporary turned off.
+- 
 
 ## Design assumption
 
