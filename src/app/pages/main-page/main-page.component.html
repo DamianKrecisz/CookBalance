@@ -2,6 +2,6 @@
     <span>CookBalance</span>
     <a   [routerLink]="['/login']">Get starded</a>
 </div>
-<video playsinline autoplay muted loop poster="polina.jpg" id="bgvid">
+<video playsinline autoplay muted loop oncanplay="this.play()" onloadedmetadata="this.muted = true" id="bgvid">
     <source src="../../../assets/video.mp4" type="video/mp4">
 </video>
