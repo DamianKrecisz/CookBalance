@@ -6,7 +6,7 @@ The application created by Damian Kręcisz - [If you want to contact me, check m
 
 
 ## Short description
-Application with cooking recipes where you can create menus and shopping lists
+Application with cooking recipes where you can create menus and shopping lists.
 
 
 ## Technology stack 
@@ -19,8 +19,8 @@ Application with cooking recipes where you can create menus and shopping lists
 
 ## Attention
 
-- I focused mainly on <ins>functionality</ins> to be able to give the first utility version
-- All recipes are in Polish because I use the Polish source of the recipes database
+- I focused mainly on <ins>functionality</ins> to be able to give the first utility version.
+- All recipes are in Polish because I use the Polish source of the recipes database.
 - The application is under constant development. If you notice any error, please contact me and provide a description of the error to the email address: damiankrecisz3@gmail.com
  
 ## Firebase description
@@ -33,45 +33,45 @@ Application with cooking recipes where you can create menus and shopping lists
 The application is produced to improve skills in the Angular framework and Firebase.
 
  In the future, I want to expand the application with new modules, including:
- - Calories and micronutrient counter
- - Sharing your own recipes with others
- - Opinions and ranking of recipes
+ - calories and micronutrient counter,
+ - sharing your own recipes with others,
+ - opinions and ranking of recipes.
 
 ## Short user pages description
 
 ### Login/register page
 
- - The user can register and login via tradicional method - email and password or Google+ account
+ - The user can register and login via tradicional method - email and password or Google+ account.
  - Login via facebook is currently unavailable.
  
 ### User profile page
- - Users can enter information about themselves, i.e. gender, weight, age, date of birth and physical activity
- - Temporarily, the data will calculate calories to maintain the entered weight and BMI
- - In the future, it will be possible to make nutritional plans according to these data
- - The user can also change his password and delete the account 
+ - Users can enter information about themselves, i.e. gender, weight, age, date of birth and physical activity.
+ - Temporarily, the data will calculate calories to maintain the entered weight and BMI.
+ - In the future, it will be possible to make nutritional plans according to these data.
+ - The user can also change his password and delete the account .
 
 ### Recipes page
 
- - Here you can browse through all the recipes available in the database
+ - Here you can browse through all the recipes available in the database.
 
 ### Favorite recipes page
 
- - After adding a recipe to favorites, the user can review it here
+ - After adding a recipe to favorites, the user can review it here.
 
 ### Saved menu
 
- - Users can create a new menu and view other saved menus
+ - Users can create a new menu and view other saved menus.
 
 ### Shopping list
 
- - In the menu view, the user can save all ingredients used in all recipes in the menu
- - If a ingredient occurs more than once, it is added together
- - In the list, after selecting the checkbox next to an ingredient, it is moved to end of the list so that all missing ingredients are always displayed at the top of the list
+ - In the menu view, the user can save all ingredients used in all recipes in the menu.
+ - If a ingredient occurs more than once, it is added together.
+ - In the list, after selecting the checkbox next to an ingredient, it is moved to end of the list so that all missing ingredients are always displayed at the top of the list.
 
 
 ## Short admin pages description
 
-> I turned off the mobile view in admin's tabs - administrators should make all changes on the dekstop version
+> I turned off the mobile view in admin's tabs - administrators should make all changes on the dekstop version.
 
 ### Dashboard
 
@@ -85,16 +85,16 @@ This view shows the following:
  
 ### Add recipe
 
- - Here the admin can add a new recipe to the database
+ - Here the admin can add a new recipe to the database.
 
 ### Ingredients
 
- - In this view, the administrator can add a new ingredient with the unit
- - After entering a ingredient in the adding field, the table automatically searches if the ingredient is currently avaliable in the database
+ - In this view, the administrator can add a new ingredient with the unit.
+ - After entering a ingredient in the adding field, the table automatically searches if the ingredient is currently avaliable in the database.
 
 ### Edit recipe
 
- - In this view, the admin can edit all data of the recipe saved in the database
+ - In this view, the admin can edit all data of the recipe saved in the database.
 
 ## Some screenshots
 
