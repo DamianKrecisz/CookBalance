@@ -1,4 +1,4 @@
-# CookBalance!
+# CookBalance
 
 The application created by Damian Kręcisz - [If you want to contact me, check my Linkedin](https://www.linkedin.com/in/damiankrecisz/) :smiley:
 
