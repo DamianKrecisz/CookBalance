@@ -118,7 +118,10 @@ li::marker,
     @include respond-below(sm) {
         bottom: 0;
         .check-website {
+            display: flex;
+            flex-direction: column;
             margin-top: 1rem;
+            width: 100%;
         }
         position: relative !important;
         flex-direction: column !important;

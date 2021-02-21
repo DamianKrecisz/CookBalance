@@ -48,7 +48,7 @@
             position: absolute;
             left: 45%;
             @include respond-below(sm) {
-                left: 87%;
+                left: 80%;
             }
         }
     }

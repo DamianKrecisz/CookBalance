@@ -4,7 +4,7 @@
     width: 100%;
     margin-bottom: 5px;
     @include respond-below(sm) {
-        min-width: 60vw;
+        min-width: 0vw;
         overflow-x: hidden;
     }
 }
@@ -54,7 +54,7 @@ li {
         position: absolute;
         left: 45%;
         @include respond-below(sm) {
-            left: 87%;
+            left: 80%;
         }
     }
     @include respond-below(sm) {
@@ -123,6 +123,7 @@ li {
         margin-right: 1rem;
         @include respond-below(sm) {
             margin-right: 0;
+            width: 100%;
         }
         .day-title{
             border-bottom: 1px solid lightgrey;

@@ -57,8 +57,8 @@ export class ClientDetailsComponent implements OnInit {
       this.weight = data.weight;
       this.height = data.height;
       this.dateOfBirthday = data.dateOfBirthday;
-      console.log(data)
     })
+    console.log(this.authService.userData)
     this.registerType=this.authService.userData.providerData[0].providerId
     const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
     let dataTemp;

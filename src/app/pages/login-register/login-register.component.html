@@ -29,8 +29,8 @@
               nzTheme="outline"></i></button>
         </div>
         <span>or use your account</span>
-        <input type="email" placeholder="Email" formControlName="userName" />
-        <input type="password" placeholder="Password" formControlName="password" />
+        <input type="email" placeholder="use default: test@test.com" formControlName="userName" />
+        <input type="password" placeholder="use default: testtest" formControlName="password" />
         <!-- (click)="authService.SignIn(userName.value, password.value)" -->
         <button class="signButton" (click)="authService.SignIn(loginForm.value.userName, loginForm.value.password)">Sign
           In</button>
