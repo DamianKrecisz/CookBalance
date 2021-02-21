@@ -17,6 +17,11 @@ Application with cooking recipes where you Can create menus and preparing a shop
 
 **Backend:** Firebase
 
+## Attention
+
+- I focused mainly on <ins>functionality</ins> to be able to give the first utility version
+- All recipes are in Polish because I use the Polish source of the recipes database
+ 
 ## Firebase description
 
 - The entire database and website hosting use firebase services.
@@ -26,7 +31,7 @@ Application with cooking recipes where you Can create menus and preparing a shop
 
 The application is produced to improve skills in the Angular framework and Firebase.
 
- I focused mainly on <ins>functionality</ins> to be able to give the first utility version. In the future, I want to expand the application with new modules, including:
+ In the future, I want to expand the application with new modules, including:
  - Calories and micronutrient counter
  - Users can share own recipes to other users
  - Opinions and ranking of recipes
