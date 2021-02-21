@@ -46,7 +46,7 @@ The application is produced to improve skills in the Angular framework and Fireb
  
 ### User profile page
  - Users can enter information about themselves, i.e. gender, weight, age, date of birth and physical activity.
- - The data will calculate calories to maintain the entered weight and BMI.
+ - Based on collected data, application will calculate calories to maintain the entered weight and BMI.
  - In the future, it will be possible to make nutritional plans according to these data.
  - The user can also change his password and delete the account .
 
