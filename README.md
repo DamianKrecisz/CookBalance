@@ -65,7 +65,7 @@ The application is produced to improve skills in the Angular framework and Fireb
 ### Shopping list
 
  - In the menu view, the user can save all ingredients used in all recipes in the menu.
- - If a ingredient occurs more than once, it is added together.
+ - If an ingredient occurs more than once, the application sums them up.
  - In the list, after selecting the checkbox next to an ingredient, it is moved to end of the list so that all missing ingredients are always displayed at the top of the list.
 
 
