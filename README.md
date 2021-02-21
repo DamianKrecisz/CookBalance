@@ -18,8 +18,8 @@ Application with cooking recipes that allows you to create menus with a ready-ma
 
 ## Firebase description
 
+- The entire database and website hosting use firebase services.
 - All users can login and register with email/password and Google Account. Login with facebook is temporary turned off.
-- 
 
 ## Design assumption
 
