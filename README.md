@@ -26,7 +26,7 @@ Application with cooking recipes where you can create menus and shopping lists
 ## Firebase description
 
 - The entire database and website hosting use firebase services.
-- All users can login and register by providing email and password or Google Account. Login via facebook is currently unavailable.
+- All users can login and register by providing email and password or using Google Account. Login via facebook is currently unavailable.
 
 ## Design assumption
 
