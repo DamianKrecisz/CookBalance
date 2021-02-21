@@ -1,13 +1,12 @@
 # CookBalance!
 
-The application was developed by Damian Kręcisz - [Check my Linkedin if you want contact with me](https://www.linkedin.com/in/damiankrecisz/) :smiley:
+The application begining developed by Damian Kręcisz - [Check my Linkedin if you want contact with me](https://www.linkedin.com/in/damiankrecisz/) :smiley:
 
 [Check demo app hosted on Firebase](https://cookbalance-41649.web.app/)
 
 
 ## Short description
-Application with cooking recipes that allows you to create menus with a ready-made shopping list
-
+Application with cooking recipes where you Can create menus and preparing a shopping list
 
 
 ## Technology stack 
@@ -25,25 +24,25 @@ Application with cooking recipes that allows you to create menus with a ready-ma
 
 ## Design assumption
 
-The application was written in order to improve skills in the Angular and Firebase framework.
+The application is produced to improve skills in the Angular framework and Firebase.
 
  I focused mainly on <ins>functionality</ins> to be able to give the first utility version. In the future, I want to expand the application with new modules, including:
- - Calorie and micronutrient counter
- - Self-sharing of own recipes by users
+ - Calories and micronutrient counter
+ - Users can share own recipes to other users
  - Opinions and ranking of recipes
 
 ## Short user pages description
 
 ### Login/register page
 
- - The user can register and log in via email and Google+ account
+ - The user can register and login via tradicional method - email/password and Google+ account
  - Login with facebook is temporarily disabled
  
 ### User profile page
- - Users can enter information about themselves here, i.e. gender, weight, age, date of birth and physical activity
+ - Users can enter information about themselves, i.e. gender, weight, age, date of birth and physical activity
  - Temporarily, the data will calculate calories to maintain the entered weight and BMI
  - In the future, it will be possible to make nutritional plans according to these data
- - The user can also change his password and delete the account here
+ - The user can also change his password and delete the account 
 
 ### Recipes page
 
@@ -55,13 +54,13 @@ The application was written in order to improve skills in the Angular and Fireba
 
 ### Saved menu
 
- - Here, users can create a new menu and view other saved menus
+ - Users can create a new menu and view other saved menus
 
 ### Shopping list
 
- - In the menu view, the user can save all the components in the menu.
- - If an ingredient in a given menu repeats, it is added up
- - In the list, after selecting the checkbox next to an ingredient, it is moved to the very end of the list so that all missing ingredients are always displayed at the top of the list
+ - In the menu view, the user can save all ingredients used in all recipes in the menu
+ - If a ingredient occurs more than once, it is added together
+ - In the list, after selecting the checkbox next to an ingredient, it is moved to end of the list so that all missing ingredients are always displayed at the top of the list
 
 
 ## Short admin pages description
@@ -85,7 +84,7 @@ This view shows the following:
 ### Ingredients
 
  - In this view, the administrator can add a new ingredient with the unit
- - After entering a component in the adding field, the table automatically searches whether the ingredient is not currently avaliable in the database
+ - After entering a ingredient in the adding field, the table automatically searches whether the ingredient is not currently avaliable in the database
 
 ### Edit recipe
 
