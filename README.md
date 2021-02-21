@@ -13,7 +13,9 @@ Application with cooking recipes that allows you to create menus with a ready-ma
 ## Technology stack 
 
 **Frontend:** Angular
+
 **UI component:** NG-ZORRO
+
 **Backend:** Firebase
 
 ## Firebase description
@@ -25,7 +27,7 @@ Application with cooking recipes that allows you to create menus with a ready-ma
 
 The application was written in order to improve skills in the Angular and Firebase framework.
 
- I focused mainly on functionality to be able to give the first utility version. In the future, I want to expand the application with new modules, including:
+ I focused mainly on <ins>functionality</ins> to be able to give the first utility version. In the future, I want to expand the application with new modules, including:
  - Calorie and micronutrient counter
  - Self-sharing of own recipes by users
  - Opinions and ranking of recipes
@@ -88,3 +90,8 @@ This view shows the following:
 ### Edit recipe
 
  - In this view, the admin can edit all data of the recipe saved in the database
+
+## Some screenshots
+
+
+
