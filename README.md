@@ -1,12 +1,12 @@
 # CookBalance!
 
-The application begining developed by Damian Kręcisz - [Check my Linkedin if you want contact with me](https://www.linkedin.com/in/damiankrecisz/) :smiley:
+The application created by Damian Kręcisz - [If you want contact with me, check my Linkedin](https://www.linkedin.com/in/damiankrecisz/) :smiley:
 
 [Check demo app hosted on Firebase](https://cookbalance-41649.web.app/)
 
 
 ## Short description
-Application with cooking recipes where you Can create menus and preparing a shopping list
+Application with cooking recipes where you can create menus and shopping lists
 
 
 ## Technology stack 
@@ -21,12 +21,12 @@ Application with cooking recipes where you Can create menus and preparing a shop
 
 - I focused mainly on <ins>functionality</ins> to be able to give the first utility version
 - All recipes are in Polish because I use the Polish source of the recipes database
-- The application is under constant development. If you notice any error, please contact me with a description of the error to the email address: damiankrecisz3@gmail.com
+- The application is under constant development. If you notice any error, please contact me and provide a description of the error to the email address: damiankrecisz3@gmail.com
  
 ## Firebase description
 
 - The entire database and website hosting use firebase services.
-- All users can login and register with email/password and Google Account. Login with facebook is temporary turned off.
+- All users can login and register by providing email and password or Google Account. Login via facebook is currently unavailable.
 
 ## Design assumption
 
@@ -34,15 +34,15 @@ The application is produced to improve skills in the Angular framework and Fireb
 
  In the future, I want to expand the application with new modules, including:
  - Calories and micronutrient counter
- - Users can share own recipes to other users
+ - Sharing your own recipes with others
  - Opinions and ranking of recipes
 
 ## Short user pages description
 
 ### Login/register page
 
- - The user can register and login via tradicional method - email/password and Google+ account
- - Login with facebook is temporarily disabled
+ - The user can register and login via tradicional method - email and password or Google+ account
+ - Login via facebook is currently unavailable.
  
 ### User profile page
  - Users can enter information about themselves, i.e. gender, weight, age, date of birth and physical activity
@@ -80,8 +80,8 @@ This view shows the following:
  - Active users
  - Recipes in database
  - Total saved ingredients
- - Total saved menus by users
- - Total shop lists saved by user
+ - Total saved menus
+ - Total saved shopping lists
  
 ### Add recipe
 
@@ -90,7 +90,7 @@ This view shows the following:
 ### Ingredients
 
  - In this view, the administrator can add a new ingredient with the unit
- - After entering a ingredient in the adding field, the table automatically searches whether the ingredient is not currently avaliable in the database
+ - After entering a ingredient in the adding field, the table automatically searches if the ingredient is currently avaliable in the database
 
 ### Edit recipe
 
