@@ -98,5 +98,11 @@ This view shows the following:
 
 ## Some screenshots
 
+![scr1](https://i.ibb.co/fp4cFm2/scr1.png)
+![scr1](https://i.ibb.co/mHyW43B/scr2.png)
+![scr1](https://i.ibb.co/tZbh37J/scr3.png)
+![scr1](https://i.ibb.co/XF27QfC/scr4.png)
+![scr1](https://i.ibb.co/DRcF6WL/scr5.png)
+![scr1](https://i.ibb.co/7nkJ1Yk/scr6.png)
 
 
