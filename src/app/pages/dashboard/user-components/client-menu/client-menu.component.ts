@@ -21,11 +21,9 @@ export class ClientMenuComponent implements OnInit {
   validateForm!: FormGroup;
   validateFormAddRecipe!: FormGroup;
 
-  isVisible = false;
-  isVisibleOpenRecipesSelect = false;
-  isOkLoading = false;
-  deletedRecipe = false;
-  showTable = false;
+  isVisible:boolean = false;
+  isVisibleOpenRecipesSelect:boolean = false;
+  showTable:boolean = false;
 
   activeMenuList: any;
   menusAreNotAvaliable:boolean = true;
@@ -41,13 +39,13 @@ export class ClientMenuComponent implements OnInit {
   indexMenu;
   menuID;
   listOfDaysInWeek = [
-    "Poniedziałek",
-    "Wtorek",
-    "Środa",
-    "Czwartek",
-    "Piątek",
-    "Sobota",
-    "Niedziela"
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
   ]
 
   constructor(
@@ -281,7 +279,6 @@ export class ClientMenuComponent implements OnInit {
 
     this.daysTable = tempArray[0].days;
     this.databaseService.updateMenu(tempArray[0]);
-    this.deletedRecipe = true;
     this.createNotification('success','Success !','Successfully deleted the menu')
 
 

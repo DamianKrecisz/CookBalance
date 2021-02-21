@@ -1,10 +1,9 @@
 @import "./src/variables.scss";
 
-.no-shopping-list{
+.no-shopping-list {
     font-size: 2em;
-
 }
-.deleteButton{
+.deleteButton {
     width: 100%;
 }
 .list-shopList {
@@ -12,9 +11,9 @@
     padding: 0;
     @include respond-below(sm) {
         padding: 0;
-        .single-list{
+        .single-list {
             width: 100% !important;
-            span{
+            span {
                 font-size: 0.6em;
             }
         }
@@ -31,7 +30,7 @@
         justify-content: space-between;
         border-radius: 15px;
         align-items: center;
-        overflow:hidden;
+        overflow: hidden;
         span {
             width: 100%;
             margin-left: 1rem;
@@ -44,32 +43,40 @@
             transform: rotate(335deg);
             transition: 0.2s;
         }
+        .edit-icon {
+            z-index: 1;
+            position: absolute;
+            left: 45%;
+            @include respond-below(sm) {
+                left: 87%;
+            }
+        }
     }
-    .single-list:hover{
+    .single-list:hover {
         .overflow-gradient {
             max-width: 17vw;
             width: 17vw;
-            transition: 0.3s  ease-in-out;
+            transition: 0.3s ease-in-out;
         }
     }
 }
 
-.list-ingredients{
+.list-ingredients {
     @include respond-below(sm) {
-      padding: 0 1rem 0 0;        
+        padding: 0 1rem 0 0;
     }
     padding: 0;
-    list-style-type:none;
+    list-style-type: none;
     overflow-y: auto;
     height: 80%;
     overflow-x: hidden;
-    li{
-       padding:1rem 0;
+    li {
+        padding: 1rem 0;
         border-bottom: 1px solid lightgrey;
     }
-    li:nth-last-child(-n+2){
-        padding:0;
-        margin-top:1rem;
+    li:nth-last-child(-n + 2) {
+        padding: 0;
+        margin-top: 1rem;
         border-bottom: none;
     }
 }

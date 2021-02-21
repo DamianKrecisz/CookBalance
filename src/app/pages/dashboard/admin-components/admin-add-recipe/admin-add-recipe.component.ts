@@ -21,7 +21,7 @@ export class AdminAddRecipeComponent implements OnInit {
   listOfQtyIngredient: Array<any> = [];
   listOfIngredientsToSend: Array<any> = [];
   listOfIngredients = [];
-  showSuccessAlert = false;
+  showSuccessAlert:boolean = false;
 
   constructor(
     public databaseService: DatabaseService,

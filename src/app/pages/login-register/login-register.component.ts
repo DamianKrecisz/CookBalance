@@ -41,10 +41,11 @@ export class LoginRegisterComponent implements OnInit {
       this.rightPanelActive = false;
     }
   }
-  temporarilyUnavailable(){
-    this.createNotification('warning', 'Service temporary unavaliable  !', 'Sorry, the login method is currently unavailable. Please try another one. Sorry for the inconvenience.')
 
+  temporarilyUnavailable() {
+    this.createNotification('warning', 'Service temporary unavaliable  !', 'Sorry, the login method is currently unavailable. Please try another one. Sorry for the inconvenience.')
   }
+
   createNotification(type: string, title: string, description: string): void {
     this.notification.create(
       type,
@@ -52,7 +53,5 @@ export class LoginRegisterComponent implements OnInit {
       description
     );
   }
-  test(a){
-    console.log(a)
-  }
+
 }

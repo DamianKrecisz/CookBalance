@@ -31,18 +31,18 @@ export class AdminEditRecipesComponent implements OnInit {
   index: number;
   indexIngredient: number;
   showNumber;
-  isVisible = false;
+  isVisible:boolean = false;
   listOfIngredients = [];
-  numberField = true;
+  numberField:boolean = true;
   showNumberField;
   showStringField;
   showDifficultLevelField;
   showIngredientField;
   difficultLevelToUpdate;
   newStep: string;
-  addingNewStep = false;
-  addingNewIngredient = false
-  isVisibleEditing = false;
+  addingNewStep:boolean = false;
+  addingNewIngredient:boolean = false
+  isVisibleEditing:boolean = false;
 
   constructor(
     public databaseService: DatabaseService,

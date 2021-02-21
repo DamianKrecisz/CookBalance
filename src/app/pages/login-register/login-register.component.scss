@@ -7,9 +7,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  @include respond-below(sm) {
-    height: 90vh;
-  }
+
 
   .container {
     background: #fff;
@@ -118,7 +116,7 @@
     z-index: 2;
     @include respond-below(sm) {
       width: 100%;
-      top: 10%;
+      top: 17%;
     }
   }
 
@@ -129,7 +127,7 @@
     opacity: 0;
     @include respond-below(sm) {
       width: 100%;
-      top: 10%;
+      top: 17%;
     }
   }
 
@@ -145,7 +143,7 @@
     @include respond-below(sm) {
       left: 0;
       width: 100%;
-      height: 30%;
+      height: 35%;
     }
   }
 

@@ -27,7 +27,8 @@
   </div>
   
   <div class="menu-visible-actions">
-
+    <a > <button nz-button nzType="dashed" *ngIf="showTable" (click)="backToPreviousPage()"><i nz-icon nzType="rollback"
+      nzTheme="outline"></i> Back to all saved menu page</button></a>
     <a class="saveList" nz-popconfirm nzPopconfirmTitle="Are you sure to create new shopping list ?"
       nzPopconfirmPlacement="bottom" (nzOnConfirm)="confirm()" (nzOnCancel)="cancel()" (click)="saveList()">
       <button nz-button nzType="dashed"><i nz-icon nzType="save" nzTheme="outline"></i>Create new shopping list</button>
@@ -37,8 +38,7 @@
       (nzOnConfirm)="deleteSingleMenu()"> <button nz-button nzType="dashed"><i nz-icon nzType="delete"
           nzTheme="outline"></i>DeleteMenu</button>
     </a>
-    <a > <button nz-button nzType="dashed" *ngIf="showTable" (click)="backToPreviousPage()"><i nz-icon nzType="rollback"
-        nzTheme="outline"></i> Back to all saved menu page</button></a>
+    
   </div>
 
 </div>
@@ -49,6 +49,8 @@
       <span>
         Menu: {{item.menuTitle}}
       </span>
+      <i nz-icon nzType="edit" nzTheme="outline" class="edit-icon"></i>
+
       <div class="overflow-gradient"></div>
 
     </div>
@@ -75,7 +77,7 @@
       <nz-form-label> Please input how many days each week</nz-form-label>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group>
-          <input formControlName="qtyDays" nz-input placeholder="max 8" type="number" nzMax="8" />
+          <input formControlName="qtyDays" nz-input placeholder="max 7" type="number" nzMax="7" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -119,4 +121,3 @@
   </form>
 </nz-modal>
 
-<nz-alert nzType="success" *ngIf="deletedRecipe" nzMessage="Pomyślnie usunięto przepis" nzShowIcon></nz-alert>

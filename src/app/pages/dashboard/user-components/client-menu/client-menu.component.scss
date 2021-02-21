@@ -49,6 +49,14 @@ li {
     }
 }
 .menu-item {
+    .edit-icon{
+        z-index: 1;
+        position: absolute;
+        left: 45%;
+        @include respond-below(sm) {
+            left: 87%;
+        }
+    }
     @include respond-below(sm) {
        width: 100% !important;   
        span{

@@ -11,6 +11,7 @@ import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { ClientStartPageComponent } from './client-start-page/client-start-page.component';
 
 
 
@@ -21,7 +22,8 @@ import { AppRoutingModule } from 'src/app/app-routing.module';
     ClientFavoriteRecipesComponent,
     ClientShopListComponent,
     ClientBrowseRecipesComponent,
-    ClientSingleRecipesComponent
+    ClientSingleRecipesComponent,
+    ClientStartPageComponent
   ],
   imports: [
     CommonModule,

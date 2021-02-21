@@ -7,7 +7,7 @@
     <li *ngFor="let item of shopList;let index = index">
         <div class="single-list" (click)="showCheckList(item,index)">
             <span>Shopping list: {{item.listTitle}} </span>
-
+            <i nz-icon nzType="edit" nzTheme="outline" class="edit-icon"></i>
             <div class="overflow-gradient"></div>
         </div>
     </li>
@@ -22,7 +22,7 @@
     <li>
         <a *ngIf="showList==true" nz-popconfirm nzPopconfirmTitle="Czy na pewno usunąć tą listę zakupów?"
             nzPopconfirmPlacement="bottom" (nzOnConfirm)="deleteShopList()"><button class="deleteButton" nz-button nzType="dashed"><i nz-icon
-                    nzType="delete" nzTheme="outline"></i>Usuń listę zakupów</button>
+                    nzType="delete" nzTheme="outline"></i>Delete shopping list</button>
         </a>
     </li>
     <li>

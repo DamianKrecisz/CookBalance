@@ -14,6 +14,7 @@ import { ClientFavoriteRecipesComponent } from './pages/dashboard/user-component
 import { ClientShopListComponent } from './pages/dashboard/user-components/client-shop-list/client-shop-list.component';
 import { ClientBrowseRecipesComponent } from './pages/dashboard/user-components/client-browse-recipes/client-browse-recipes.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ClientStartPageComponent } from './pages/dashboard/user-components/client-start-page/client-start-page.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/start' },
   { path: 'start', component: MainPageComponent },
@@ -51,6 +52,11 @@ const routes: Routes = [
       {
         path: 'client-details',
         component: ClientDetailsComponent,
+        outlet: 'clientDashboardOutlet'
+      },
+      {
+        path: 'client-start-page',
+        component: ClientStartPageComponent,
         outlet: 'clientDashboardOutlet'
       },
       {

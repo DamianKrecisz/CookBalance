@@ -11,9 +11,22 @@
   i {
     margin-left: 5px;
   }
+  .userName-link {
+    color: white;
+  }
   .left-column {
     color: $text-color;
     font-weight: 700;
+    .mobile-logout {
+      display: none;
+      @include respond-below(sm) {
+        display: block;
+      }
+    }
+    @include respond-below(sm) {
+      display: flex;
+      flex-direction: row;
+    }
   }
 }
 .main-layout {
@@ -21,9 +34,20 @@
   flex-direction: row;
   height: 95vh;
   width: 100vw;
+  @include respond-below(sm) {
+    .hidden-mobile {
+      display: none !important;
+    }
+  }
   .side-menu {
     display: flex;
     width: 10%;
+    @include respond-below(hd) {
+      width: 15%;
+    }
+    @include respond-below(sm) {
+      width: 10%;
+    }
     img {
       width: 100%;
       height: 10%;
@@ -55,7 +79,6 @@
     background: rgba(255, 255, 255, 0.85);
     position: relative;
     overflow-y: auto;
-
   }
 }
 
@@ -65,44 +88,54 @@
 .color-box {
   transform-origin: bottom left;
   background: $color-3;
-  height: 40vh;
+  height: 25vh;
   position: fixed;
   top: -48vh;
   left: 0;
   width: 120vw;
   transform: rotate(12deg);
   z-index: -1;
-  .right-color-bar {
-    background: $color-1;
-    height: 100vh;
-    position: absolute;
-    top: 100%;
-    left: 71vw;
-    width: 60vw;
-  }
+}
+.right-color-bar {
+  background: #58f5d6;
+  height: 100vh;
+  position: fixed;
+  top: 100%;
+  width: 150vw;
+  transform: rotate(9deg);
+  overflow: hidden;
+  left: -8vw;
 }
 .hamburger {
   display: none;
 }
-.activeBlur{
-  filter: blur(3px);
+.activeHamburgerRightColumny {
+  opacity: 0.3;
   transition: 0.3s;
+  height: 100%;
+  overflow: hidden !important;
 }
 @include respond-below(sm) {
-  .right-layout{
+  .color-box,
+  .right-color-bar {
+    display: none;
+  }
+  .right-layout {
     overflow-y: hidden;
   }
-  ul{
-    background:#ffffff8f;
+  ul {
+    background: #ffffff8f;
     overflow-y: scroll;
     height: 100%;
   }
-  .right-column{display:none;}
+  .right-column {
+    display: none;
+  }
   .side-menu {
     margin-left: -10%;
     transition: 0.3s;
   }
-  .sideMenuOpen{
+  .sideMenuOpen {
     display: block !important;
     width: 100vw !important;
     transition: 0.3s !important;
@@ -110,7 +143,7 @@
   }
   .right-layout {
     width: 100% !important;
-    overflow-y:scroll !important;
+    overflow-y: scroll !important;
     padding: 1rem !important;
   }
   .hamburger {
@@ -146,7 +179,6 @@
       transition: 0.25s ease-in-out;
     }
   }
-  
 
   .hamburger span:nth-child(1) {
     top: 0px;

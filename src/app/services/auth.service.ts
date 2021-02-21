@@ -43,9 +43,13 @@ export class AuthService {
       .then((result) => {
         this.isLoggedIn = true;
         this.createNotification('success', 'Hello ' + result.user.email, 'Your last login was ' + result.user.metadata.lastSignInTime);
+
+
+
         this.ngZone.run(() => {
-          this.router.navigate(['client-dashboard']);
+          this.router.navigateByUrl('/client-dashboard/(clientDashboardOutlet:client-start-page)');
         });
+
         // this.SetUserData(result.user);
       }).catch((error) => {
         this.isLoggedIn = false;
@@ -59,9 +63,13 @@ export class AuthService {
         console.log(result.user)
         this.SetUserData(result.user);
         this.isLoggedIn = true;
+
+
+
         this.ngZone.run(() => {
-          this.router.navigate(['client-dashboard']);
+          this.router.navigateByUrl('/client-dashboard/(clientDashboardOutlet:client-start-page)');
         });
+
         this.createNotification('success', "You have successfully registered!", 'Hello ' + result.user.email);
       }).catch((error) => {
         this.createNotification('error', 'Register error', error.message)
@@ -100,16 +108,17 @@ export class AuthService {
         this.SetUserData(result.user);
         this.createNotification('success', 'Hello ' + result.user.email, 'Your last login was ' + result.user.metadata.lastSignInTime);
         this.ngZone.run(() => {
-          this.router.navigate(['client-dashboard']);
+          this.router.navigateByUrl('/client-dashboard/(clientDashboardOutlet:client-start-page)');
         });
+
       }).catch((error) => {
         this.createNotification('error', 'Error !', error.message)
       })
   }
   FacebookAuth() {
     return this.AuthLogin(new auth.FacebookAuthProvider());
-  }  
-  deleteAccount(){
+  }
+  deleteAccount() {
     var user = this.afAuth.auth.currentUser;
     console.log(user.uid)
     user.delete();

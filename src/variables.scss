@@ -14,8 +14,10 @@ $breakpoints: (
   xs: 576px,
   sm: 768px,
   md: 992px,
-  lg: 1200px
+  lg: 1200px,
+  hd: 1367px
 );
+
 @mixin respond-below($breakpoint) {
 
     // If the breakpoint exists in the map.

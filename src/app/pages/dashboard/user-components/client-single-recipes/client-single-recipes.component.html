@@ -39,20 +39,20 @@
 
 
     <div class="bottom-beam">
-        <div   class="favoritesActions">
+        <div class="favoritesActions">
             <div *ngIf="showAddToFavorite" class="btn-styles addToFavorite" (click)="addToFavorite()">
-                Add to favorite
+                Add to favorites
                 <i nz-icon nzType="heart" nzTheme="outline"></i>
             </div>
             <div *ngIf="showDeleteFromFavorite" class="btn-styles deleteFromFavorite"
                 (click)="deleteFromFavorite(recipe)">
-                Delete from favorite
+                Delete from favorites
                 <i nz-icon nzType="close" nzTheme="outline"></i>
-            </div> 
-            <button class="btn-styles" (click)="backToAllRecipes()">Zobacz wszystkie przepisy</button>
+            </div>
+            <button class="btn-styles" (click)="backToAllRecipes()">See all recipes</button>
 
         </div>
-        <div  >
+        <div>
             <div>
                 <div class="check-website">
                     Full instructions can be found at: <a href="{{recipe.url}}"> <img
@@ -66,9 +66,3 @@
     </div>
 
 </div>
-
-
-<nz-alert nzType="success" nzMessage="Pomyślnie dodano do ulubionych" nzShowIcon *ngIf="showAddToFavoriteAlert">
-</nz-alert>
-<nz-alert nzType="warning" nzMessage="Pomyslnie usunięto z ulubionych" nzShowIcon *ngIf="showDeleteFromFavoriteAlert">
-</nz-alert>

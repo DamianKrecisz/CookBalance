@@ -57,6 +57,7 @@ export class ClientDetailsComponent implements OnInit {
       this.weight = data.weight;
       this.height = data.height;
       this.dateOfBirthday = data.dateOfBirthday;
+      console.log(data)
     })
     this.registerType=this.authService.userData.providerData[0].providerId
     const userFromLocalStorage = JSON.parse(localStorage.getItem('user'));
@@ -70,6 +71,10 @@ export class ClientDetailsComponent implements OnInit {
       this.height = dataTemp.height;
       this.dateOfBirthday = dataTemp.dateOfBirthday;
       this.name = dataTemp.name;
+      this.activity = dataTemp.activity;
+      var today = new Date();
+      var age = today.getFullYear() - (this.dateOfBirthday.toDate()).getFullYear()
+
       if (this.weight != null && this.height != null) {
         this.bmi = ((this.weight) / ((this.height / 100) * (this.height / 100))).toPrecision(4);
         if(this.bmi<18.4){
@@ -82,10 +87,7 @@ export class ClientDetailsComponent implements OnInit {
           this.bmiDescription="Obese";
         }
       }
-      this.activity = dataTemp.activity;
-      var today = new Date();
-      var age = today.getFullYear() - (this.dateOfBirthday.toDate()).getFullYear()
-
+      
       if (this.sex == "men") {
         this.calories = ((66.5 + (13.7 * this.weight) + (5 * this.height) - (6.8 * age)) * Number(this.activity)).toFixed(0);
       } else if (this.sex == "women") {
