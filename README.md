@@ -90,7 +90,7 @@ This view shows the following:
 ### Ingredients
 
  - In this view, the administrator can add a new ingredient with the unit.
- - After entering a ingredient in the adding field, the table automatically searches if the ingredient is currently avaliable in the database.
+ - After entering a ingredient in the add field, the table automatically searches if the ingredient is currently avaliable in the database.
 
 ### Edit recipe
 
