@@ -1,6 +1,6 @@
 # CookBalance
 
-The application created by Damian Kręcisz - [If you want to contact me, check my Linkedin](https://www.linkedin.com/in/damiankrecisz/) :smiley:
+Application created by Damian Kręcisz - [If you want to contact me, check my Linkedin](https://www.linkedin.com/in/damiankrecisz/) :smiley:
 
 [Check demo app hosted on Firebase](https://cookbalance-41649.web.app/)
 
