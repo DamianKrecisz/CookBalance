@@ -1,32 +1,31 @@
 @import "./src/variables.scss";
 
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-.container{
-    width: 100vw;
-    height: 100vh;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    span{
-      font-size: 8em;
-      z-index: 1;
-      color:white;
-      @include respond-below(sm) {
-        font-size: 3em;
-      }
+  span {
+    font-size: 8em;
+    z-index: 1;
+    color: white;
+    @include respond-below(sm) {
+      font-size: 3em;
     }
-    a{
-      cursor: pointer;
-      z-index: 1;
-      color:$color-1;
-      font-size: 2em;
-    }
-    a:hover{
-      transition: 0.3s;
-      color:$color-3
-    }
+  }
+  a {
+    cursor: pointer;
+    z-index: 1;
+    color: $color-1;
+    font-size: 2em;
+  }
+  a:hover {
+    transition: 0.3s;
+    color: $color-3;
+  }
 }
 video {
   object-fit: cover;

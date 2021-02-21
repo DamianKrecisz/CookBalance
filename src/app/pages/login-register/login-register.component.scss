@@ -7,227 +7,223 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-}
-.container {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
-  position: relative;
-  overflow: hidden;
-  width: 768px;
-  max-width: 100%;
-  min-height: 480px;
   @include respond-below(sm) {
-    display:flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    h1{
-      margin-bottom: 0;
+    height: 90vh;
+  }
+
+  .container {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    min-height: 480px;
+    @include respond-below(sm) {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      border-radius: 0;
+      h1 {
+        margin-bottom: 0;
+      }
+    }
+    .anticon-facebook {
+      color: #38529a;
+    }
+    .anticon-google-plus {
+      color: #da5549;
+    }
+
+    .form-container form {
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
     }
   }
-  
-}
-.anticon-facebook{
-  color:#38529A;
-}
-.anticon-google-plus{
-  color:#DA5549;
-}
+  .social-container {
+    margin: 20px 0;
+  }
 
-.form-container form {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  padding: 0 50px;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.social-container {
-  margin: 20px 0;
-}
-
-.social-container button.social,
-.social {
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 5px;
-  height: 40px;
-  width: 40px;
-  color:$text-color;
-  cursor: pointer;
-}
-.signButton:hover{
+  .social-container button.social,
+  .social {
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+    height: 40px;
+    width: 40px;
+    color: $text-color;
+    cursor: pointer;
+  }
+  .signButton:hover {
     background: #cc374b;
-  transition: 0.3s;
-}
-.form-container input {
-  background: #eee;
-  border: none;
-  padding: 12px 15px;
-  margin: 8px 0;
-  width: 100%;
-}
-
-button:not(.social) {
-  border-radius: 20px;
-  border: 1px solid #ff4b2b;
-  background: #ff445c;
-  color: #fff;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 12px 45px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  transition: transform 80ms ease-in;
-  cursor: pointer;
-}
-
-button:not(.social):active {
-  transform: scale(0.95);
-}
-
-button:not(.social):focus {
-  outline: none;
-}
-
-button:not(.social).ghost {
-  background: transparent;
-  border-color: #fff;
-  cursor: pointer;
-}
-
-.form-container {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  transition: all 0.6s ease-in-out;
-}
-
-.sign-in-container {
-  left: 0;
-  width: 50%;
-  z-index: 2;
-   @include respond-below(sm) {
-    width: 100%;
-    top: 10%;
+    transition: 0.3s;
   }
-}
-
-.sign-up-container {
-  left: 0;
-  width: 50%;
-  z-index: 1;
-  opacity: 0;
-   @include respond-below(sm) {
+  .form-container input {
+    background: #eee;
+    border: none;
+    padding: 12px 15px;
+    margin: 8px 0;
     width: 100%;
-    top: 10%;
   }
-}
 
-.overlay-container {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  overflow: hidden;
-  transition: transform 0.6s ease-in-out;
-  z-index: 100;
-  @include respond-below(sm) {
+  button:not(.social) {
+    border-radius: 20px;
+    border: 1px solid #ff4b2b;
+    background: #ff445c;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in;
+    cursor: pointer;
+  }
+
+  button:not(.social):active {
+    transform: scale(0.95);
+  }
+
+  button:not(.social):focus {
+    outline: none;
+  }
+
+  button:not(.social).ghost {
+    background: transparent;
+    border-color: #fff;
+    cursor: pointer;
+  }
+
+  .form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    transition: all 0.6s ease-in-out;
+  }
+
+  .sign-in-container {
     left: 0;
-    width: 100%;
-    height: 30%;
+    width: 50%;
+    z-index: 2;
+    @include respond-below(sm) {
+      width: 100%;
+      top: 10%;
+    }
+  }
+
+  .sign-up-container {
+    left: 0;
+    width: 50%;
+    z-index: 1;
+    opacity: 0;
+    @include respond-below(sm) {
+      width: 100%;
+      top: 10%;
+    }
+  }
+
+  .overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+    @include respond-below(sm) {
+      left: 0;
+      width: 100%;
+      height: 30%;
+    }
+  }
+
+  .overlay {
+    background: linear-gradient(to right, $color-1, $color-3) no-repeat 0 0 / cover;
+    color: #fff;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateY(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .overlay-panel {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 40px;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    transform: translateY(0);
+    transition: transform 0.6s ease-in-out;
+  }
+
+  .overlay-right {
+    right: 0;
+    transform: translateY(0);
+  }
+
+  .overlay-left {
+    transform: translateY(-20%);
+  }
+
+  .container.right-panel-active .sign-in-container {
+    transform: translateY(100%);
+  }
+
+  .container.right-panel-active .overlay-container {
+    transform: translateX(-100%);
+    @include respond-below(sm) {
+      transform: translateX(0%);
+    }
+  }
+
+  .container.right-panel-active .sign-up-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    @include respond-below(sm) {
+      transform: translateX(0%);
+    }
+  }
+
+  .container.right-panel-active .overlay {
+    transform: translateX(50%);
+  }
+
+  .container.right-panel-active .overlay-left {
+    transform: translateY(0);
+  }
+
+  .container.right-panel-active .overlay-right {
+    transform: translateY(20%);
+  }
+
+  .footer {
+    margin-top: 25px;
+    text-align: center;
+    @include respond-below(sm) {
+      margin-bottom: 25px;
+    }
+  }
+  button:focus {
+    outline: none;
   }
 }
-
-.overlay {
-  background: linear-gradient(to right,$color-1, $color-3) no-repeat 0 0 / cover;
-  color: #fff;
-  position: relative;
-  left: -100%;
-  height: 100%;
-  width: 200%;
-  transform: translateY(0);
-  transition: transform 0.6s ease-in-out;
-}
-
-.overlay-panel {
-  position: absolute;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 40px;
-  height: 100%;
-  width: 50%;
-  text-align: center;
-  transform: translateY(0);
-  transition: transform 0.6s ease-in-out;
-}
-
-.overlay-right {
-  right: 0;
-  transform: translateY(0);
-}
-
-.overlay-left {
-  transform: translateY(-20%);
-}
-
-/* Move signin to right */
-.container.right-panel-active .sign-in-container {
-  transform: translateY(100%);
- 
-}
-
-/* Move overlay to left */
-.container.right-panel-active .overlay-container {
-  transform: translateX(-100%);
-  @include respond-below(sm) {
-    transform: translateX(0%);
-  }
-}
-
-/* Bring signup over signin */
-.container.right-panel-active .sign-up-container {
-  transform: translateX(100%);
-  opacity: 1;
-  z-index: 5;
-  @include respond-below(sm) {
-    transform: translateX(0%);  }
-}
-
-/* Move overlay back to right */
-.container.right-panel-active .overlay {
-  transform: translateX(50%);
-}
-
-/* Bring back the text to center */
-.container.right-panel-active .overlay-left {
-  transform: translateY(0);
-}
-
-/* Same effect for right */
-.container.right-panel-active .overlay-right {
-  transform: translateY(20%);
-}
-
-.footer {
-  margin-top: 25px;
-  text-align: center;
-  @include respond-below(sm) {
-    margin-bottom: 25px;
-  }
-}
-button:focus{
-  outline: none;
-}
-
