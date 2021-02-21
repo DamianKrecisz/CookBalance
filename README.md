@@ -21,6 +21,7 @@ Application with cooking recipes where you Can create menus and preparing a shop
 
 - I focused mainly on <ins>functionality</ins> to be able to give the first utility version
 - All recipes are in Polish because I use the Polish source of the recipes database
+- The application is under constant development. If you notice any error, please contact me with a description of the error to the email address: damiankrecisz3@gmail.com
  
 ## Firebase description
 
