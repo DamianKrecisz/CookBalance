@@ -8,7 +8,8 @@
         <div class="social-container">
           <button class="social " (click)="temporarilyUnavailable()"><i nz-icon nzType="facebook"
               nzTheme="outline" class="fb-icon"></i></button>
-          <button class="social" (click)="authService.GoogleAuth()"><i nz-icon nzType="google-plus"
+              <!-- (click)="authService.GoogleAuth()" -->
+          <button class="social" (click)="temporarilyUnavailable()" ><i nz-icon nzType="google-plus"
               nzTheme="outline" class="google-icon"></i></button>
         </div>
         <span>or use your email for registration</span>
@@ -25,7 +26,8 @@
         <div class="social-container">
           <button class="social" (click)="temporarilyUnavailable()" ><i nz-icon nzType="facebook"
               nzTheme="outline"></i></button>
-          <button class="social" (click)="authService.GoogleAuth()"><i nz-icon nzType="google-plus"
+              <!-- (click)="authService.GoogleAuth() -->
+          <button class="social" (click)="temporarilyUnavailable()"><i nz-icon nzType="google-plus"
               nzTheme="outline"></i></button>
         </div>
         <span>or use your account</span>
